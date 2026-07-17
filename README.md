@@ -1,6 +1,6 @@
 # SIAS MI Sirojul Falah (Codename: Abdulmanap Nurmagomedov)
 
-![Abdulmanap & Khabib](https://www.sportsnet.ca/wp-content/uploads/2020/07/Abdulmanap-Nurmagomedov-Khabib-Nurmagomedov-1040x572.jpg)
+![Abdulmanap & Khabib](https://upload.wikimedia.org/wikipedia/commons/4/4e/Vladimir_Putin_with_Khabib_Nurmagomedov_and_Abdulmanap_Nurmagomedov_2.jpg)
 
 > *"Father plan. Always listen to Father." - Khabib Nurmagomedov*
 
@@ -19,7 +19,7 @@ Repositori ini dinamakan **Abdulmanap Nurmagomedov** karena arsitektur kodenya d
 Bagi siapapun penantang yang ingin menjalankan proyek ini di *localhost*, pastikan mental kalian siap bertarung lima ronde:
 
 ```bash
-git clone https://github.com/YUGI/abdulmanap-nurmagomedov.git
+git clone https://github.com/gfenderio/abdulmanap-nurmagomedov.git
 cd abdulmanap-nurmagomedov
 npm install
 npm run dev
