@@ -1,6 +1,16 @@
 import React from "react";
+import { db } from "@/lib/db";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const studentsCount = await db.user.count({ where: { role: "STUDENT" } });
+  const teachersCount = await db.user.count({ where: { role: "TEACHER" } });
+  const unpaidBillsAgg = await db.bill.aggregate({
+    _sum: { amount: true },
+    where: { status: "UNPAID" }
+  });
+  
+  const totalTunggakan = unpaidBillsAgg._sum.amount || 0;
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end">
@@ -13,15 +23,15 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
           <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Mahasiswa</h3>
-          <p className="text-4xl font-bold text-[#53A6C4] mt-2">12,450</p>
+          <p className="text-4xl font-bold text-[#53A6C4] mt-2">{studentsCount}</p>
         </div>
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Fakultas Aktif</h3>
-          <p className="text-4xl font-bold text-[#FDE047] mt-2">4</p>
+          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Dosen/Guru</h3>
+          <p className="text-4xl font-bold text-[#FDE047] mt-2">{teachersCount}</p>
         </div>
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
           <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Tunggakan SPP</h3>
-          <p className="text-4xl font-bold text-red-500 mt-2">Rp 45M</p>
+          <p className="text-4xl font-bold text-red-500 mt-2">Rp {totalTunggakan.toLocaleString('id-ID')}</p>
         </div>
       </div>
 
