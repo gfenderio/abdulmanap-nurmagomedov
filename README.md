@@ -1,6 +1,6 @@
 # SIAS MI Sirojul Falah (Codename: Abdulmanap Nurmagomedov)
 
-![Abdulmanap & Khabib](./public/khabib.jpg)
+![Abdulmanap & Khabib](./public/logo.png)
 
 > *"Father plan. Always listen to Father." - Khabib Nurmagomedov*
 
