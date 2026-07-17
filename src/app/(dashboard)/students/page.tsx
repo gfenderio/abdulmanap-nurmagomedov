@@ -40,11 +40,29 @@ export default async function StudentsPage() {
               </thead>
               <tbody className="divide-y divide-neutral-200">
                 {students.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-neutral-500">
-                      Belum ada data siswa.
-                    </td>
-                  </tr>
+                  <>
+                    <tr className="hover:bg-neutral-50/50 transition-colors">
+                      <td className="px-6 py-4 font-mono text-neutral-600">2026435001</td>
+                      <td className="px-6 py-4 font-medium text-neutral-900">M. Khabib Nurmagomedov (Mock)</td>
+                      <td className="px-6 py-4 text-neutral-500">khabib@sias.edu</td>
+                      <td className="px-6 py-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-light text-brand-hover">Tingkat 6</span></td>
+                      <td className="px-6 py-4 text-right"><Button variant="ghost" size="sm" className="text-brand hover:text-brand-hover">Detail</Button></td>
+                    </tr>
+                    <tr className="hover:bg-neutral-50/50 transition-colors">
+                      <td className="px-6 py-4 font-mono text-neutral-600">2026435002</td>
+                      <td className="px-6 py-4 font-medium text-neutral-900">Islam Makhachev (Mock)</td>
+                      <td className="px-6 py-4 text-neutral-500">islam@sias.edu</td>
+                      <td className="px-6 py-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-light text-brand-hover">Tingkat 5</span></td>
+                      <td className="px-6 py-4 text-right"><Button variant="ghost" size="sm" className="text-brand hover:text-brand-hover">Detail</Button></td>
+                    </tr>
+                    <tr className="hover:bg-neutral-50/50 transition-colors">
+                      <td className="px-6 py-4 font-mono text-neutral-600">2026435003</td>
+                      <td className="px-6 py-4 font-medium text-neutral-900">Umar Nurmagomedov (Mock)</td>
+                      <td className="px-6 py-4 text-neutral-500">umar@sias.edu</td>
+                      <td className="px-6 py-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-light text-brand-hover">Tingkat 4</span></td>
+                      <td className="px-6 py-4 text-right"><Button variant="ghost" size="sm" className="text-brand hover:text-brand-hover">Detail</Button></td>
+                    </tr>
+                  </>
                 ) : (
                   students.map((student) => (
                     <tr key={student.id} className="hover:bg-neutral-50/50 transition-colors">
