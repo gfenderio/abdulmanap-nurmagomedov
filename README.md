@@ -1,4 +1,4 @@
-# SIAS MI Sirojul Falah (Codename: Abdulmanap Nurmagomedov)
+# SIAS (Codename: Abdulmanap Nurmagomedov)
 
 ![Abdulmanap & Khabib](./public/khabib.jpg)
 
@@ -26,9 +26,9 @@ npm run dev
 # "I'm gonna smesh your bugs."
 ```
 
-## Spesifikasi Teknis (SIAS MI Sirojul Falah)
+## Spesifikasi Teknis (SIAS)
 
-Meski namanya garang dan siap tempur, ini adalah proyek **Sistem Informasi Akademik Sekolah (SIAS)** untuk MI Sirojul Falah yang mulia dan damai. Berisi fitur-fitur krusial:
+Meski namanya garang dan siap tempur, ini adalah proyek **Sistem Informasi Akademik Sekolah (SIAS)** yang mulia dan damai. Berisi fitur-fitur krusial:
 - **UI/UX:** *Anti-slop frontend framework* (Tailwind + Shadcn + Taste Skill). Visualnya tajam bak pukulan *uppercut*.
 - **Database:** PostgreSQL via Prisma. Mampu mencengkram erat relasi antar data nilai, siswa, dan guru layaknya sebuah *triangle choke* sempurna.
 - **RBAC (Role-Based Access Control):** Admin, Guru, Wali Murid, dan Siswa memiliki wewenang yang diatur tanpa celah.
