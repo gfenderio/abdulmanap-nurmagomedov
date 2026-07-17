@@ -41,11 +41,24 @@ export default async function BillingPage() {
               </thead>
               <tbody className="divide-y divide-neutral-200">
                 {bills.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-neutral-500">
-                      Belum ada data tagihan.
-                    </td>
-                  </tr>
+                  <>
+                    <tr className="hover:bg-neutral-50/50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-neutral-900">M. Khabib Nurmagomedov</td>
+                      <td className="px-6 py-4 text-neutral-600">SPP Semester Ganjil 2026</td>
+                      <td className="px-6 py-4 font-mono font-medium text-neutral-900">Rp 1.500.000</td>
+                      <td className="px-6 py-4 text-neutral-500">10/08/2026</td>
+                      <td className="px-6 py-4"><span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700"><CheckCircle className="w-3 h-3" /> Lunas</span></td>
+                      <td className="px-6 py-4 text-right"><Button variant="ghost" size="sm" className="text-brand hover:text-brand-hover">Kelola</Button></td>
+                    </tr>
+                    <tr className="hover:bg-neutral-50/50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-neutral-900">Islam Makhachev</td>
+                      <td className="px-6 py-4 text-neutral-600">Uang Seragam Olahraga</td>
+                      <td className="px-6 py-4 font-mono font-medium text-neutral-900">Rp 350.000</td>
+                      <td className="px-6 py-4 text-neutral-500">15/08/2026</td>
+                      <td className="px-6 py-4"><span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700"><Clock className="w-3 h-3" /> Belum Lunas</span></td>
+                      <td className="px-6 py-4 text-right"><Button variant="ghost" size="sm" className="text-brand hover:text-brand-hover">Kelola</Button></td>
+                    </tr>
+                  </>
                 ) : (
                   bills.map((bill) => (
                     <tr key={bill.id} className="hover:bg-neutral-50/50 transition-colors">
