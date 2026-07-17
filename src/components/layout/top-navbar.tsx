@@ -1,8 +1,20 @@
-import { Bell, Search, UserCircle } from "lucide-react"
+import { Bell, Search, UserCircle, Menu } from "lucide-react"
 
-export function TopNavbar() {
+export function TopNavbar({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-neutral-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+      <button 
+        type="button" 
+        className="-m-2.5 p-2.5 text-neutral-700 md:hidden"
+        onClick={onMenuClick}
+      >
+        <span className="sr-only">Buka sidebar</span>
+        <Menu className="h-6 w-6" aria-hidden="true" />
+      </button>
+      
+      {/* Separator for mobile */}
+      <div className="h-6 w-px bg-neutral-200 md:hidden" aria-hidden="true" />
+
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
         <form className="relative flex flex-1" action="#" method="GET">
           <label htmlFor="search-field" className="sr-only">
