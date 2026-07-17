@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  PARENT
+  STUDENT
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  role          Role      @default(STUDENT)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  studentProfile StudentProfile?
+  teacherProfile TeacherProfile?
+  parentProfile  ParentProfile?
+}
+
+model StudentProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nisn      String?  @unique
+  grade     String?
+  
+  parentId  String?
+  parent    ParentProfile? @relation(fields: [parentId], references: [id])
+  grades    Grade[]
+  reports   ProgressReport[]
+  bills     Bill[]
+}
+
+model TeacherProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nip       String?  @unique
+  subject   String?
+  
+  classes   ClassSchedule[]
+  gradesGiven Grade[]
+}
+
+model ParentProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phone     String?
+  
+  children  StudentProfile[]
+}
+
+model Grade {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  teacherId   String
+  teacher     TeacherProfile @relation(fields: [teacherId], references: [id])
+  subject     String
+  score       Float
+  semester    String
+  createdAt   DateTime @default(now())
+}
+
+model ProgressReport {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  narrative   String
+  parentReply String?
+  semester    String
+  createdAt   DateTime @default(now())
+}
+
+model Bill {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  amount      Float
+  status      String   @default("UNPAID")
+  dueDate     DateTime
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model ClassSchedule {
+  id          String   @id @default(cuid())
+  teacherId   String
+  teacher     TeacherProfile @relation(fields: [teacherId], references: [id])
+  className   String
+  subject     String
+  dayOfWeek   Int      
+  startTime   String
+  endTime     String
+}
