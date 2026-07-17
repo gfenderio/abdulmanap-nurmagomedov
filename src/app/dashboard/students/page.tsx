@@ -1,11 +1,8 @@
 import React from "react";
+import { getStudents } from "@/data/student";
 
-export default function StudentsPage() {
-  const mockStudents = [
-    { id: 1, name: "Budi Santoso", npm: "2026435001", prodi: "Teknik Informatika", status: "Aktif" },
-    { id: 2, name: "Siti Aminah", npm: "2026435002", prodi: "Pendidikan Matematika", status: "Cuti" },
-    { id: 3, name: "Andi Saputra", npm: "2026435003", prodi: "Arsitektur", status: "Aktif" },
-  ];
+export default async function StudentsPage() {
+  const students = await getStudents() || [];
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -20,22 +17,24 @@ export default function StudentsPage() {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100">
-              <th className="p-4 font-semibold text-gray-600">NPM</th>
+              <th className="p-4 font-semibold text-gray-600">NPM/NISN</th>
               <th className="p-4 font-semibold text-gray-600">Nama Lengkap</th>
-              <th className="p-4 font-semibold text-gray-600">Program Studi</th>
-              <th className="p-4 font-semibold text-gray-600">Status</th>
+              <th className="p-4 font-semibold text-gray-600">Email</th>
+              <th className="p-4 font-semibold text-gray-600">Kelas/Prodi</th>
               <th className="p-4 font-semibold text-gray-600 text-right">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {mockStudents.map((student) => (
+            {students.length === 0 ? (
+               <tr><td colSpan={5} className="p-4 text-center text-gray-500">Belum ada data mahasiswa.</td></tr>
+            ) : students.map((student) => (
               <tr key={student.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                <td className="p-4 text-gray-600 font-mono">{student.npm}</td>
+                <td className="p-4 text-gray-600 font-mono">{student.studentProfile?.nisn || "-"}</td>
                 <td className="p-4 font-medium text-gray-900">{student.name}</td>
-                <td className="p-4 text-gray-600">{student.prodi}</td>
+                <td className="p-4 text-gray-600">{student.email}</td>
                 <td className="p-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${student.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
-                    {student.status}
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                    {student.studentProfile?.grade || "-"}
                   </span>
                 </td>
                 <td className="p-4 text-right">

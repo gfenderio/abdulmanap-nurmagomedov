@@ -1,11 +1,8 @@
 import React from "react";
+import { getAllBills } from "@/data/bill";
 
-export default function BillingPage() {
-  const mockBills = [
-    { id: "INV-2026-001", student: "Budi Santoso", description: "SPP Semester Ganjil 2026", amount: 1500000, status: "Lunas" },
-    { id: "INV-2026-002", student: "Siti Aminah", description: "Biaya SKS Semester Ganjil", amount: 750000, status: "Belum Bayar" },
-    { id: "INV-2026-003", student: "Andi Saputra", description: "Uang Gedung / Dana Pembangunan", amount: 3000000, status: "Lunas" },
-  ];
+export default async function BillingPage() {
+  const bills = await getAllBills() || [];
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -21,16 +18,18 @@ export default function BillingPage() {
       
       <div className="overflow-x-auto p-6">
         <div className="grid grid-cols-1 gap-4">
-          {mockBills.map((bill) => (
+          {bills.length === 0 ? (
+            <div className="text-center p-8 text-gray-500 border border-dashed rounded-lg">Belum ada data tagihan.</div>
+          ) : bills.map((bill) => (
             <div key={bill.id} className="flex justify-between items-center p-4 border border-gray-200 rounded-lg hover:border-[#53A6C4] transition-colors">
               <div>
                 <h3 className="font-bold text-gray-900">{bill.description}</h3>
-                <p className="text-sm text-gray-500">{bill.student} • {bill.id}</p>
+                <p className="text-sm text-gray-500">{bill.student.user.name} • Tenggat: {new Date(bill.dueDate).toLocaleDateString()}</p>
               </div>
               <div className="flex items-center space-x-6">
                 <span className="font-mono font-medium text-lg">Rp {bill.amount.toLocaleString('id-ID')}</span>
-                <span className={`px-4 py-1.5 rounded-full text-xs font-bold ${bill.status === 'Lunas' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                  {bill.status}
+                <span className={`px-4 py-1.5 rounded-full text-xs font-bold ${bill.status === 'PAID' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {bill.status === 'PAID' ? 'Lunas' : 'Belum Lunas'}
                 </span>
                 <button className="text-gray-400 hover:text-[#53A6C4] px-2">•••</button>
               </div>
