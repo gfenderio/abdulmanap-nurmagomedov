@@ -2,19 +2,14 @@
 
 import React, { useState } from "react"
 import { Search } from "lucide-react"
+import { MOCK_CLASSES } from "@/lib/mock-data"
 
 export default function ClassesPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   
-  // Dummy class data
-  const classes = [
-    { id: "1", name: "1A", room: "Ruang 01", wali: "Ibu Ani", capacity: "28/30", status: "Aktif" },
-    { id: "2", name: "1B", room: "Ruang 02", wali: "Bapak Budi", capacity: "30/30", status: "Penuh" },
-    { id: "3", name: "2A", room: "Ruang 03", wali: "Ibu Cici", capacity: "25/30", status: "Aktif" },
-    { id: "4", name: "2B", room: "Ruang 04", wali: "Ibu Dian", capacity: "29/30", status: "Aktif" },
-    { id: "5", name: "3A", room: "Ruang 05", wali: "Bapak Eko", capacity: "30/30", status: "Penuh" },
-  ]
+  // Dummy class data loaded from lib/mock-data
+  const classes = MOCK_CLASSES
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
