@@ -8,6 +8,7 @@ import { handleSignOut } from "@/actions/auth"
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: "dashboard", roles: ["ADMIN", "TEACHER", "PARENT"] },
   { name: "Siswa", href: "/dashboard/students", icon: "database", roles: ["ADMIN", "TEACHER"] },
+  { name: "Kelas", href: "/dashboard/classes", icon: "meeting_room", roles: ["ADMIN"] },
   { name: "Akademik", href: "/dashboard/academic", icon: "school", roles: ["ADMIN", "TEACHER"] },
   { name: "Keuangan", href: "/dashboard/billing", icon: "account_balance_wallet", roles: ["ADMIN", "PARENT"] },
   { name: "Laporan", href: "/dashboard/reports", icon: "bar_chart", roles: ["ADMIN", "TEACHER", "PARENT"] },
