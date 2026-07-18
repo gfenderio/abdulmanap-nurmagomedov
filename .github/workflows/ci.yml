@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'HANDOVER.md'
+      - '.agents/**'
       - 'docs/**'
       - '.github/**'
       - 'Username & Password Test.md'
@@ -14,6 +15,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'HANDOVER.md'
+      - '.agents/**'
       - 'docs/**'
       - '.github/**'
       - 'Username & Password Test.md'
