@@ -62,6 +62,24 @@ async function main() {
   })
   console.log("Siswa dibuat:", student.email)
 
+  // 4. Buat Wali Murid (Parent)
+  const parent = await prisma.user.upsert({
+    where: { email: "wali@mi-sirojulfalah.sch.id" },
+    update: {},
+    create: {
+      email: "wali@mi-sirojulfalah.sch.id",
+      name: "Ibu Wali Murid",
+      password: hashedPassword,
+      role: "PARENT",
+      parentProfile: {
+        create: {
+          phone: "081234567890",
+        },
+      },
+    },
+  })
+  console.log("Wali Murid dibuat:", parent.email)
+
   console.log("Database berhasil di-seed! 🚀")
 }
 

@@ -16,17 +16,28 @@
 
 > *"Father plan. Always listen to Father." - Khabib Nurmagomedov*
 
-## Filosofi "Father Plan" dalam Coding
+---
 
-Di pegunungan Dagestan yang dingin, Abdulmanap Nurmagomedov tidak pernah mengajari Khabib cara membangun aplikasi *fullstack* Next.js. Beliau mengajarinya bergulat dengan beruang sejak usia 9 tahun. Kenapa? Karena kalau mentalmu sudah siap *takedown* beruang liar, nge-*debug* *error* Prisma ORM atau *hydration mismatch* di hari Minggu malam hanyalah sebuah pemanasan ringan.
+## 🚀 Pembaruan Sistem (Update & Perbaikan Terbaru)
 
-Repositori ini dinamakan **Abdulmanap Nurmagomedov** karena arsitektur kodenya dibangun murni dengan mentalitas petarung Dagestan:
+Sistem ini telah diperbaiki secara menyeluruh mengikuti standar premium **Stitch Design System** dengan fokus kegunaan penuh (*functional prototype*):
 
-1. **Zero Yapping:** Kalau kodemu *error*, jangan banyak sambat di StackOverflow. Perbaiki *types*-nya! Menggunakan tipe `any` atau `unknown` di sini sama memalukannya dengan *tap out* di ronde pertama.
-2. **Kuncian Ketat (Grappling):** Form validasi dijaga ketat oleh Zod dan TypeScript Strict Mode. Ada payload data aneh yang mau masuk ke *database*? *Smesh it!*
-3. **Stamina Tanpa Batas:** Dibangun di atas fondasi Next.js 14 App Router (RSC). Sangat cepat, *stateless* di tempat yang tepat, dan tidak pernah kehabisan napas karena *re-render* klien yang boros.
+1. **Perbaikan Inkonsistensi UI/UX**:
+   * **Navigasi Sidebar**: Memperbaiki bug highlight aktif. Menu Dashboard kini hanya ter-highlight ketika benar-benar berada di halaman utama dashboard, tidak lagi bentrok dengan menu aktif lainnya.
+   * **Dark Mode**: Perbaikan kontras dan konsistensi warna latar belakang container agar tidak merusak keterbacaan di tema gelap.
+   * **Menghilangkan AI Slop**: Desain huruf besar semua (*uppercase tracking-wider*) pada tabel master dan kartu keuangan diganti dengan tipografi premium khas Stitch. Kartu SPP dengan warna merah mencolok telah direfaktor ke bentuk indikator elegan.
 
-## "Send Me Location" (Cara Setup)
+2. **Fungsionalisasi Elemen Interaktif (Client State)**:
+   * **Data Siswa**: Modal tambah siswa, modal filter lanjutan, modal detail ringkasan, dan modal edit data dummy sudah aktif.
+   * **Akademik**: Tombol cetak laporan interaktif dan modal tambah jadwal baru sudah berfungsi.
+   * **Pusat Laporan**: Opsi ekspor data kini memunculkan pop-up pemilihan format PDF atau Excel.
+   * **Profil**: Toggle *show/hide* password dan mode edit data profil dinamis kini berfungsi penuh.
+   * **Bantuan**: Fitur input search bantuan dan form tiket keluhan IT Support aktif dengan pesan respon terintegrasi.
+   * **Pencarian & Notifikasi**: Fitur pencarian ter-debounce pada navbar untuk menjaga kestabilan performa, serta menu drop-down notifikasi gaya Facebook.
+
+---
+
+## 🛠️ "Send Me Location" (Cara Setup)
 
 Bagi siapapun penantang yang ingin menjalankan proyek ini di *localhost*, pastikan mental kalian siap bertarung lima ronde:
 
@@ -35,14 +46,30 @@ git clone https://github.com/gfenderio/abdulmanap-nurmagomedov.git
 cd abdulmanap-nurmagomedov
 npm install
 npm run dev
-# "I'm gonna smesh your bugs."
 ```
 
-## Spesifikasi Teknis (SIAS)
+### Seeding Database Uji Coba:
+Untuk mengisi database lokal dengan akun-akun pengujian terbaru (termasuk peran Wali Murid):
+```bash
+powershell -ExecutionPolicy Bypass -Command "npx tsx prisma/seed.ts"
+```
 
-Meski namanya garang dan siap tempur, ini adalah proyek **Sistem Informasi Akademik Sekolah (SIAS)** yang mulia dan damai. Berisi fitur-fitur krusial:
-- **UI/UX:** *Anti-slop frontend framework* (Tailwind + Shadcn + Taste Skill). Visualnya tajam bak pukulan *uppercut*.
-- **Database:** PostgreSQL via Prisma. Mampu mencengkram erat relasi antar data nilai, siswa, dan guru layaknya sebuah *triangle choke* sempurna.
-- **RBAC (Role-Based Access Control):** Admin, Guru, Wali Murid, dan Siswa memiliki wewenang yang diatur tanpa celah.
+---
+
+## 🔑 Akun Uji Coba (Testing Accounts)
+Detail kredensial untuk pengujian tingkat peran dapat diakses pada file terpisah:
+👉 **[Username & Password Test.md](./Username%20%26%20Password%20Test.md)**
+
+* **Admin**: `admin@mi-sirojulfalah.sch.id` (password: `password123`)
+* **Guru**: `guru@mi-sirojulfalah.sch.id` (password: `password123`)
+* **Wali Murid**: `wali@mi-sirojulfalah.sch.id` (password: `password123`)
+
+---
+
+## 🦅 Spesifikasi Teknis (SIAS)
+
+* **UI/UX:** *Anti-slop frontend framework* (Tailwind + Shadcn + Taste Skill). Visualnya tajam bak pukulan *uppercut*.
+* **Database:** SQLite/PostgreSQL via Prisma. Mampu mencengkram erat relasi data nilai, siswa, dan guru layaknya *triangle choke* sempurna.
+* **RBAC (Role-Based Access Control):** Admin, Guru, Wali Murid, dan Siswa memiliki wewenang yang diatur tanpa celah.
 
 *Alhamdulillah, we built this app. I know you guys don't like boilerplate, but tomorrow we're gonna smesh the deployment.* 🦅

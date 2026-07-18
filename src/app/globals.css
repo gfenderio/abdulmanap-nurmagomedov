@@ -92,3 +92,70 @@
     @apply font-sans;
   }
 }
+
+/* ─── Stitch Design Token Dark-Mode Overrides ────────────────────────── */
+/* These semantic tokens are hardcoded in tailwind.config.ts for light mode.
+   We override them via CSS custom properties so dark: variant works globally. */
+:root {
+  --stitch-surface: #f7fafc;
+  --stitch-surface-bright: #f7fafc;
+  --stitch-surface-dim: #d7dadd;
+  --stitch-surface-container: #ebeef0;
+  --stitch-surface-container-low: #f1f4f6;
+  --stitch-surface-container-high: #e6e8eb;
+  --stitch-surface-container-highest: #e0e3e5;
+  --stitch-surface-container-lowest: #ffffff;
+  --stitch-surface-variant: #e0e3e5;
+  --stitch-on-surface: #181c1e;
+  --stitch-on-surface-variant: #3f484d;
+  --stitch-outline: #6f797d;
+  --stitch-outline-variant: #bec8cd;
+  --stitch-primary: #006781;
+  --stitch-on-primary: #ffffff;
+  --stitch-primary-container: #53a6c4;
+  --stitch-on-primary-container: #003948;
+  --stitch-primary-fixed: #b9eaff;
+  --stitch-primary-fixed-dim: #80d1f1;
+  --stitch-secondary-container: #fcdf46;
+  --stitch-on-secondary-container: #726200;
+  --stitch-tertiary: #8b5016;
+  --stitch-tertiary-container: #d48c4e;
+  --stitch-on-tertiary-container: #522900;
+  --stitch-error: #ba1a1a;
+  --stitch-error-container: #ffdad6;
+  --stitch-on-error-container: #93000a;
+  --stitch-inverse-surface: #2d3133;
+  --stitch-inverse-on-surface: #eef1f3;
+}
+
+.dark {
+  --stitch-surface: #0f1416;
+  --stitch-surface-bright: #1a1f22;
+  --stitch-surface-dim: #0c1012;
+  --stitch-surface-container: #141a1c;
+  --stitch-surface-container-low: #111719;
+  --stitch-surface-container-high: #1e2528;
+  --stitch-surface-container-highest: #293033;
+  --stitch-surface-container-lowest: #0a0e10;
+  --stitch-surface-variant: #3f484d;
+  --stitch-on-surface: #e0e3e5;
+  --stitch-on-surface-variant: #bec8cd;
+  --stitch-outline: #8a9297;
+  --stitch-outline-variant: #3f484d;
+  --stitch-primary: #80d1f1;
+  --stitch-on-primary: #003546;
+  --stitch-primary-container: #3d8fac;
+  --stitch-on-primary-container: #b9eaff;
+  --stitch-primary-fixed: #b9eaff;
+  --stitch-primary-fixed-dim: #80d1f1;
+  --stitch-secondary-container: #524600;
+  --stitch-on-secondary-container: #ffe24c;
+  --stitch-tertiary: #ffb77d;
+  --stitch-tertiary-container: #a06828;
+  --stitch-on-tertiary-container: #ffdcc3;
+  --stitch-error: #ffb4ab;
+  --stitch-error-container: #93000a;
+  --stitch-on-error-container: #ffdad6;
+  --stitch-inverse-surface: #e0e3e5;
+  --stitch-inverse-on-surface: #2d3133;
+}

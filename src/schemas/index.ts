@@ -35,7 +35,7 @@ export const BillSchema = z.object({
   studentId: z.string().min(1, "Siswa wajib dipilih"),
   amount: z.coerce.number().min(1, "Jumlah tagihan tidak valid"),
   dueDate: z.coerce.date({
-    required_error: "Tenggat waktu wajib diisi",
+    message: "Tenggat waktu wajib diisi",
   }),
   description: z.string().min(3, "Deskripsi wajib diisi"),
 });

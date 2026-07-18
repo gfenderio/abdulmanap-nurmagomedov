@@ -1,78 +1,128 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { FileText, Download, TrendingUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
+"use client"
+
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
 export default function ReportsPage() {
-  const reports = [
-    { id: "REP-01", name: "Laporan Kehadiran Siswa Q1 2026", date: "31 Mar 2026", size: "2.4 MB" },
-    { id: "REP-02", name: "Rekapitulasi Nilai UTS Ganjil", date: "15 Apr 2026", size: "4.1 MB" },
-    { id: "REP-03", name: "Laporan Keuangan & SPP Bulanan", date: "01 Mei 2026", size: "1.8 MB" },
-    { id: "REP-04", name: "Statistik Kinerja Guru", date: "10 Jun 2026", size: "3.2 MB" },
-  ]
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [selectedReportType, setSelectedReportType] = useState("");
+
+  const handleDownloadClick = (type: string) => {
+    setSelectedReportType(type);
+    setIsExportModalOpen(true);
+  };
+
+  const handleViewClick = (type: string) => {
+    alert(`Membuka pratinjau laporan ${type} di tab baru (dummy)`);
+  };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
-      <div className="flex justify-between items-end">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-900">Laporan & Analitik</h2>
-          <p className="text-neutral-500 mt-1">Unduh dan tinjau laporan sekolah secara komprehensif.</p>
+    <div className="flex-1 overflow-y-auto p-6 lg:p-10 bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out relative">
+      
+      {/* EXPORT MODAL */}
+      {isExportModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/40 backdrop-blur-sm animate-in fade-in duration-200 p-4">
+          <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+              <h3 className="font-headline font-bold text-title-lg text-on-surface">Opsi Ekspor Laporan</h3>
+              <button onClick={() => setIsExportModalOpen(false)} className="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <p className="text-body-md text-on-surface-variant">Pilih format unduhan untuk laporan <strong>{selectedReportType}</strong>:</p>
+              
+              <button onClick={() => { alert(`Mengunduh ${selectedReportType} dalam format PDF... (dummy)`); setIsExportModalOpen(false); }} className="w-full flex items-center gap-3 p-4 rounded-xl border border-outline-variant hover:border-error hover:bg-error-container/10 transition-colors text-left group">
+                <div className="w-10 h-10 rounded-lg bg-error-container/30 text-error flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface group-hover:text-error transition-colors">Format PDF</h4>
+                  <p className="text-label-sm text-on-surface-variant">Dokumen siap cetak</p>
+                </div>
+              </button>
+
+              <button onClick={() => { alert(`Mengunduh ${selectedReportType} dalam format Excel... (dummy)`); setIsExportModalOpen(false); }} className="w-full flex items-center gap-3 p-4 rounded-xl border border-outline-variant hover:border-green-600 hover:bg-green-50 transition-colors text-left group">
+                <div className="w-10 h-10 rounded-lg bg-green-100 text-green-700 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[20px]">table_view</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface group-hover:text-green-700 transition-colors">Format Excel (XLSX)</h4>
+                  <p className="text-label-sm text-on-surface-variant">Data mentah untuk diolah</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="max-w-[1400px] mx-auto space-y-8">
+        {/* Page Header */}
+        <div className="flex flex-col gap-1">
+          <h1 className="font-headline-lg font-bold text-headline-lg text-on-surface tracking-tight">Pusat Laporan</h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant">Akses semua laporan akademik, keuangan, dan data induk siswa.</p>
+        </div>
+
+        {/* Reports Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Report Card 1 */}
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-xl bg-brand-light flex items-center justify-center text-primary mb-2">
+              <span className="material-symbols-outlined text-[28px]">analytics</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="font-title-lg font-bold text-title-lg text-on-surface">Rekapitulasi Nilai</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">Laporan komprehensif nilai siswa per semester, mata pelajaran, dan kelas.</p>
+            </div>
+            <div className="mt-auto pt-4 flex gap-3">
+              <button onClick={() => handleDownloadClick('Rekapitulasi Nilai')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
+                Unduh
+              </button>
+              <button onClick={() => handleViewClick('Rekapitulasi Nilai')} className="px-4 py-2 border border-outline text-on-surface font-bold rounded-xl hover:bg-surface-container-low transition-colors">
+                Lihat
+              </button>
+            </div>
+          </div>
+
+          {/* Report Card 2 */}
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant mb-2">
+              <span className="material-symbols-outlined text-[28px]">receipt_long</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="font-title-lg font-bold text-title-lg text-on-surface">Laporan Pembayaran SPP</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">Status pembayaran bulanan, tunggakan, dan rekapitulasi penerimaan kas.</p>
+            </div>
+            <div className="mt-auto pt-4 flex gap-3">
+              <button onClick={() => handleDownloadClick('Laporan Pembayaran SPP')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
+                Unduh
+              </button>
+              <button onClick={() => handleViewClick('Laporan Pembayaran SPP')} className="px-4 py-2 border border-outline text-on-surface font-bold rounded-xl hover:bg-surface-container-low transition-colors">
+                Lihat
+              </button>
+            </div>
+          </div>
+
+          {/* Report Card 3 */}
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary mb-2">
+              <span className="material-symbols-outlined text-[28px]">import_contacts</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="font-title-lg font-bold text-title-lg text-on-surface">Buku Induk Siswa</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">Data lengkap profil siswa, riwayat akademik, dan mutasi terpusat.</p>
+            </div>
+            <div className="mt-auto pt-4 flex gap-3">
+              <button onClick={() => handleDownloadClick('Buku Induk Siswa')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
+                Unduh
+              </button>
+              <button onClick={() => handleViewClick('Buku Induk Siswa')} className="px-4 py-2 border border-outline text-on-surface font-bold rounded-xl hover:bg-surface-container-low transition-colors">
+                Lihat
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="hover:shadow-md transition-shadow bg-gradient-to-br from-brand to-brand-hover text-white">
-          <CardHeader>
-            <CardTitle className="text-lg text-white">Generate Laporan Baru</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-white/80 text-sm mb-4">Buat laporan kustom berdasarkan rentang waktu dan parameter spesifik.</p>
-            <Button variant="secondary" className="w-full font-semibold text-brand-hover">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Mulai Generate
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader className="border-b border-neutral-200">
-          <CardTitle className="text-base flex items-center gap-2">
-            <FileText className="w-4 h-4 text-brand-hover" />
-            Dokumen Tersedia
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="bg-neutral-50/50 text-neutral-500 border-b border-neutral-200">
-                <tr>
-                  <th className="px-6 py-4 font-medium">ID Ref</th>
-                  <th className="px-6 py-4 font-medium">Nama Dokumen</th>
-                  <th className="px-6 py-4 font-medium">Tanggal Dibuat</th>
-                  <th className="px-6 py-4 font-medium">Ukuran</th>
-                  <th className="px-6 py-4 font-medium text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200">
-                {reports.map((report) => (
-                  <tr key={report.id} className="hover:bg-neutral-50/50 transition-colors">
-                    <td className="px-6 py-4 font-mono font-medium text-neutral-500">{report.id}</td>
-                    <td className="px-6 py-4 font-semibold text-neutral-900">{report.name}</td>
-                    <td className="px-6 py-4 text-neutral-600">{report.date}</td>
-                    <td className="px-6 py-4 text-neutral-500">{report.size}</td>
-                    <td className="px-6 py-4 text-right">
-                      <Button variant="outline" size="sm" className="text-neutral-700">
-                        <Download className="w-4 h-4 mr-2" />
-                        Unduh
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
     </div>
-  )
+  );
 }
