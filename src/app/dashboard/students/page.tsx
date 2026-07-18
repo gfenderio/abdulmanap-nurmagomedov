@@ -278,9 +278,9 @@ export default function StudentsPage() {
           {/* Action Button */}
           <button 
             onClick={() => setIsAddModalOpen(true)}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary-container text-primary hover:bg-primary hover:text-on-primary px-5 py-2.5 rounded-xl font-body-md text-body-md font-bold transition-all shadow-sm"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-brand-hover px-4 py-2 rounded-xl font-bold transition-all shadow-md whitespace-nowrap"
           >
-            <Plus className="w-5 h-5" />
+            <span className="material-symbols-outlined text-[20px]">add</span>
             Tambah Siswa
           </button>
         </div>
