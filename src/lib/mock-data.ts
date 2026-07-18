@@ -35,3 +35,16 @@ export const MOCK_FINANCIAL_REPORT = [
   { no: 4, date: "10 Jul 2024", description: "Honor GTY Bulan Juni", type: "Pengeluaran", amount: "Rp 25.000.000" },
   { no: 5, date: "15 Jul 2024", description: "Sumbangan Wali Murid", type: "Pemasukan", amount: "Rp 5.000.000" },
 ];
+
+export const MOCK_GRADES = [
+  { id: 1, student: "Ahmad Fauzi", nisn: "0012345678", class: "6A", subject: "Matematika", type: "Ulangan Harian 1", score: 85, status: "Tuntas" },
+  { id: 2, student: "Ahmad Fauzi", nisn: "0012345678", class: "6A", subject: "Bahasa Indonesia", type: "Ulangan Harian 1", score: 92, status: "Tuntas" },
+  { id: 3, student: "Siti Aminah", nisn: "0012345679", class: "6A", subject: "Matematika", type: "Ulangan Harian 1", score: 70, status: "Remedial" },
+  { id: 4, student: "Budi Santoso", nisn: "0012345680", class: "6B", subject: "IPA", type: "Tugas Praktik", score: 88, status: "Tuntas" },
+];
+
+export const MOCK_CALENDAR = [
+  { id: 1, date: "17 Agustus 2024", title: "HUT Kemerdekaan RI", type: "Libur Nasional", desc: "Upacara dan perlombaan." },
+  { id: 2, date: "25-30 September 2024", title: "Penilaian Tengah Semester (PTS)", type: "Ujian", desc: "Ujian tertulis untuk seluruh siswa kelas 1-6." },
+  { id: 3, date: "15 Oktober 2024", title: "Rapat Wali Murid", type: "Kegiatan", desc: "Pembagian hasil evaluasi belajar PTS." },
+];
