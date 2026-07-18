@@ -1,56 +1,247 @@
-import { Bell, Search, UserCircle, Menu } from "lucide-react"
+"use client"
 
-export function TopNavbar({ onMenuClick }: { onMenuClick?: () => void }) {
+import { useTheme } from "next-themes"
+import { useEffect, useState, useRef } from "react"
+
+// Dummy data for notifications
+const DUMMY_NOTIFICATIONS = [
+  { id: 1, title: "SPP Bulan Juli telah diterbitkan", time: "10 menit yang lalu", read: false },
+  { id: 2, title: "Jadwal Ujian Akhir Semester Ganjil", time: "2 jam yang lalu", read: false },
+  { id: 3, title: "Laporan Nilai Tengah Semester", time: "1 hari yang lalu", read: true },
+]
+
+// Dummy data for search results
+const DUMMY_SEARCH_RESULTS = [
+  { type: "Siswa", name: "Ahmad Fauzi", desc: "Kelas 6A" },
+  { type: "Guru", name: "Bapak Budi", desc: "Wali Kelas 6A" },
+  { type: "Menu", name: "Laporan Keuangan", desc: "Buka menu Laporan" },
+]
+
+export function TopNavbar({ 
+  onMenuClick, 
+  userName = "Ahmad Fulan", 
+  userRole = "ADMIN" 
+}: { 
+  onMenuClick?: () => void,
+  userName?: string | null,
+  userRole?: string
+}) {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  
+  // States
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isSearching, setIsSearching] = useState(false)
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false)
+  
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [notifications, setNotifications] = useState(DUMMY_NOTIFICATIONS)
+  
+  const searchRef = useRef<HTMLDivElement>(null)
+  const notifRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+    
+    // Click outside handler for dropdowns
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSearchDropdown(false)
+      }
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setShowNotifications(false)
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  // Debounced search simulation
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setIsSearching(false)
+      return
+    }
+    
+    setIsSearching(true)
+    const timer = setTimeout(() => {
+      setIsSearching(false)
+    }, 400) // 400ms debounce simulation
+    
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  const unreadCount = notifications.filter(n => !n.read).length
+
+  const markAllRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })))
+  }
+
   return (
-    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-neutral-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-      <button 
-        type="button" 
-        className="-m-2.5 p-2.5 text-neutral-700 md:hidden"
-        onClick={onMenuClick}
-      >
-        <span className="sr-only">Buka sidebar</span>
-        <Menu className="h-6 w-6" aria-hidden="true" />
-      </button>
-      
-      {/* Separator for mobile */}
-      <div className="h-6 w-px bg-neutral-200 md:hidden" aria-hidden="true" />
+    <header className="sticky top-0 z-30 flex h-16 w-full shrink-0 items-center justify-between border-b border-outline-variant bg-surface/80 backdrop-blur-md px-4 sm:px-8 transition-colors">
+      {/* Mobile Menu */}
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors"
+        >
+          <span className="sr-only">Buka menu sidebar</span>
+          <span className="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+      </div>
 
-      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <form className="relative flex flex-1" action="#" method="GET">
-          <label htmlFor="search-field" className="sr-only">
-            Pencarian
-          </label>
-          <Search
-            className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-neutral-400"
-            aria-hidden="true"
-          />
-          <input
-            id="search-field"
-            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-neutral-900 placeholder:text-neutral-400 focus:ring-0 sm:text-sm bg-transparent outline-none"
-            placeholder="Cari data siswa, nilai, jadwal..."
-            type="search"
-            name="search"
-          />
-        </form>
-        <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <button type="button" className="-m-2.5 p-2.5 text-neutral-400 hover:text-neutral-500 transition-colors">
-            <span className="sr-only">Notifikasi</span>
-            <Bell className="size-5" aria-hidden="true" />
-          </button>
-
-          {/* Separator */}
-          <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-neutral-200" aria-hidden="true" />
-
-          {/* Profile Badge */}
-          <div className="flex items-center gap-x-4">
-            <span className="inline-flex items-center rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-medium text-brand-hover ring-1 ring-inset ring-brand/20">
-              Admin
-            </span>
-            <button type="button" className="-m-1.5 flex items-center p-1.5 text-neutral-400 hover:text-neutral-600 transition-colors">
-              <span className="sr-only">Menu User</span>
-              <UserCircle className="size-7" aria-hidden="true" />
-            </button>
+      {/* Center Search Bar */}
+      <div className="hidden lg:flex relative flex-1 max-w-lg mx-4" ref={searchRef}>
+        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+          search
+        </span>
+        <input 
+          type="text"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value)
+            setShowSearchDropdown(true)
+          }}
+          onFocus={() => {
+            if (searchQuery) setShowSearchDropdown(true)
+          }}
+          placeholder="Cari menu, nama siswa, atau fitur..."
+          className="w-full pl-12 pr-4 py-2 bg-surface-container-low border border-outline-variant/50 rounded-full text-[14px] focus:ring-2 focus:ring-primary/20 focus:border-primary text-on-surface placeholder:text-on-surface-variant outline-none transition-all"
+        />
+        
+        {/* Search Dropdown Popover */}
+        {showSearchDropdown && searchQuery.trim() && (
+          <div className="absolute top-full mt-2 w-full bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+            {isSearching ? (
+              <div className="p-4 text-center text-on-surface-variant text-label-sm flex items-center justify-center gap-2">
+                <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
+                Mencari "{searchQuery}"...
+              </div>
+            ) : (
+              <div>
+                <div className="px-4 py-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider bg-surface-container-lowest">
+                  Hasil Pencarian
+                </div>
+                <div className="max-h-64 overflow-y-auto">
+                  {DUMMY_SEARCH_RESULTS.map((result, i) => (
+                    <div key={i} className="flex flex-col px-4 py-3 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/30 last:border-0 transition-colors">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-medium">
+                          {result.type}
+                        </span>
+                        <span className="text-body-md font-bold text-on-surface">{result.name}</span>
+                      </div>
+                      <span className="text-label-sm text-on-surface-variant mt-1">{result.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
+        )}
+      </div>
+
+      {/* Right Actions */}
+      <div className="flex items-center gap-1.5">
+        {mounted && (
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-full"
+          >
+            <span className="sr-only">Ganti Tema</span>
+            <span className="material-symbols-outlined text-[22px]">
+              {theme === "dark" ? "light_mode" : "dark_mode"}
+            </span>
+          </button>
+        )}
+        
+        {/* Notification Bell with Popover */}
+        <div className="relative" ref={notifRef}>
+          <button 
+            onClick={() => setShowNotifications(!showNotifications)}
+            className="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-full relative"
+          >
+            <span className="sr-only">Lihat notifikasi</span>
+            <span className="material-symbols-outlined text-[22px]" aria-hidden="true">notifications</span>
+            {unreadCount > 0 && (
+              <span className="absolute top-2 right-2 size-2 rounded-full bg-error ring-2 ring-surface"></span>
+            )}
+          </button>
+          
+          {showNotifications && (
+            <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="flex items-center justify-between p-4 border-b border-outline-variant bg-surface-container-lowest">
+                <h3 className="font-bold text-on-surface text-body-md">Notifikasi</h3>
+                {unreadCount > 0 && (
+                  <button 
+                    onClick={markAllRead}
+                    className="text-[12px] font-medium text-primary hover:underline"
+                  >
+                    Tandai semua dibaca
+                  </button>
+                )}
+              </div>
+              <div className="max-h-80 overflow-y-auto">
+                {notifications.length > 0 ? (
+                  <div className="divide-y divide-outline-variant/30">
+                    {notifications.map(notif => (
+                      <div 
+                        key={notif.id} 
+                        className={`p-4 hover:bg-surface-container-low cursor-pointer transition-colors ${!notif.read ? 'bg-primary-container/10' : ''}`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`p-2 rounded-full shrink-0 ${!notif.read ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-on-surface-variant'}`}>
+                            <span className="material-symbols-outlined text-[18px]">
+                              notifications_active
+                            </span>
+                          </div>
+                          <div className="flex-1">
+                            <p className={`text-body-md leading-snug ${!notif.read ? 'font-bold text-on-surface' : 'font-medium text-on-surface-variant'}`}>
+                              {notif.title}
+                            </p>
+                            <p className="text-label-sm text-on-surface-variant mt-1">{notif.time}</p>
+                          </div>
+                          {!notif.read && (
+                            <div className="size-2.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-8 text-center text-on-surface-variant text-label-sm">
+                    Tidak ada notifikasi baru.
+                  </div>
+                )}
+              </div>
+              <div className="p-3 bg-surface-container-lowest border-t border-outline-variant text-center">
+                <button className="text-[13px] font-bold text-primary hover:underline">
+                  Lihat Semua Notifikasi
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div className="w-px h-6 bg-outline-variant mx-2 hidden sm:block"></div>
+        
+        {/* User profile */}
+        <div className="flex items-center gap-3 pl-1 cursor-pointer hover:opacity-80 transition-opacity">
+          <div className="hidden sm:flex flex-col text-right">
+            <span className="text-[13px] font-bold text-on-surface leading-none">
+              {userName}
+            </span>
+            <span className="text-[11px] text-on-surface-variant mt-1">
+              {userRole === "TEACHER" ? "Guru" : userRole === "PARENT" ? "Wali Murid" : "Administrator"}
+            </span>
+          </div>
+          <img 
+            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "Ahmad Fulan")}&background=53A6C4&color=fff&bold=true`}
+            alt="Profile"
+            className="size-10 rounded-full border-2 border-outline-variant object-cover"
+          />
         </div>
       </div>
     </header>
