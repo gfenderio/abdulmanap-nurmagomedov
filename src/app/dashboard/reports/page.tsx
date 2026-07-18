@@ -2,10 +2,13 @@
 
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function ReportsPage() {
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [selectedReportType, setSelectedReportType] = useState("");
+
+  const router = useRouter();
 
   const handleDownloadClick = (type: string) => {
     setSelectedReportType(type);
@@ -13,7 +16,7 @@ export default function ReportsPage() {
   };
 
   const handleViewClick = (type: string) => {
-    alert(`Membuka pratinjau laporan ${type} di tab baru (dummy)`);
+    router.push('/dashboard/reports/template');
   };
 
   return (
