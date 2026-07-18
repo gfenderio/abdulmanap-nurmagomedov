@@ -1,13 +1,22 @@
 "use client"
 
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Plus, Edit2 } from 'lucide-react';
+import { MOCK_GRADES, MOCK_STUDENTS } from '@/lib/mock-data';
 
 type AcademicTab = 'jadwal' | 'kalender' | 'penilaian';
 
 export default function AcademicClient({ role }: { role?: string }) {
   const [activeTab, setActiveTab] = useState<AcademicTab>('jadwal');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isGradeModalOpen, setIsGradeModalOpen] = useState(false);
+  const [gradesList, setGradesList] = useState(MOCK_GRADES);
+
+  // Form states for adding grade
+  const [selectedStudent, setSelectedStudent] = useState(MOCK_STUDENTS[0].name);
+  const [selectedSubject, setSelectedSubject] = useState("Matematika");
+  const [selectedType, setSelectedType] = useState("Ulangan Harian 1");
+  const [inputScore, setInputScore] = useState("80");
 
   const handlePrint = () => {
     alert("Memulai cetak laporan jadwal pelajaran (dummy)");
@@ -17,6 +26,95 @@ export default function AcademicClient({ role }: { role?: string }) {
   return (
     <div className="flex-1 p-4 md:p-8 overflow-y-auto bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out relative">
       
+      {/* ADD GRADE MODAL */}
+      {isGradeModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/40 backdrop-blur-sm animate-in fade-in duration-200 p-4">
+          <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+              <h3 className="font-headline font-bold text-title-lg text-on-surface">Input Nilai Siswa</h3>
+              <button onClick={() => setIsGradeModalOpen(false)} className="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+                <span className="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Pilih Siswa</label>
+                <select 
+                  value={selectedStudent} 
+                  onChange={(e) => setSelectedStudent(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface"
+                >
+                  {MOCK_STUDENTS.map(student => (
+                    <option key={student.id} value={student.name}>{student.name} ({student.grade})</option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Mata Pelajaran</label>
+                <select 
+                  value={selectedSubject} 
+                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface"
+                >
+                  <option value="Matematika">Matematika</option>
+                  <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                  <option value="IPA">IPA</option>
+                  <option value="Pendidikan Agama Islam">Pendidikan Agama Islam</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Jenis Penilaian</label>
+                <select 
+                  value={selectedType} 
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface"
+                >
+                  <option value="Ulangan Harian 1">Ulangan Harian 1</option>
+                  <option value="Tugas 1">Tugas 1</option>
+                  <option value="UTS">UTS</option>
+                  <option value="UAS">UAS</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Nilai (0 - 100)</label>
+                <input 
+                  type="number" 
+                  value={inputScore} 
+                  onChange={(e) => setInputScore(e.target.value)}
+                  min="0" max="100" 
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface" 
+                />
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+              <button onClick={() => setIsGradeModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                Batal
+              </button>
+              <button 
+                onClick={() => {
+                  const scoreNum = Number(inputScore);
+                  const newEntry = {
+                    id: gradesList.length + 1,
+                    student: selectedStudent,
+                    nisn: "00123456" + (gradesList.length + 1),
+                    class: "6A",
+                    subject: selectedSubject,
+                    type: selectedType,
+                    score: scoreNum,
+                    status: scoreNum >= 75 ? "Tuntas" : "Remedial"
+                  };
+                  setGradesList([...gradesList, newEntry]);
+                  setIsGradeModalOpen(false);
+                }} 
+                className="px-4 py-2 rounded-xl bg-primary text-on-primary text-body-md font-bold hover:bg-brand-hover transition-colors shadow-sm"
+              >
+                Simpan Nilai
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ADD SCHEDULE MODAL */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/40 backdrop-blur-sm animate-in fade-in duration-200 p-4">
@@ -295,18 +393,45 @@ export default function AcademicClient({ role }: { role?: string }) {
               <h3 className="text-title-lg font-semibold text-on-surface">Data Nilai</h3>
               <p className="text-label-md text-on-surface-variant">{role === "PARENT" ? "Daftar nilai tugas dan ujian Ananda" : "Input dan kelola nilai siswa"}</p>
             </div>
+            {role !== "PARENT" && (
+              <button 
+                onClick={() => setIsGradeModalOpen(true)}
+                className="flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-brand-hover px-4 py-2 rounded-xl font-bold transition-all shadow-md whitespace-nowrap"
+              >
+                <Plus className="w-5 h-5" />
+                Tambah Nilai
+              </button>
+            )}
           </div>
           <div className="p-6">
             {role !== "PARENT" ? (
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-4 items-center bg-brand-light/20 p-4 rounded-xl border border-primary-container">
-                  <span className="material-symbols-outlined text-primary text-[32px]">edit_document</span>
-                  <div>
-                    <h4 className="font-bold text-on-surface text-body-lg">Input Nilai Matematika (Kelas 6A)</h4>
-                    <p className="text-body-md text-on-surface-variant">Tugas Harian 3 - Persentase & Desimal</p>
-                  </div>
-                  <button className="ml-auto px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover">Beri Nilai</button>
-                </div>
+              <div className="overflow-x-auto w-full">
+                <table className="w-full text-left text-body-md text-on-surface min-w-[600px]">
+                  <thead className="bg-surface border-b border-outline-variant">
+                    <tr>
+                      <th className="px-6 py-4">Nama Siswa</th>
+                      <th className="px-6 py-4">Mata Pelajaran</th>
+                      <th className="px-6 py-4">Jenis Penilaian</th>
+                      <th className="px-6 py-4 text-center">Nilai</th>
+                      <th className="px-6 py-4 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant">
+                    {gradesList.map((grade) => (
+                      <tr key={grade.id} className="hover:bg-brand-light/20 transition-colors">
+                        <td className="px-6 py-4 font-medium">{grade.student}</td>
+                        <td className="px-6 py-4">{grade.subject}</td>
+                        <td className="px-6 py-4">{grade.type}</td>
+                        <td className="px-6 py-4 text-center font-bold text-primary">{grade.score}</td>
+                        <td className="px-6 py-4 text-center">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-bold text-[12px] ${grade.status === 'Tuntas' ? 'bg-brand-light text-primary' : 'bg-error-container/20 text-error'}`}>
+                            {grade.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             ) : (
               <table className="w-full text-left text-body-md text-on-surface">
@@ -318,16 +443,13 @@ export default function AcademicClient({ role }: { role?: string }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline-variant">
-                  <tr>
-                    <td className="px-6 py-4 font-bold">Matematika</td>
-                    <td className="px-6 py-4">Ulangan Harian 1</td>
-                    <td className="px-6 py-4 text-center font-bold text-primary text-title-lg">95</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-bold">Bahasa Indonesia</td>
-                    <td className="px-6 py-4">Tugas Mengarang</td>
-                    <td className="px-6 py-4 text-center font-bold text-primary text-title-lg">88</td>
-                  </tr>
+                  {gradesList.filter(g => g.student === "Ahmad Fauzi").map((grade) => (
+                    <tr key={grade.id}>
+                      <td className="px-6 py-4 font-bold">{grade.subject}</td>
+                      <td className="px-6 py-4">{grade.type}</td>
+                      <td className="px-6 py-4 text-center font-bold text-primary text-title-lg">{grade.score}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             )}
