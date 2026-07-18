@@ -15,7 +15,7 @@ export default async function Dashboard() {
 
   if (role === "ADMIN") {
     return (
-      <div className="flex-1 overflow-y-auto max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
+      <div className="flex-1 overflow-y-auto p-4 md:p-8 max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
         <div className="mb-8">
           <h2 className="text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Ikhtisar Madrasah</h2>
           <p className="text-on-surface-variant text-base max-w-2xl">Pantau performa akademik, kehadiran, dan sirkulasi keuangan hari ini.</p>
