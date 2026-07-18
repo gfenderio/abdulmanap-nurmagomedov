@@ -3,6 +3,7 @@ import { GradeChart } from "@/components/dashboard/grade-chart"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { ClientAlertButton } from "@/components/ui/ClientAlertButton"
+import { RevenueAreaChart, AttendanceDonutChart } from "@/components/dashboard/admin-charts"
 export default async function Dashboard() {
   const session = await auth()
   
@@ -16,127 +17,109 @@ export default async function Dashboard() {
     return (
       <div className="flex-1 overflow-y-auto max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
         <div className="mb-8">
-          <h2 className="text-headline-lg font-headline font-bold text-on-surface mb-2">Selamat Datang, {session.user.name}</h2>
-          <p className="text-on-surface-variant text-base max-w-2xl">Berikut adalah ringkasan sistem akademik MI Sirojul Falah hari ini.</p>
+          <h2 className="text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Ikhtisar Madrasah</h2>
+          <p className="text-on-surface-variant text-base max-w-2xl">Pantau performa akademik, kehadiran, dan sirkulasi keuangan hari ini.</p>
         </div>
 
-        {/* 1. Stat Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-          <div className="bg-surface-bright rounded-2xl border border-outline-variant p-6 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
-            <div className="flex flex-row items-center justify-between mb-4">
-              <h3 className="text-body-md font-medium text-on-surface-variant">Total Siswa Aktif</h3>
-              <div className="p-3 bg-primary-container/30 text-primary rounded-xl group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined text-[20px]">group</span>
-              </div>
+        {/* 1. Stat Cards (Premium Compact Layout) */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Total Siswa</span>
+              <span className="material-symbols-outlined text-primary text-[20px]">group</span>
             </div>
             <div>
-              <div className="text-display-sm font-bold text-on-surface">842</div>
-              <p className="text-label-sm text-primary font-medium mt-2 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px]">trending_up</span>
-                +2.4% dari bulan lalu
-              </p>
+              <div className="text-headline-md font-black text-on-surface">842</div>
+              <p className="text-label-sm text-primary font-medium mt-1">↑ 2.4% vs bulan lalu</p>
             </div>
           </div>
-
-          <div className="bg-surface-bright rounded-2xl border border-outline-variant p-6 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
-            <div className="flex flex-row items-center justify-between mb-4">
-              <h3 className="text-body-md font-medium text-on-surface-variant">Guru & Staf Aktif</h3>
-              <div className="p-3 bg-secondary-fixed/30 text-secondary rounded-xl group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined text-[20px]">badge</span>
-              </div>
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-secondary/50 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Kehadiran Hari Ini</span>
+              <span className="material-symbols-outlined text-secondary text-[20px]">how_to_reg</span>
             </div>
             <div>
-              <div className="text-display-sm font-bold text-on-surface">45</div>
-              <p className="text-label-sm text-on-surface-variant font-medium mt-2">Semua posisi terisi</p>
+              <div className="text-headline-md font-black text-on-surface">92.6%</div>
+              <p className="text-label-sm text-secondary font-medium mt-1">780 siswa hadir</p>
             </div>
           </div>
-
-          <div className="md:col-span-2 lg:col-span-2 bg-surface-bright rounded-2xl border border-outline-variant p-6 shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
-            <div className="flex flex-row items-center justify-between mb-4">
-              <h3 className="text-body-md font-medium text-on-surface-variant">SPP Terkumpul (Bulan Ini)</h3>
-              <div className="p-3 bg-tertiary-container/30 text-tertiary rounded-xl group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined text-[20px]">account_balance_wallet</span>
-              </div>
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-tertiary/50 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Guru & Staf</span>
+              <span className="material-symbols-outlined text-tertiary text-[20px]">badge</span>
             </div>
             <div>
-              <div className="flex items-baseline gap-2">
-                <div className="text-display-sm font-bold text-on-surface">Rp 42.500.000</div>
-                <span className="text-body-sm text-on-surface-variant">/ 50M Target</span>
-              </div>
-              <div className="w-full bg-surface-container-highest rounded-full h-2 mt-4 overflow-hidden">
-                <div className="bg-tertiary h-2 rounded-full transition-all duration-1000 ease-out" style={{ width: '85%' }}></div>
-              </div>
+              <div className="text-headline-md font-black text-on-surface">45</div>
+              <p className="text-label-sm text-on-surface-variant font-medium mt-1">100% formasi terisi</p>
+            </div>
+          </div>
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Target SPP</span>
+              <span className="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span>
+            </div>
+            <div>
+              <div className="text-headline-md font-black text-on-surface">85%</div>
+              <p className="text-label-sm text-primary font-medium mt-1">Rp 42.5J / 50J</p>
             </div>
           </div>
         </div>
 
-        {/* 2. Main Content Area */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Akses Cepat & Statistik Mini */}
-          <div className="col-span-1 flex flex-col gap-6">
-            <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow p-6">
-              <h3 className="text-title-md font-bold text-on-surface mb-4">Akses Cepat</h3>
-              <div className="grid grid-cols-2 gap-3">
-                <Link href="/dashboard/students" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant/50 bg-surface-container-lowest hover:bg-primary-container/10 hover:border-primary/30 hover:text-primary transition-all text-on-surface-variant group">
-                  <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">person_add</span>
-                  <span className="text-label-sm font-bold">Data Siswa</span>
-                </Link>
-                <Link href="/dashboard/billing" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant/50 bg-surface-container-lowest hover:bg-tertiary-container/10 hover:border-tertiary/30 hover:text-tertiary transition-all text-on-surface-variant group">
-                  <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">receipt_long</span>
-                  <span className="text-label-sm font-bold">Tagihan</span>
-                </Link>
-                <Link href="/dashboard/academic" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant/50 bg-surface-container-lowest hover:bg-secondary-container/10 hover:border-secondary/30 hover:text-secondary-container transition-all text-on-surface-variant group">
-                  <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">history_edu</span>
-                  <span className="text-label-sm font-bold">Nilai & Akademik</span>
-                </Link>
-                <Link href="/dashboard/settings" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant/50 bg-surface-container-lowest hover:bg-surface-container-high transition-all text-on-surface-variant group">
-                  <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">settings</span>
-                  <span className="text-label-sm font-bold">Pengaturan</span>
-                </Link>
-              </div>
+        {/* 2. Charts Area */}
+        <div className="grid gap-6 md:grid-cols-3 mb-6">
+          <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex flex-col">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-title-md font-bold text-on-surface">Tren Pemasukan SPP</h3>
+              <Link href="/dashboard/reports" className="text-label-sm font-bold text-primary hover:underline">Detail Laporan</Link>
             </div>
-            
-            <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow p-6 flex-1">
-              <h3 className="text-title-md font-bold text-on-surface mb-4">Sistem Server</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-label-sm mb-1">
-                    <span className="text-on-surface-variant">Storage</span>
-                    <span className="font-bold text-on-surface">45% (112GB/250GB)</span>
-                  </div>
-                  <div className="w-full bg-surface-container-highest rounded-full h-1.5">
-                    <div className="bg-primary h-1.5 rounded-full" style={{ width: '45%' }}></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-label-sm mb-1">
-                    <span className="text-on-surface-variant">Database Sync</span>
-                    <span className="font-bold text-on-surface">Active</span>
-                  </div>
-                  <div className="w-full bg-surface-container-highest rounded-full h-1.5">
-                    <div className="bg-secondary h-1.5 rounded-full" style={{ width: '100%' }}></div>
-                  </div>
-                </div>
-              </div>
+            <p className="text-label-sm text-on-surface-variant">Realisasi pembayaran selama semester berjalan.</p>
+            <RevenueAreaChart />
+          </div>
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex flex-col">
+            <h3 className="text-title-md font-bold text-on-surface mb-2">Distribusi Kehadiran</h3>
+            <p className="text-label-sm text-on-surface-variant">Statistik harian absensi siswa.</p>
+            <AttendanceDonutChart />
+          </div>
+        </div>
+
+        {/* 3. Bottom Row: Quick Access & Recent Activity */}
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6">
+            <h3 className="text-title-md font-bold text-on-surface mb-4">Akses Cepat</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/dashboard/students" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
+                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">person_add</span>
+                <span className="text-label-sm font-bold">Data Siswa</span>
+              </Link>
+              <Link href="/dashboard/classes" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
+                <span className="material-symbols-outlined text-[24px] text-tertiary group-hover:scale-110 transition-transform">meeting_room</span>
+                <span className="text-label-sm font-bold">Ruang Kelas</span>
+              </Link>
+              <Link href="/dashboard/academic" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
+                <span className="material-symbols-outlined text-[24px] text-secondary group-hover:scale-110 transition-transform">history_edu</span>
+                <span className="text-label-sm font-bold">Akademik</span>
+              </Link>
+              <Link href="/dashboard/settings" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
+                <span className="material-symbols-outlined text-[24px] text-error group-hover:scale-110 transition-transform">settings</span>
+                <span className="text-label-sm font-bold">Sistem</span>
+              </Link>
             </div>
           </div>
-
-          {/* Aktivitas Terbaru */}
-          <div className="col-span-1 lg:col-span-2 bg-surface-bright rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow min-h-[300px] flex flex-col">
-            <div className="p-6 border-b border-outline-variant flex justify-between items-center">
+          
+          <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col">
+            <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest rounded-t-2xl">
               <h3 className="text-title-md font-bold text-on-surface">Aktivitas Terbaru</h3>
               <ClientAlertButton alertMessage="Menampilkan seluruh log aktivitas (dummy)" className="text-label-sm text-primary hover:underline font-bold">Lihat Semua</ClientAlertButton>
             </div>
             <div className="p-0 flex-1 overflow-y-auto">
-              <div className="divide-y divide-outline-variant/30">
+              <div className="divide-y divide-outline-variant">
                 {[
-                  { user: "Bpk. Budi", action: "menginput nilai Ulangan Harian", target: "Kelas 6A", time: "10 menit yang lalu", icon: "edit_document", color: "text-primary", bg: "bg-primary-container/20" },
-                  { user: "Sistem", action: "menerbitkan tagihan SPP", target: "Bulan Juli 2024", time: "1 jam yang lalu", icon: "receipt_long", color: "text-tertiary", bg: "bg-tertiary-container/20" },
-                  { user: "Wali Murid", action: "melakukan pembayaran SPP", target: "Ahmad Fauzi (6A)", time: "2 jam yang lalu", icon: "payments", color: "text-secondary", bg: "bg-secondary-container/20" },
-                  { user: "Ibu Siti", action: "memperbarui data absensi", target: "Kelas 5B", time: "4 jam yang lalu", icon: "fact_check", color: "text-primary", bg: "bg-primary-container/20" },
-                  { user: "Admin", action: "menambahkan data siswa baru", target: "Kelas 1A", time: "Kemarin", icon: "person_add", color: "text-on-surface-variant", bg: "bg-surface-container-high" },
+                  { user: "Bpk. Budi", action: "menginput nilai Ulangan Harian", target: "Kelas 6A", time: "10 menit yang lalu", icon: "edit_document", color: "text-primary", bg: "bg-primary-container" },
+                  { user: "Sistem", action: "menerbitkan tagihan SPP", target: "Bulan Juli 2024", time: "1 jam yang lalu", icon: "receipt_long", color: "text-tertiary", bg: "bg-tertiary-container" },
+                  { user: "Wali Murid", action: "melakukan pembayaran SPP", target: "Ahmad Fauzi (6A)", time: "2 jam yang lalu", icon: "payments", color: "text-secondary", bg: "bg-secondary-container" },
+                  { user: "Ibu Siti", action: "memperbarui data absensi", target: "Kelas 5B", time: "4 jam yang lalu", icon: "fact_check", color: "text-primary", bg: "bg-primary-container" },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 hover:bg-surface-container-lowest transition-colors">
+                  <div key={i} className="flex items-start gap-4 p-4 hover:bg-surface-container-low transition-colors">
                     <div className={`p-2 rounded-full shrink-0 ${item.bg} ${item.color}`}>
                       <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                     </div>
