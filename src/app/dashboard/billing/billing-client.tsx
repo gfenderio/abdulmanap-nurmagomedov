@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 
-type BillingTab = 'riwayat' | 'spp' | 'pengeluaran';
+type BillingTab = 'riwayat' | 'spp' | 'pengeluaran' | 'tagihan' | 'koperasi';
 
 export default function BillingClient({ role }: { role?: string }) {
-  const [activeTab, setActiveTab] = useState<BillingTab>('riwayat');
+  const [activeTab, setActiveTab] = useState<BillingTab>(role === "PARENT" ? 'tagihan' : 'riwayat');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Dummy action handler
@@ -60,39 +60,117 @@ export default function BillingClient({ role }: { role?: string }) {
         </div>
 
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col min-h-[300px]">
-          <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface">
-            <h3 className="text-title-lg font-headline font-bold text-on-surface">Riwayat Pembayaran</h3>
+          {/* Tabs for PARENT */}
+          <div className="flex border-b border-outline-variant px-6 overflow-x-auto hide-scrollbar">
+            <button 
+              onClick={() => setActiveTab('tagihan')}
+              className={`px-4 py-4 font-medium transition-colors text-body-md whitespace-nowrap border-b-2 ${activeTab === 'tagihan' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+            >
+              Daftar Tagihan
+            </button>
+            <button 
+              onClick={() => setActiveTab('riwayat')}
+              className={`px-4 py-4 font-medium transition-colors text-body-md whitespace-nowrap border-b-2 ${activeTab === 'riwayat' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+            >
+              Riwayat Pembayaran
+            </button>
+            <button 
+              onClick={() => setActiveTab('koperasi')}
+              className={`px-4 py-4 font-medium transition-colors text-body-md whitespace-nowrap border-b-2 ${activeTab === 'koperasi' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+            >
+              Toko Koperasi (Buku & Seragam)
+            </button>
           </div>
-          <div className="overflow-x-auto w-full">
-            <table className="w-full text-left border-collapse min-w-[600px]">
-              <thead>
-                <tr className="border-b border-outline-variant text-body-md text-on-surface-variant font-medium bg-surface-container-lowest">
-                  <th className="py-4 px-6">Bulan</th>
-                  <th className="py-4 px-6">Keterangan</th>
-                  <th className="py-4 px-6 text-right">Nominal</th>
-                  <th className="py-4 px-6 text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody className="text-body-md text-on-surface">
-                <tr className="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
-                  <td className="py-4 px-6 font-medium">Juli 2024</td>
-                  <td className="py-4 px-6">SPP Bulan Juli</td>
-                  <td className="py-4 px-6 text-right font-medium">Rp 250.000</td>
-                  <td className="py-4 px-6 text-center">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-brand-light text-primary font-bold text-[12px]">Lunas</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
-                  <td className="py-4 px-6 font-medium">Juni 2024</td>
-                  <td className="py-4 px-6">SPP Bulan Juni</td>
-                  <td className="py-4 px-6 text-right font-medium">Rp 250.000</td>
-                  <td className="py-4 px-6 text-center">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-brand-light text-primary font-bold text-[12px]">Lunas</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          {activeTab === 'tagihan' && (
+            <div className="p-6 flex-1 animate-in fade-in duration-300">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-title-lg font-headline font-bold text-on-surface">Tagihan Aktif</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
+                  <div>
+                    <h4 className="font-bold text-body-lg text-primary">SPP Bulan Agustus 2024</h4>
+                    <p className="text-label-sm text-on-surface-variant mt-1">Tenggat: 10 Agustus 2024</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="font-bold text-title-lg text-on-surface">Rp 250.000</span>
+                    <button onClick={() => alert("Membuka gerbang pembayaran online... (Midtrans Simulator)")} className="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl hover:bg-brand-hover shadow-sm">
+                      Bayar Sekarang
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'riwayat' && (
+            <div className="p-6 flex-1 animate-in fade-in duration-300">
+              <h3 className="text-title-lg font-headline font-bold text-on-surface mb-6">Riwayat Pembayaran</h3>
+              <div className="overflow-x-auto w-full">
+                <table className="w-full text-left border-collapse min-w-[600px]">
+                  <thead>
+                    <tr className="border-b border-outline-variant text-body-md text-on-surface-variant font-medium bg-surface-container-lowest">
+                      <th className="py-4 px-6">Bulan</th>
+                      <th className="py-4 px-6">Keterangan</th>
+                      <th className="py-4 px-6 text-right">Nominal</th>
+                      <th className="py-4 px-6 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-body-md text-on-surface">
+                    <tr className="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
+                      <td className="py-4 px-6 font-medium">Juli 2024</td>
+                      <td className="py-4 px-6">SPP Bulan Juli</td>
+                      <td className="py-4 px-6 text-right font-medium">Rp 250.000</td>
+                      <td className="py-4 px-6 text-center">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-brand-light text-primary font-bold text-[12px]">Lunas</span>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
+                      <td className="py-4 px-6 font-medium">Juni 2024</td>
+                      <td className="py-4 px-6">SPP Bulan Juni</td>
+                      <td className="py-4 px-6 text-right font-medium">Rp 250.000</td>
+                      <td className="py-4 px-6 text-center">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-brand-light text-primary font-bold text-[12px]">Lunas</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'koperasi' && (
+            <div className="p-6 flex-1 animate-in fade-in duration-300">
+              <h3 className="text-title-lg font-headline font-bold text-on-surface mb-6">Katalog Buku & Seragam</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 border border-outline-variant rounded-xl flex flex-col gap-3 bg-surface">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-bold text-body-lg text-on-surface">Paket Buku Tematik Kelas 6</h4>
+                      <p className="text-label-sm text-on-surface-variant mt-1">Semester Ganjil 2024/2025</p>
+                    </div>
+                    <span className="font-bold text-title-md text-primary">Rp 450.000</span>
+                  </div>
+                  <button onClick={() => alert("Ditambahkan ke keranjang pembelian.")} className="mt-auto px-4 py-2 border border-primary text-primary font-bold rounded-xl hover:bg-primary-container">
+                    Pesan Sekarang
+                  </button>
+                </div>
+                <div className="p-4 border border-outline-variant rounded-xl flex flex-col gap-3 bg-surface">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-bold text-body-lg text-on-surface">Seragam Olahraga</h4>
+                      <p className="text-label-sm text-on-surface-variant mt-1">Ukuran: L (Laki-laki)</p>
+                    </div>
+                    <span className="font-bold text-title-md text-primary">Rp 150.000</span>
+                  </div>
+                  <button onClick={() => alert("Ditambahkan ke keranjang pembelian.")} className="mt-auto px-4 py-2 border border-primary text-primary font-bold rounded-xl hover:bg-primary-container">
+                    Pesan Sekarang
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

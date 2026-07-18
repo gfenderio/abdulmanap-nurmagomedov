@@ -9,6 +9,7 @@ export default function StudentsClient({ role }: { role?: string }) {
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
   // Search dummy state
   const [searchQuery, setSearchQuery] = useState("");
@@ -249,6 +250,43 @@ export default function StudentsClient({ role }: { role?: string }) {
       )}
 
 
+      {/* IMPORT MODAL */}
+      {isImportModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/40 backdrop-blur-sm animate-in fade-in duration-200 p-4">
+          <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+              <h3 className="font-headline font-bold text-title-lg text-on-surface">Import Data Siswa (Excel)</h3>
+              <button onClick={() => setIsImportModalOpen(false)} className="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="p-4 border border-dashed border-primary/50 rounded-xl bg-primary-container/10 flex flex-col items-center justify-center text-center gap-2 cursor-pointer hover:bg-primary-container/20 transition-colors">
+                <span className="material-symbols-outlined text-4xl text-primary">upload_file</span>
+                <p className="text-body-md font-medium text-on-surface">Klik untuk memilih file .xlsx</p>
+                <p className="text-label-sm text-on-surface-variant">Atau drag & drop file Excel Anda ke sini.</p>
+                <input type="file" accept=".xlsx, .xls" className="hidden" id="excel-upload" />
+              </div>
+              <div className="flex items-start gap-2 p-3 bg-surface-container-low rounded-lg border border-outline-variant">
+                <span className="material-symbols-outlined text-on-surface-variant text-[20px]">info</span>
+                <p className="text-label-sm text-on-surface-variant text-balance">
+                  Pastikan format kolom di file Excel sesuai dengan template: <b>NISN, Nama Lengkap, Kelas, Jenis Kelamin.</b> <a href="#" className="text-primary font-bold hover:underline">Unduh Template</a>
+                </p>
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+              <button onClick={() => setIsImportModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                Batal
+              </button>
+              <button onClick={() => { alert("Simulasi parsing Excel dan Server Action berjalan... Data 800 siswa di-import."); setIsImportModalOpen(false); }} className="px-4 py-2 rounded-xl bg-primary text-on-primary text-body-md font-bold hover:bg-brand-hover transition-colors shadow-sm">
+                Proses Import
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       {/* Page Header */}
       <div className="mb-8 flex flex-col gap-2">
         <nav className="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
@@ -319,16 +357,34 @@ export default function StudentsClient({ role }: { role?: string }) {
               <Filter className="w-5 h-5" />
               <span className="hidden sm:inline">Filter</span>
             </button>
+            {role === "TEACHER" && (
+              <button 
+                onClick={() => alert("Formulir Presensi Kelas Terbuka (dummy)")}
+                className="flex items-center gap-2 px-4 py-2.5 bg-brand-light/30 text-primary rounded-xl hover:bg-brand-light transition-colors font-body-md text-body-md font-bold shrink-0"
+              >
+                <span className="material-symbols-outlined text-[20px]">fact_check</span>
+                <span className="hidden sm:inline">Isi Presensi Kelas</span>
+              </button>
+            )}
           </div>
-          {/* Action Button (Hidden for Teacher) */}
-          {role !== "TEACHER" && (
-            <button 
-              onClick={() => setIsAddModalOpen(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-brand-hover px-4 py-2 rounded-xl font-bold transition-all shadow-md whitespace-nowrap"
-            >
-              <span className="material-symbols-outlined text-[20px]">add</span>
-              Tambah Siswa
-            </button>
+          {/* Action Button (Hidden for Teacher, but Teacher can edit existing) */}
+          {role === "ADMIN" && (
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setIsImportModalOpen(true)}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-container-high text-on-surface hover:bg-outline-variant px-4 py-2 rounded-xl font-bold transition-all whitespace-nowrap"
+              >
+                <span className="material-symbols-outlined text-[20px]">upload_file</span>
+                Import Excel
+              </button>
+              <button 
+                onClick={() => setIsAddModalOpen(true)}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-brand-hover px-4 py-2 rounded-xl font-bold transition-all shadow-md whitespace-nowrap"
+              >
+                <span className="material-symbols-outlined text-[20px]">add</span>
+                Tambah Siswa
+              </button>
+            </div>
           )}
         </div>
 
@@ -367,11 +423,9 @@ export default function StudentsClient({ role }: { role?: string }) {
                     <button onClick={() => handleDetail('Ahmad Fauzi Rahman')} className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Detail">
                       <Eye className="w-5 h-5" />
                     </button>
-                    {role !== "TEACHER" && (
-                      <button onClick={() => handleEdit('Ahmad Fauzi Rahman')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit">
-                        <Edit className="w-5 h-5" />
-                      </button>
-                    )}
+                    <button onClick={() => handleEdit('Ahmad Fauzi Rahman')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit Data">
+                      <Edit className="w-5 h-5" />
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -396,11 +450,9 @@ export default function StudentsClient({ role }: { role?: string }) {
                     <button onClick={() => handleDetail('Siti Aminah Zahra')} className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Detail">
                       <Eye className="w-5 h-5" />
                     </button>
-                    {role !== "TEACHER" && (
-                      <button onClick={() => handleEdit('Siti Aminah Zahra')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit">
-                        <Edit className="w-5 h-5" />
-                      </button>
-                    )}
+                    <button onClick={() => handleEdit('Siti Aminah Zahra')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit Data">
+                      <Edit className="w-5 h-5" />
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -425,11 +477,9 @@ export default function StudentsClient({ role }: { role?: string }) {
                     <button onClick={() => handleDetail('Budi Santoso Wibowo')} className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Detail">
                       <Eye className="w-5 h-5" />
                     </button>
-                    {role !== "TEACHER" && (
-                      <button onClick={() => handleEdit('Budi Santoso Wibowo')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit">
-                        <Edit className="w-5 h-5" />
-                      </button>
-                    )}
+                    <button onClick={() => handleEdit('Budi Santoso Wibowo')} className="p-1.5 text-on-surface-variant hover:text-accent-hover hover:bg-surface-container-low rounded-xl transition-colors" title="Edit Data">
+                      <Edit className="w-5 h-5" />
+                    </button>
                   </div>
                 </td>
               </tr>

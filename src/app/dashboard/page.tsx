@@ -4,6 +4,8 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import { ClientAlertButton } from "@/components/ui/ClientAlertButton"
 import { RevenueAreaChart, AttendanceDonutChart } from "@/components/dashboard/admin-charts"
+import { MOCK_ACTIVITIES, MOCK_TEACHER_SCHEDULE, MOCK_STUDENT_SCHEDULE, MOCK_ANNOUNCEMENTS } from "@/lib/mock-data"
+
 export default async function Dashboard() {
   const session = await auth()
   
@@ -113,13 +115,8 @@ export default async function Dashboard() {
             </div>
             <div className="p-0 flex-1 overflow-y-auto">
               <div className="divide-y divide-outline-variant">
-                {[
-                  { user: "Bpk. Budi", action: "menginput nilai Ulangan Harian", target: "Kelas 6A", time: "10 menit yang lalu", icon: "edit_document", color: "text-primary", bg: "bg-primary-container" },
-                  { user: "Sistem", action: "menerbitkan tagihan SPP", target: "Bulan Juli 2024", time: "1 jam yang lalu", icon: "receipt_long", color: "text-tertiary", bg: "bg-tertiary-container" },
-                  { user: "Wali Murid", action: "melakukan pembayaran SPP", target: "Ahmad Fauzi (6A)", time: "2 jam yang lalu", icon: "payments", color: "text-secondary", bg: "bg-secondary-container" },
-                  { user: "Ibu Siti", action: "memperbarui data absensi", target: "Kelas 5B", time: "4 jam yang lalu", icon: "fact_check", color: "text-primary", bg: "bg-primary-container" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 hover:bg-surface-container-low transition-colors">
+                {MOCK_ACTIVITIES.map((item) => (
+                  <div key={item.id} className="flex items-start gap-4 p-4 hover:bg-surface-container-low transition-colors">
                     <div className={`p-2 rounded-full shrink-0 ${item.bg} ${item.color}`}>
                       <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                     </div>
@@ -191,12 +188,8 @@ export default async function Dashboard() {
               <span className="px-3 py-1 bg-surface text-on-surface-variant text-label-sm font-medium rounded-full border border-outline-variant">Hari Ini</span>
             </div>
             <div className="p-6 flex-1 overflow-y-auto space-y-4">
-              {[
-                { time: "07:30 - 09:00", subject: "Matematika", room: "Ruang 6A", active: false, status: "Selesai" },
-                { time: "09:00 - 10:30", subject: "Ilmu Pengetahuan Alam", room: "Ruang 6B", active: true, status: "Berlangsung" },
-                { time: "11:00 - 12:30", subject: "Matematika", room: "Ruang 5A", active: false, status: "Menunggu" },
-              ].map((item, i) => (
-                <div key={i} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
+              {MOCK_TEACHER_SCHEDULE.map((item) => (
+                <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
                   <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-primary' : 'text-on-surface-variant'}`}>{item.time}</div>
                   <div className="flex-1">
                     <div className={`font-bold text-body-md ${item.active ? 'text-primary' : 'text-on-surface'}`}>{item.subject}</div>
@@ -226,14 +219,12 @@ export default async function Dashboard() {
                 <h3 className="text-title-md font-bold text-on-surface">Pengumuman Sekolah</h3>
               </div>
               <div className="space-y-4">
-                <div className="p-4 border-l-4 border-primary bg-surface rounded-r-xl">
-                  <h4 className="font-bold text-body-md text-on-surface">Rapat Evaluasi PTS</h4>
-                  <p className="text-label-sm text-on-surface-variant mt-1">Hari Jumat, 13:00 WIB di Ruang Guru. Wajib hadir bagi seluruh Wali Kelas.</p>
-                </div>
-                <div className="p-4 border-l-4 border-secondary bg-surface rounded-r-xl">
-                  <h4 className="font-bold text-body-md text-on-surface">Batas Input Nilai</h4>
-                  <p className="text-label-sm text-on-surface-variant mt-1">Mohon segera selesaikan penginputan nilai Ulangan Harian sebelum akhir bulan.</p>
-                </div>
+                {MOCK_ANNOUNCEMENTS.map((item) => (
+                  <div key={item.id} className={`p-4 border-l-4 border-${item.type} bg-surface rounded-r-xl`}>
+                    <h4 className="font-bold text-body-md text-on-surface">{item.title}</h4>
+                    <p className="text-label-sm text-on-surface-variant mt-1">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -327,12 +318,8 @@ export default async function Dashboard() {
             <span className="px-3 py-1 bg-surface text-on-surface-variant text-label-sm font-medium rounded-full border border-outline-variant">Hari Ini</span>
           </div>
           <div className="p-6 flex-1 overflow-y-auto space-y-4">
-            {[
-              { time: "07:30 - 09:00", subject: "Matematika", teacher: "Bpk. Budi", active: false, status: "Selesai" },
-              { time: "09:00 - 10:30", subject: "Pend. Agama Islam", teacher: "Ust. Ahmad", active: true, status: "Berlangsung" },
-              { time: "11:00 - 12:30", subject: "Bahasa Indonesia", teacher: "Ibu Siti", active: false, status: "Menunggu" },
-            ].map((item, i) => (
-              <div key={i} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
+            {MOCK_STUDENT_SCHEDULE.map((item) => (
+              <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
                 <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-primary' : 'text-on-surface-variant'}`}>{item.time}</div>
                 <div className="flex-1">
                   <div className={`font-bold text-body-md ${item.active ? 'text-primary' : 'text-on-surface'}`}>{item.subject}</div>
