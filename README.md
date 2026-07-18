@@ -44,6 +44,12 @@ Kami tidak hanya bertarung di matras, kami juga menghancurkan (*smesh*) bug-bug 
    * Semua tombol statis yang pengecut kini dipaksa menyerah dan merespons. Tombol *Tambah Siswa*, *Filter Lanjutan*, *Ekspor PDF/Excel*, *Ganti Password (dengan Toggle Show/Hide)*, dan *Kirim Tiket Bantuan* kini mengeluarkan respons/dialog nyata ketika Anda menekannya.
 5. **Debounced Search & Notification Popover**:
    * Search Bar di navbar atas dibekali pelindung *debounce* agar tidak memberatkan server saat diserang pencarian cepat. Notifikasi popover gaya Facebook sudah aktif untuk mengirim update penting bagi seluruh aktor sistem.
+6. **Divisi Baru: Ruang Kelas (Data Kelas Setup)**:
+   * Grappling area baru bagi Admin untuk mengunci data nama kelas, ruangan, kapasitas maksimal, dan wali kelas secara presisi melalui form modal yang solid.
+7. **Visual Smesh: Dashboard Recharts Integration**:
+   * Menghancurkan visual dashboard yang longgar dengan padding kokoh (`p-4 md:p-8`) dan memasang dua kuncian grafik `Recharts`: *Area Chart* untuk tren pemasukan SPP bulanan, dan *Donut Chart* untuk persentase kehadiran siswa harian.
+8. **Format Siap Tempur: Print-Ready Report Template**:
+   * Laporan Keuangan Bulanan siap cetak (*A4 Print-Ready*) yang bersih, rapi, dan menyingkirkan elemen tombol navigasi ketika dicetak (*print media stylesheet*). Siap disodorkan ke Kepala Madrasah tanpa banyak omong.
 
 ---
 
