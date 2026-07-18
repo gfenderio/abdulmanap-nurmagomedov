@@ -54,6 +54,8 @@ Kami tidak hanya bertarung di matras, kami juga menghancurkan (*smesh*) bug-bug 
    * Data sekolah dikunci ketat. Guru tidak bisa lagi mengintip tagihan SPP global atau memanipulasi profil siswa secara acak (akses dibatasi hanya jadwal mengajar dan menu penilaian). Wali murid diisolasi total agar hanya bisa melihat satu anak (Profil Anak khusus, Rapor khusus, dan Tagihan SPP ananda sendiri). *Zero data leak plan!*
 10. **Modul Penilaian & Kalender Akademik (Grades & Academic Calendar)**:
     * Meluncurkan matras penilaian baru agar Guru bisa memasukkan nilai tugas/ujian, sementara Wali Murid bisa memantau rapor perkembangan anak secara real-time. Dilengkapi pula dengan Kalender Akademik untuk memetakan tanggal penting dan hari libur agar disiplin madrasah tetap terjaga.
+11. **Gulat Profil Pengguna Aktif (Interactive Profile Dropdown)**:
+    * Mengubah bundaran foto profil statik di navbar menjadi kuncian menu dropdown interaktif gaya Facebook. Halaman profil sekarang dihubungkan langsung ke database SQLite (Prisma), memungkinkan unggah foto profil asli (base64 string) dan pembaruan password secara langsung serta instant update pada navbar menggunakan `router.refresh()`. Tidak ada lagi pajangan kelap-kelip tanpa fungsi!
 
 ---
 

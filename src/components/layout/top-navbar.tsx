@@ -2,6 +2,8 @@
 
 import { useTheme } from "next-themes"
 import { useEffect, useState, useRef } from "react"
+import Link from "next/link"
+import { handleSignOut } from "@/actions/auth"
 
 // Dummy data for notifications
 const DUMMY_NOTIFICATIONS = [
@@ -20,11 +22,15 @@ const DUMMY_SEARCH_RESULTS = [
 export function TopNavbar({ 
   onMenuClick, 
   userName = "Ahmad Fulan", 
-  userRole = "ADMIN" 
+  userRole = "ADMIN",
+  userImage = null,
+  userEmail = null
 }: { 
   onMenuClick?: () => void,
   userName?: string | null,
-  userRole?: string
+  userRole?: string,
+  userImage?: string | null,
+  userEmail?: string | null
 }) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -37,8 +43,11 @@ export function TopNavbar({
   const [showNotifications, setShowNotifications] = useState(false)
   const [notifications, setNotifications] = useState(DUMMY_NOTIFICATIONS)
   
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
+  
   const searchRef = useRef<HTMLDivElement>(null)
   const notifRef = useRef<HTMLDivElement>(null)
+  const profileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -50,6 +59,9 @@ export function TopNavbar({
       }
       if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
         setShowNotifications(false)
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setShowProfileMenu(false)
       }
     }
     
@@ -227,21 +239,83 @@ export function TopNavbar({
         
         <div className="w-px h-6 bg-outline-variant mx-2 hidden sm:block"></div>
         
-        {/* User profile */}
-        <div className="flex items-center gap-3 pl-1 cursor-pointer hover:opacity-80 transition-opacity">
-          <div className="hidden sm:flex flex-col text-right">
-            <span className="text-[13px] font-bold text-on-surface leading-none">
-              {userName}
-            </span>
-            <span className="text-[11px] text-on-surface-variant mt-1">
-              {userRole === "TEACHER" ? "Guru" : userRole === "PARENT" ? "Wali Murid" : "Administrator"}
-            </span>
-          </div>
-          <img 
-            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "Ahmad Fulan")}&background=53A6C4&color=fff&bold=true`}
-            alt="Profile"
-            className="size-10 rounded-full border-2 border-outline-variant object-cover"
-          />
+        {/* User profile with Dropdown */}
+        <div className="relative" ref={profileRef}>
+          <button 
+            type="button"
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+            className="flex items-center gap-3 pl-1 hover:opacity-80 transition-opacity outline-none text-left"
+          >
+            <div className="hidden sm:flex flex-col text-right">
+              <span className="text-[13px] font-bold text-on-surface leading-none">
+                {userName}
+              </span>
+              <span className="text-[11px] text-on-surface-variant mt-1">
+                {userRole === "TEACHER" ? "Guru" : userRole === "PARENT" ? "Wali Murid" : userRole === "STUDENT" ? "Siswa" : "Administrator"}
+              </span>
+            </div>
+            <img 
+              src={userImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "Ahmad Fulan")}&background=53A6C4&color=fff&bold=true`}
+              alt="Profile"
+              className="size-10 rounded-full border-2 border-outline-variant object-cover"
+            />
+          </button>
+
+          {showProfileMenu && (
+            <div className="absolute right-0 top-full mt-2 w-72 bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+              {/* Profile Card Header */}
+              <div className="p-4 bg-surface-container-lowest border-b border-outline-variant flex flex-col items-center text-center">
+                <img 
+                  src={userImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "Ahmad Fulan")}&background=53A6C4&color=fff&bold=true`}
+                  alt="Profile Dropdown"
+                  className="size-16 rounded-full border border-outline-variant object-cover mb-2.5 shadow-sm"
+                />
+                <h4 className="font-bold text-on-surface text-body-md line-clamp-1">{userName}</h4>
+                <p className="text-label-sm text-on-surface-variant line-clamp-1 mt-0.5">{userEmail || "email@misirojulfalah.sch.id"}</p>
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-bold mt-2.5">
+                  <span className="material-symbols-outlined text-[14px]">
+                    {userRole === "TEACHER" ? "school" : userRole === "PARENT" ? "family_restroom" : userRole === "STUDENT" ? "person" : "admin_panel_settings"}
+                  </span>
+                  {userRole === "TEACHER" ? "Guru" : userRole === "PARENT" ? "Wali Murid" : userRole === "STUDENT" ? "Siswa" : "Administrator"}
+                </span>
+              </div>
+
+              {/* Menu Links */}
+              <div className="p-2 space-y-0.5">
+                <Link 
+                  href="/dashboard/profile"
+                  onClick={() => setShowProfileMenu(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-on-surface hover:bg-surface-container-low transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[20px] text-on-surface-variant">person_outline</span>
+                  Profil Saya
+                </Link>
+                {userRole === "ADMIN" && (
+                  <Link 
+                    href="/dashboard/settings"
+                    onClick={() => setShowProfileMenu(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-on-surface hover:bg-surface-container-low transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[20px] text-on-surface-variant">settings</span>
+                    Pengaturan Sistem
+                  </Link>
+                )}
+              </div>
+
+              {/* Logout Button */}
+              <div className="p-2 border-t border-outline-variant bg-surface-container-lowest">
+                <form action={handleSignOut}>
+                  <button 
+                    type="submit"
+                    className="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-error hover:bg-error-container/20 transition-colors text-left"
+                  >
+                    <span className="material-symbols-outlined text-[20px] shrink-0">logout</span>
+                    Logout / Keluar
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>

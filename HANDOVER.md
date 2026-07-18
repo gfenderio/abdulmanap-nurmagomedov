@@ -51,6 +51,7 @@ Sistem memisahkan 3 Aktor Utama: `ADMIN`, `TEACHER` (Guru), dan `PARENT` (Wali M
 4. **Isolasi Penuh RBAC**: Mengubah rute halaman master (Siswa, Tagihan, Akademik, Laporan) menjadi Server-Client wrapper agar data global tidak bocor ke Guru dan Wali Murid.
 5. **Fitur Kalender Akademik & Input Nilai Aktif**: Menambahkan tab Kalender dan membuat modal form "Tambah Nilai" bagi Guru yang terhubung ke state lokal.
 6. **Optimasi GitHub Actions (`ci.yml`)**: Mengaktifkan `paths-ignore` agar proses *build* di GitHub tidak berjalan jika perubahan hanya terjadi pada dokumentasi (`README.md`, `HANDOVER.md`, `.github/**`).
+7. **Fitur Kelola Profil Pengguna Aktif (Interactive Profile Dropdown)**: Mengubah avatar statis di navbar menjadi dropdown fungsional gaya Facebook (menampilkan nama, email, role, tombol kelola profil, dan logout). Halaman profil dihubungkan ke SQLite (Prisma), mendukung unggah foto (base64) dan perubahan password secara real-time yang menyinkronkan navbar secara otomatis menggunakan `router.refresh()`.
 
 ---
 

@@ -48,3 +48,27 @@ export const MOCK_CALENDAR = [
   { id: 2, date: "25-30 September 2024", title: "Penilaian Tengah Semester (PTS)", type: "Ujian", desc: "Ujian tertulis untuk seluruh siswa kelas 1-6." },
   { id: 3, date: "15 Oktober 2024", title: "Rapat Wali Murid", type: "Kegiatan", desc: "Pembagian hasil evaluasi belajar PTS." },
 ];
+
+export const MOCK_ACTIVITIES = [
+  { id: 1, user: "Bpk. Budi", action: "menginput nilai Ulangan Harian", target: "Kelas 6A", time: "10 menit yang lalu", icon: "edit_document", color: "text-primary", bg: "bg-primary-container" },
+  { id: 2, user: "Sistem", action: "menerbitkan tagihan SPP", target: "Bulan Juli 2024", time: "1 jam yang lalu", icon: "receipt_long", color: "text-tertiary", bg: "bg-tertiary-container" },
+  { id: 3, user: "Wali Murid", action: "melakukan pembayaran SPP", target: "Ahmad Fauzi (6A)", time: "2 jam yang lalu", icon: "payments", color: "text-secondary", bg: "bg-secondary-container" },
+  { id: 4, user: "Ibu Siti", action: "memperbarui data absensi", target: "Kelas 5B", time: "4 jam yang lalu", icon: "fact_check", color: "text-primary", bg: "bg-primary-container" },
+];
+
+export const MOCK_TEACHER_SCHEDULE = [
+  { id: 1, time: "07:30 - 09:00", subject: "Matematika", room: "Ruang 6A", active: false, status: "Selesai" },
+  { id: 2, time: "09:00 - 10:30", subject: "Ilmu Pengetahuan Alam", room: "Ruang 6B", active: true, status: "Berlangsung" },
+  { id: 3, time: "11:00 - 12:30", subject: "Matematika", room: "Ruang 5A", active: false, status: "Menunggu" },
+];
+
+export const MOCK_STUDENT_SCHEDULE = [
+  { id: 1, time: "07:30 - 09:00", subject: "Matematika", teacher: "Bpk. Budi", active: false, status: "Selesai" },
+  { id: 2, time: "09:00 - 10:30", subject: "Pend. Agama Islam", teacher: "Ust. Ahmad", active: true, status: "Berlangsung" },
+  { id: 3, time: "11:00 - 12:30", subject: "Bahasa Indonesia", teacher: "Ibu Siti", active: false, status: "Menunggu" },
+];
+
+export const MOCK_ANNOUNCEMENTS = [
+  { id: 1, title: "Rapat Evaluasi PTS", desc: "Hari Jumat, 13:00 WIB di Ruang Guru. Wajib hadir bagi seluruh Wali Kelas.", type: "primary" },
+  { id: 2, title: "Batas Input Nilai", desc: "Mohon segera selesaikan penginputan nilai Ulangan Harian sebelum akhir bulan.", type: "secondary" },
+];

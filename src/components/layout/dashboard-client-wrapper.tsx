@@ -8,11 +8,15 @@ import { cn } from "@/lib/utils"
 export function DashboardClientWrapper({ 
   children,
   userName = "Ahmad Fulan",
-  userRole = "ADMIN"
+  userRole = "ADMIN",
+  userImage = null,
+  userEmail = null
 }: { 
   children: React.ReactNode,
   userName?: string | null,
-  userRole?: string
+  userRole?: string,
+  userImage?: string | null,
+  userEmail?: string | null
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -41,6 +45,8 @@ export function DashboardClientWrapper({
           onMenuClick={() => setSidebarOpen(true)} 
           userName={userName}
           userRole={userRole}
+          userImage={userImage}
+          userEmail={userEmail}
         />
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           <div className="mx-auto max-w-[1400px]">
