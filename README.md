@@ -18,22 +18,32 @@
 
 ---
 
-## 🚀 Pembaruan Sistem (Update & Perbaikan Terbaru)
+## 🧠 Filosofi "Father Plan" dalam Coding
 
-Sistem ini telah diperbaiki secara menyeluruh mengikuti standar premium **Stitch Design System** dengan fokus kegunaan penuh (*functional prototype*):
+Di pegunungan Dagestan yang dingin, Abdulmanap Nurmagomedov tidak pernah mengajari Khabib cara membangun aplikasi *fullstack* Next.js. Beliau mengajarinya bergulat dengan beruang sejak usia 9 tahun. Kenapa? Karena kalau mentalmu sudah siap *takedown* beruang liar, nge-*debug* *error* Prisma ORM atau *hydration mismatch* di hari Minggu malam hanyalah sebuah pemanasan ringan.
 
-1. **Perbaikan Inkonsistensi UI/UX**:
-   * **Navigasi Sidebar**: Memperbaiki bug highlight aktif. Menu Dashboard kini hanya ter-highlight ketika benar-benar berada di halaman utama dashboard, tidak lagi bentrok dengan menu aktif lainnya.
-   * **Dark Mode**: Perbaikan kontras dan konsistensi warna latar belakang container agar tidak merusak keterbacaan di tema gelap.
-   * **Menghilangkan AI Slop**: Desain huruf besar semua (*uppercase tracking-wider*) pada tabel master dan kartu keuangan diganti dengan tipografi premium khas Stitch. Kartu SPP dengan warna merah mencolok telah direfaktor ke bentuk indikator elegan.
+Repositori ini dinamakan **Abdulmanap Nurmagomedov** karena arsitektur kodenya dibangun murni dengan mentalitas petarung Dagestan:
 
-2. **Fungsionalisasi Elemen Interaktif (Client State)**:
-   * **Data Siswa**: Modal tambah siswa, modal filter lanjutan, modal detail ringkasan, dan modal edit data dummy sudah aktif.
-   * **Akademik**: Tombol cetak laporan interaktif dan modal tambah jadwal baru sudah berfungsi.
-   * **Pusat Laporan**: Opsi ekspor data kini memunculkan pop-up pemilihan format PDF atau Excel.
-   * **Profil**: Toggle *show/hide* password dan mode edit data profil dinamis kini berfungsi penuh.
-   * **Bantuan**: Fitur input search bantuan dan form tiket keluhan IT Support aktif dengan pesan respon terintegrasi.
-   * **Pencarian & Notifikasi**: Fitur pencarian ter-debounce pada navbar untuk menjaga kestabilan performa, serta menu drop-down notifikasi gaya Facebook.
+1. **Zero Yapping:** Kalau kodemu *error*, jangan banyak sambat di StackOverflow. Perbaiki *types*-nya! Menggunakan tipe `any` atau `unknown` di sini sama memalukannya dengan *tap out* di ronde pertama.
+2. **Kuncian Ketat (Grappling):** Form validasi dijaga ketat oleh Zod dan TypeScript Strict Mode. Ada payload data aneh yang mau masuk ke *database*? *Smesh it!*
+3. **Stamina Tanpa Batas:** Dibangun di atas fondasi Next.js 16 App Router (RSC). Sangat cepat, *stateless* di tempat yang tepat, dan tidak pernah kehabisan napas karena *re-render* klien yang boros.
+
+---
+
+## 🦅 Rincian Pertarungan (Pembaruan & Perbaikan Bug)
+
+Kami tidak hanya bertarung di matras, kami juga menghancurkan (*smesh*) bug-bug memalukan yang merusak disiplin antarmuka SIAS:
+
+1. **Sidebar Navigation Triangle Choke (Fix Bug Highlight)**:
+   * Sebelumnya, menu Dashboard selalu menyala (*highlighted*) meskipun kita sedang membuka menu lain. Sangat tidak disiplin! Sekarang navigasi sudah dikunci ketat; menu hanya menyala saat benar-benar aktif di rutenya.
+2. **Dark Mode Smesh (Fix Bug Kontras)**:
+   * Kontras layar gelap yang sebelumnya buram kini dibuat tajam bak tatapan Khabib sebelum bel berbunyi. Tidak ada lagi elemen kontras abu-abu yang membuat mata penantang kelelahan.
+3. **Pemberantasan AI-Slop (Refaktor Tipografi & Layout Premium)**:
+   * Menghapus tulisan berhuruf kapital massal (`uppercase tracking-wider`) di tabel master. Struktur visual diganti dengan tipografi rapi, bersih, dan mematikan khas Stitch. Kartu SPP dengan warna merah mencolok yang mengganggu konsentrasi juga telah dijinakkan.
+4. **Fungsionalitas Kuncian Penuh (Interactive Dummy Modals)**:
+   * Semua tombol statis yang pengecut kini dipaksa menyerah dan merespons. Tombol *Tambah Siswa*, *Filter Lanjutan*, *Ekspor PDF/Excel*, *Ganti Password (dengan Toggle Show/Hide)*, dan *Kirim Tiket Bantuan* kini mengeluarkan respons/dialog nyata ketika Anda menekannya.
+5. **Debounced Search & Notification Popover**:
+   * Search Bar di navbar atas dibekali pelindung *debounce* agar tidak memberatkan server saat diserang pencarian cepat. Notifikasi popover gaya Facebook sudah aktif untuk mengirim update penting bagi seluruh aktor sistem.
 
 ---
 
@@ -49,7 +59,7 @@ npm run dev
 ```
 
 ### Seeding Database Uji Coba:
-Untuk mengisi database lokal dengan akun-akun pengujian terbaru (termasuk peran Wali Murid):
+Untuk mengisi database SQLite lokal dengan akun-akun pengujian terbaru (termasuk peran Wali Murid):
 ```bash
 powershell -ExecutionPolicy Bypass -Command "npx tsx prisma/seed.ts"
 ```
