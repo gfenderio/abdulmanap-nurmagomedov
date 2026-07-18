@@ -68,7 +68,7 @@ export function RevenueAreaChart() {
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
             }}
             itemStyle={{ color: 'hsl(var(--on-surface))', fontWeight: 'bold' }}
-            formatter={(value: number) => [`Rp ${value.toLocaleString('id-ID')}`, 'Pemasukan']}
+            formatter={(value: any) => [`Rp ${Number(value).toLocaleString('id-ID')}`, 'Pemasukan']}
           />
           <Area 
             type="monotone" 
