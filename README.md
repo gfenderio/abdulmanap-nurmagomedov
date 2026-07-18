@@ -50,6 +50,10 @@ Kami tidak hanya bertarung di matras, kami juga menghancurkan (*smesh*) bug-bug 
    * Menghancurkan visual dashboard yang longgar dengan padding kokoh (`p-4 md:p-8`) dan memasang dua kuncian grafik `Recharts`: *Area Chart* untuk tren pemasukan SPP bulanan, dan *Donut Chart* untuk persentase kehadiran siswa harian.
 8. **Format Siap Tempur: Print-Ready Report Template**:
    * Laporan Keuangan Bulanan siap cetak (*A4 Print-Ready*) yang bersih, rapi, dan menyingkirkan elemen tombol navigasi ketika dicetak (*print media stylesheet*). Siap disodorkan ke Kepala Madrasah tanpa banyak omong.
+9. **Kuncian RBAC Lintas Divisi (Role-Based Access Control Isolation)**:
+   * Data sekolah dikunci ketat. Guru tidak bisa lagi mengintip tagihan SPP global atau memanipulasi profil siswa secara acak (akses dibatasi hanya jadwal mengajar dan menu penilaian). Wali murid diisolasi total agar hanya bisa melihat satu anak (Profil Anak khusus, Rapor khusus, dan Tagihan SPP ananda sendiri). *Zero data leak plan!*
+10. **Modul Penilaian & Kalender Akademik (Grades & Academic Calendar)**:
+    * Meluncurkan matras penilaian baru agar Guru bisa memasukkan nilai tugas/ujian, sementara Wali Murid bisa memantau rapor perkembangan anak secara real-time. Dilengkapi pula dengan Kalender Akademik untuk memetakan tanggal penting dan hari libur agar disiplin madrasah tetap terjaga.
 
 ---
 
