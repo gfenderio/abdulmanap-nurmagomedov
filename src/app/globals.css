@@ -1,5 +1,5 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,7 +93,7 @@
   }
 }
 
-/* ─── Stitch Design Token Dark-Mode Overrides ────────────────────────── */
+/* --- Stitch Design Token Dark-Mode Overrides -------------------------- */
 /* These semantic tokens are hardcoded in tailwind.config.ts for light mode.
    We override them via CSS custom properties so dark: variant works globally. */
 :root {

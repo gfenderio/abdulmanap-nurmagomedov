@@ -93,7 +93,7 @@ export default function LoginPage() {
                 name="identifier"
                 type="text"
                 placeholder="admin@sekolah.id atau 0012345678"
-                className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm transition-colors placeholder:text-neutral-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand shadow-sm"
+                className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 transition-colors placeholder:text-neutral-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand shadow-sm"
                 required
               />
             </div>
@@ -108,7 +108,7 @@ export default function LoginPage() {
                 name="password"
                 type="password"
                 placeholder="••••••••"
-                className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm transition-colors placeholder:text-neutral-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand shadow-sm"
+                className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 transition-colors placeholder:text-neutral-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand shadow-sm"
                 required
               />
             </div>
