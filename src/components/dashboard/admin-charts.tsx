@@ -46,28 +46,28 @@ export function RevenueAreaChart() {
               <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--outline-variant) / 0.5)" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#bec8cd" opacity={0.5} />
           <XAxis 
             dataKey="name" 
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 12, fill: 'hsl(var(--on-surface-variant))' }}
+            tick={{ fontSize: 12, fill: '#3f484d' }}
             dy={10}
           />
           <YAxis 
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 12, fill: 'hsl(var(--on-surface-variant))' }}
+            tick={{ fontSize: 12, fill: '#3f484d' }}
             tickFormatter={(value) => `Rp${(value / 1000000)}M`}
           />
           <Tooltip
             contentStyle={{ 
-              backgroundColor: 'hsl(var(--surface-container-lowest))',
+              backgroundColor: '#ffffff',
               borderRadius: '12px',
-              border: '1px solid hsl(var(--outline-variant))',
+              border: '1px solid #bec8cd',
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
             }}
-            itemStyle={{ color: 'hsl(var(--on-surface))', fontWeight: 'bold' }}
+            itemStyle={{ color: '#181c1e', fontWeight: 'bold' }}
             formatter={(value: any) => [`Rp ${Number(value).toLocaleString('id-ID')}`, 'Pemasukan']}
           />
           <Area 
@@ -109,12 +109,12 @@ export function AttendanceDonutChart() {
           </Pie>
           <Tooltip 
              contentStyle={{ 
-              backgroundColor: 'hsl(var(--surface-container-lowest))',
+              backgroundColor: '#ffffff',
               borderRadius: '12px',
-              border: '1px solid hsl(var(--outline-variant))',
+              border: '1px solid #bec8cd',
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
             }}
-            itemStyle={{ color: 'hsl(var(--on-surface))', fontWeight: 'bold' }}
+            itemStyle={{ color: '#181c1e', fontWeight: 'bold' }}
           />
           <Legend 
             verticalAlign="bottom" 

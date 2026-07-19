@@ -157,17 +157,7 @@ export function TopNavbar({
 
       {/* Right Actions */}
       <div className="flex items-center gap-1.5">
-        {mounted && (
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-full"
-          >
-            <span className="sr-only">Ganti Tema</span>
-            <span className="material-symbols-outlined text-[22px]">
-              {theme === "dark" ? "light_mode" : "dark_mode"}
-            </span>
-          </button>
-        )}
+
         
         {/* Notification Bell with Popover */}
         <div className="relative" ref={notifRef}>
