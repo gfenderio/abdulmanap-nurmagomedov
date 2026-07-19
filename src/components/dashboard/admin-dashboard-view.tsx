@@ -52,17 +52,17 @@ export function AdminDashboardView() {
           onClick={() => setActiveTab('attendance')}
           className={`text-left rounded-2xl p-5 shadow-sm border flex flex-col justify-between transition-colors ${
             activeTab === 'attendance' 
-            ? 'bg-secondary/10 border-secondary' 
-            : 'bg-surface-container-lowest border-outline-variant hover:border-secondary/50'
+            ? 'bg-emerald-600/10 border-emerald-600' 
+            : 'bg-surface-container-lowest border-outline-variant hover:border-emerald-600/50'
           }`}
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Kehadiran Hari Ini</span>
-            <span className="material-symbols-outlined text-secondary text-[20px]">how_to_reg</span>
+            <span className="material-symbols-outlined text-emerald-600 text-[20px]">how_to_reg</span>
           </div>
           <div>
             <div className="text-headline-md font-black text-on-surface">92.6%</div>
-            <p className="text-label-sm text-secondary font-medium mt-1">780 siswa hadir</p>
+            <p className="text-label-sm text-emerald-600 font-medium mt-1">780 siswa hadir</p>
           </div>
         </button>
 

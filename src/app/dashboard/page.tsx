@@ -51,14 +51,14 @@ export default async function Dashboard() {
             </div>
           </div>
           
-          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-secondary/50 transition-colors">
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-emerald-600/50 transition-colors">
             <div className="flex items-center justify-between mb-3">
               <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Siswa Absen</span>
-              <span className="material-symbols-outlined text-secondary text-[20px]">person_off</span>
+              <span className="material-symbols-outlined text-emerald-600 text-[20px]">person_off</span>
             </div>
             <div>
               <div className="text-headline-md font-black text-on-surface">2</div>
-              <p className="text-label-sm text-secondary font-medium mt-1">Kelas 6A (Wali Kelas)</p>
+              <p className="text-label-sm text-emerald-600 font-medium mt-1">Kelas 6A (Wali Kelas)</p>
             </div>
           </div>
         </div>
@@ -172,14 +172,14 @@ export default async function Dashboard() {
           </div>
         </div>
         
-        <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-secondary/50 transition-colors">
+        <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-emerald-600/50 transition-colors">
           <div className="flex items-center justify-between mb-3">
             <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Kehadiran (Bulan Ini)</span>
-            <span className="material-symbols-outlined text-secondary text-[20px]">fact_check</span>
+            <span className="material-symbols-outlined text-emerald-600 text-[20px]">fact_check</span>
           </div>
           <div>
             <div className="text-headline-md font-black text-on-surface">98%</div>
-            <p className="text-label-sm text-secondary font-medium mt-1">Sangat Baik (0 Alpa)</p>
+            <p className="text-label-sm text-emerald-600 font-medium mt-1">Sangat Baik (0 Alpa)</p>
           </div>
         </div>
       </div>
