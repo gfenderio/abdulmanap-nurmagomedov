@@ -1,8 +1,8 @@
 # SIAS (Codename: Abdulmanap Nurmagomedov)
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github)](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions)
-[![Last Commit](https://img.shields.io/badge/last%20commit-today-blue?style=for-the-badge&logo=git)](https://github.com/gfenderio/abdulmanap-nurmagomedov/commits/main)
-[![Repo Size](https://img.shields.io/badge/repo%20size-1.2%20MB-blue?style=for-the-badge)](https://github.com/gfenderio/abdulmanap-nurmagomedov)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/gfenderio/abdulmanap-nurmagomedov/ci.yml?branch=main&style=for-the-badge&logo=github)](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions)
+[![Last Commit](https://img.shields.io/github/last-commit/gfenderio/abdulmanap-nurmagomedov?style=for-the-badge&logo=git)](https://github.com/gfenderio/abdulmanap-nurmagomedov/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/gfenderio/abdulmanap-nurmagomedov?style=for-the-badge)](https://github.com/gfenderio/abdulmanap-nurmagomedov)
 
 <br/>
 
