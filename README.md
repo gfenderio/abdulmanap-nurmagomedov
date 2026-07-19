@@ -2,7 +2,6 @@
 
 [![Build Status](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions/workflows/ci.yml/badge.svg)](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions)
 [![Last Commit](https://flat.badgen.net/github/last-commit/gfenderio/abdulmanap-nurmagomedov?icon=github)](https://github.com/gfenderio/abdulmanap-nurmagomedov/commits/main)
-[![Repo Size](https://img.shields.io/badge/repo%20size-1.2%20MB-blue?style=for-the-badge)](https://github.com/gfenderio/abdulmanap-nurmagomedov)
 
 <br/>
 
