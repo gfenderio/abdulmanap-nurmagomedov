@@ -235,21 +235,7 @@ export default function SettingsPage() {
             </p>
           </div>
           
-          {/* Info Widget */}
-          <div className="bg-brand-light rounded-2xl border border-primary-container/30 p-6">
-            <div className="flex items-start gap-4">
-              <div className="p-2 bg-white rounded-lg shadow-sm text-primary">
-                <span className="material-symbols-outlined">info</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-on-surface mb-1 text-sm">Pembaruan Sistem</h4>
-                <p className="text-sm text-on-surface-variant mb-3">Sistem berada pada versi terbaru (v2.4.1). Data tersinkronisasi otomatis dengan server pusat.</p>
-                <button className="text-sm font-semibold text-primary hover:underline flex items-center gap-1">
-                  Lihat Catatan Rilis <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </button>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
