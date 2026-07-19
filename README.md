@@ -30,34 +30,7 @@ Repositori ini dinamakan **Abdulmanap Nurmagomedov** karena arsitektur kodenya d
 
 ---
 
-## 🦅 Rincian Pertarungan (Pembaruan & Perbaikan Bug)
 
-Kami tidak hanya bertarung di matras, kami juga menghancurkan (*smesh*) bug-bug memalukan yang merusak disiplin antarmuka SIAS:
-
-1. **Sidebar Navigation Triangle Choke (Fix Bug Highlight)**:
-   * Sebelumnya, menu Dashboard selalu menyala (*highlighted*) meskipun kita sedang membuka menu lain. Sangat tidak disiplin! Sekarang navigasi sudah dikunci ketat; menu hanya menyala saat benar-benar aktif di rutenya.
-2. **Dark Mode Smesh (Fix Bug Kontras)**:
-   * Kontras layar gelap yang sebelumnya buram kini dibuat tajam bak tatapan Khabib sebelum bel berbunyi. Tidak ada lagi elemen kontras abu-abu yang membuat mata penantang kelelahan.
-3. **Pemberantasan AI-Slop (Refaktor Tipografi & Layout Premium)**:
-   * Menghapus tulisan berhuruf kapital massal (`uppercase tracking-wider`) di tabel master. Struktur visual diganti dengan tipografi rapi, bersih, dan mematikan khas Stitch. Kartu SPP dengan warna merah mencolok yang mengganggu konsentrasi juga telah dijinakkan.
-4. **Fungsionalitas Kuncian Penuh (Interactive Dummy Modals)**:
-   * Semua tombol statis yang pengecut kini dipaksa menyerah dan merespons. Tombol *Tambah Siswa*, *Filter Lanjutan*, *Ekspor PDF/Excel*, *Ganti Password (dengan Toggle Show/Hide)*, dan *Kirim Tiket Bantuan* kini mengeluarkan respons/dialog nyata ketika Anda menekannya.
-5. **Debounced Search & Notification Popover**:
-   * Search Bar di navbar atas dibekali pelindung *debounce* agar tidak memberatkan server saat diserang pencarian cepat. Notifikasi popover gaya Facebook sudah aktif untuk mengirim update penting bagi seluruh aktor sistem.
-6. **Divisi Baru: Ruang Kelas (Data Kelas Setup)**:
-   * Grappling area baru bagi Admin untuk mengunci data nama kelas, ruangan, kapasitas maksimal, dan wali kelas secara presisi melalui form modal yang solid.
-7. **Visual Smesh: Dashboard Recharts Integration**:
-   * Menghancurkan visual dashboard yang longgar dengan padding kokoh (`p-4 md:p-8`) dan memasang dua kuncian grafik `Recharts`: *Area Chart* untuk tren pemasukan SPP bulanan, dan *Donut Chart* untuk persentase kehadiran siswa harian.
-8. **Format Siap Tempur: Print-Ready Report Template**:
-   * Laporan Keuangan Bulanan siap cetak (*A4 Print-Ready*) yang bersih, rapi, dan menyingkirkan elemen tombol navigasi ketika dicetak (*print media stylesheet*). Siap disodorkan ke Kepala Madrasah tanpa banyak omong.
-9. **Kuncian RBAC Lintas Divisi (Role-Based Access Control Isolation)**:
-   * Data sekolah dikunci ketat. Guru tidak bisa lagi mengintip tagihan SPP global atau memanipulasi profil siswa secara acak (akses dibatasi hanya jadwal mengajar dan menu penilaian). Wali murid diisolasi total agar hanya bisa melihat satu anak (Profil Anak khusus, Rapor khusus, dan Tagihan SPP ananda sendiri). *Zero data leak plan!*
-10. **Modul Penilaian & Kalender Akademik (Grades & Academic Calendar)**:
-    * Meluncurkan matras penilaian baru agar Guru bisa memasukkan nilai tugas/ujian, sementara Wali Murid bisa memantau rapor perkembangan anak secara real-time. Dilengkapi pula dengan Kalender Akademik untuk memetakan tanggal penting dan hari libur agar disiplin madrasah tetap terjaga.
-11. **Gulat Profil Pengguna Aktif (Interactive Profile Dropdown)**:
-    * Mengubah bundaran foto profil statik di navbar menjadi kuncian menu dropdown interaktif gaya Facebook. Halaman profil sekarang dihubungkan langsung ke database SQLite (Prisma), memungkinkan unggah foto profil asli (base64 string) dan pembaruan password secara langsung serta instant update pada navbar menggunakan `router.refresh()`. Tidak ada lagi pajangan kelap-kelip tanpa fungsi!
-
----
 
 ## 🛠️ "Send Me Location" (Cara Setup)
 
@@ -88,10 +61,6 @@ Detail kredensial untuk pengujian tingkat peran dapat diakses pada file terpisah
 
 ---
 
-## 🦅 Spesifikasi Teknis (SIAS)
-
-* **UI/UX:** *Anti-slop frontend framework* (Tailwind + Shadcn + Taste Skill). Visualnya tajam bak pukulan *uppercut*.
-* **Database:** SQLite/PostgreSQL via Prisma. Mampu mencengkram erat relasi data nilai, siswa, dan guru layaknya *triangle choke* sempurna.
-* **RBAC (Role-Based Access Control):** Admin, Guru, Wali Murid, dan Siswa memiliki wewenang yang diatur tanpa celah.
-
 *Alhamdulillah, we built this app. I know you guys don't like boilerplate, but tomorrow we're gonna smesh the deployment.* 🦅
+
+> *"Send them 2-3 years to Dagestan mountains, forget about everything, just code."*
