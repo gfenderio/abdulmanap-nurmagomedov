@@ -60,37 +60,27 @@ export default function SettingsPage() {
                 </div>
                 <div className="p-6 space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Nama Madrasah</label>
-                      <input className="w-full px-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="text" defaultValue="MI Sirojul Falah" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Nama Madrasah</label>
+                      <p className="text-body-lg font-medium text-on-surface">MI Sirojul Falah</p>
                     </div>
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">NSM (Nomor Statistik Madrasah)</label>
-                      <input className="w-full px-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="text" defaultValue="111232010045" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">NSM</label>
+                      <p className="text-body-lg font-medium text-on-surface">111232010045</p>
                     </div>
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">NPSN</label>
-                      <input className="w-full px-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="text" defaultValue="60728344" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">NPSN</label>
+                      <p className="text-body-lg font-medium text-on-surface">60728344</p>
                     </div>
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Status Akreditasi</label>
-                      <select className="w-full px-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md appearance-none" defaultValue="A">
-                        <option value="A">A (Sangat Baik)</option>
-                        <option value="B">B (Baik)</option>
-                        <option value="C">C (Cukup)</option>
-                      </select>
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Status Akreditasi</label>
+                      <p className="text-body-lg font-medium text-on-surface">A (Sangat Baik)</p>
                     </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Alamat Lengkap</label>
-                      <textarea className="w-full px-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md resize-none" rows={3} defaultValue="Jl. Cicadas Gn. Putri Bogor, Jawa Barat" />
+                    <div className="md:col-span-2 space-y-1 pt-2 border-t border-outline-variant/30">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Alamat Lengkap</label>
+                      <p className="text-body-lg font-medium text-on-surface">Jl. Cicadas Gn. Putri Bogor, Jawa Barat</p>
                     </div>
                   </div>
-                </div>
-                <div className="px-6 py-4 bg-surface-bright/50 border-t border-outline-variant flex justify-end">
-                  <button className="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-semibold hover:bg-brand-hover transition-colors shadow-sm flex items-center gap-2 text-sm">
-                    <span className="material-symbols-outlined text-sm">save</span>
-                    Simpan Perubahan
-                  </button>
                 </div>
               </div>
 
@@ -104,31 +94,25 @@ export default function SettingsPage() {
                 </div>
                 <div className="p-6 space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Email Resmi</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="material-symbols-outlined text-outline">mail</span>
-                        </div>
-                        <input className="w-full pl-10 pr-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="email" defaultValue="info@misirojulfalah.sch.id" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Email Resmi</label>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-outline text-[18px]">mail</span>
+                        <p className="text-body-lg font-medium text-on-surface">info@misirojulfalah.sch.id</p>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Nomor Telepon</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="material-symbols-outlined text-outline">call</span>
-                        </div>
-                        <input className="w-full pl-10 pr-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="tel" defaultValue="(021) 867xxxx" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Nomor Telepon</label>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-outline text-[18px]">call</span>
+                        <p className="text-body-lg font-medium text-on-surface">(021) 867xxxx</p>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="block text-label-md font-semibold text-on-surface-variant">Website</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="material-symbols-outlined text-outline">language</span>
-                        </div>
-                        <input className="w-full pl-10 pr-4 py-2.5 border border-outline-variant rounded-xl bg-surface-bright focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-body-md" type="url" defaultValue="https://misirojulfalah.sch.id" />
+                    <div className="space-y-1">
+                      <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Website</label>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-outline text-[18px]">language</span>
+                        <p className="text-body-lg font-medium text-on-surface">https://misirojulfalah.sch.id</p>
                       </div>
                     </div>
                   </div>
