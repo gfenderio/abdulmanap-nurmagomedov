@@ -17,6 +17,15 @@ export default function GradesClient({ role }: { role?: string }) {
   const [selectedType, setSelectedType] = useState("Ulangan Harian 1");
   const [inputScore, setInputScore] = useState("80");
 
+  // Assignment states
+  const [isAssignmentModalOpen, setIsAssignmentModalOpen] = useState(false);
+  const [assignmentsList, setAssignmentsList] = useState([
+    { id: 1, title: "Tugas Matematika Bab 3", desc: "Kelas 6A | Tenggat: 30 Jul 2024", count: "25/30 Terkumpul", status: "active" },
+    { id: 2, title: "Makalah Sejarah Kemerdekaan", desc: "Kelas 6A | Tenggat: 02 Agu 2024", count: "0/30 Terkumpul", status: "new" }
+  ]);
+  const [newAssignmentTitle, setNewAssignmentTitle] = useState("");
+  const [newAssignmentDate, setNewAssignmentDate] = useState("");
+
   return (
     <div className="flex-1 p-4 md:p-8 overflow-y-auto bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out relative">
       
@@ -108,7 +117,18 @@ export default function GradesClient({ role }: { role?: string }) {
                 Batal
               </button>
               {ocrStep === 2 && (
-                <button onClick={() => { alert("Data divalidasi dan berhasil disimpan!"); setIsOcrModalOpen(false); setOcrStep(1); }} className="px-4 py-2 rounded-xl bg-primary text-on-primary text-body-md font-bold hover:bg-brand-hover transition-colors shadow-sm">
+                <button 
+                  onClick={() => {
+                    const newGrades = [
+                      { id: gradesList.length + 1, student: "Ahmad Fauzi", nisn: "0012345678", class: "6A", subject: "Matematika", type: "Tugas", score: 85, status: "Tuntas" },
+                      { id: gradesList.length + 2, student: "Budi Santoso", nisn: "0012345680", class: "6B", subject: "Matematika", type: "Tugas", score: 75, status: "Tuntas" }
+                    ];
+                    setGradesList([...gradesList, ...newGrades]);
+                    setIsOcrModalOpen(false); 
+                    setOcrStep(1); 
+                  }} 
+                  className="px-4 py-2 rounded-xl bg-primary text-on-primary text-body-md font-bold hover:bg-brand-hover transition-colors shadow-sm"
+                >
                   Konfirmasi & Simpan
                 </button>
               )}
@@ -206,6 +226,64 @@ export default function GradesClient({ role }: { role?: string }) {
         </div>
       )}
 
+      {/* ADD ASSIGNMENT MODAL */}
+      {isAssignmentModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/40 backdrop-blur-sm animate-in fade-in duration-200 p-4">
+          <div className="bg-surface-bright rounded-2xl border border-outline-variant shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+              <h3 className="font-headline font-bold text-title-lg text-on-surface">Buat Tugas Baru</h3>
+              <button onClick={() => setIsAssignmentModalOpen(false)} className="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+                <span className="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Judul Tugas</label>
+                <input 
+                  type="text" 
+                  value={newAssignmentTitle} 
+                  onChange={(e) => setNewAssignmentTitle(e.target.value)}
+                  placeholder="Contoh: Makalah IPA"
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface" 
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-label-md font-bold text-on-surface-variant">Tenggat Waktu</label>
+                <input 
+                  type="date" 
+                  value={newAssignmentDate} 
+                  onChange={(e) => setNewAssignmentDate(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-colors text-body-md text-on-surface" 
+                />
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+              <button onClick={() => setIsAssignmentModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                Batal
+              </button>
+              <button 
+                onClick={() => {
+                  if(!newAssignmentTitle) return;
+                  const newEntry = {
+                    id: assignmentsList.length + 1,
+                    title: newAssignmentTitle,
+                    desc: `Kelas 6A | Tenggat: ${newAssignmentDate || 'Belum diatur'}`,
+                    count: "0/30 Terkumpul",
+                    status: "new"
+                  };
+                  setAssignmentsList([newEntry, ...assignmentsList]);
+                  setIsAssignmentModalOpen(false);
+                  setNewAssignmentTitle("");
+                }} 
+                className="px-4 py-2 rounded-xl bg-primary text-on-primary text-body-md font-bold hover:bg-brand-hover transition-colors shadow-sm"
+              >
+                Buat Tugas
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-6 gap-4">
         <div>
           <h2 className="text-display-lg font-headline text-on-surface tracking-tight">Penilaian & Tugas</h2>
@@ -290,25 +368,25 @@ export default function GradesClient({ role }: { role?: string }) {
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col p-6 animate-in fade-in duration-300">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-title-lg font-semibold text-on-surface">Manajemen Penugasan Siswa</h3>
-            <button className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
+            <button 
+              onClick={() => setIsAssignmentModalOpen(true)}
+              className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover"
+            >
               <Plus className="w-5 h-5" /> Buat Tugas
             </button>
           </div>
           <div className="space-y-4">
-            <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
-              <div>
-                <h4 className="font-bold text-body-lg text-primary">Tugas Matematika Bab 3</h4>
-                <p className="text-label-sm text-on-surface-variant mt-1">Kelas 6A | Tenggat: 30 Jul 2024</p>
+            {assignmentsList.map(assignment => (
+              <div key={assignment.id} className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
+                <div>
+                  <h4 className="font-bold text-body-lg text-primary">{assignment.title}</h4>
+                  <p className="text-label-sm text-on-surface-variant mt-1">{assignment.desc}</p>
+                </div>
+                <span className={`px-3 py-1 font-bold text-label-sm rounded-full ${assignment.status === 'active' ? 'bg-secondary-container text-secondary' : 'bg-surface-variant text-on-surface-variant'}`}>
+                  {assignment.count}
+                </span>
               </div>
-              <span className="px-3 py-1 bg-secondary-container text-secondary font-bold text-label-sm rounded-full">25/30 Terkumpul</span>
-            </div>
-            <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
-              <div>
-                <h4 className="font-bold text-body-lg text-primary">Makalah Sejarah Kemerdekaan</h4>
-                <p className="text-label-sm text-on-surface-variant mt-1">Kelas 6A | Tenggat: 02 Agu 2024</p>
-              </div>
-              <span className="px-3 py-1 bg-surface-variant text-on-surface-variant font-bold text-label-sm rounded-full">0/30 Terkumpul</span>
-            </div>
+            ))}
           </div>
         </div>
       )}

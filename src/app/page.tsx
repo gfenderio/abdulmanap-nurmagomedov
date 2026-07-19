@@ -1,17 +1,34 @@
 "use client";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X } from "lucide-react";
+import Script from "next/script";
+import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Building2, MonitorPlay, Award, BookMarked } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const MOCK_NAV_LINKS = [
+  { label: "Profil", href: "#profil" },
+  { label: "Fasilitas", href: "#fasilitas" },
+  { label: "Aktivitas", href: "#aktivitas" },
+  { label: "PPDB", href: "#ppdb" },
+];
+
+const MOCK_STATS = [
+  { id: 1, title: "Berdiri Sejak", value: "2003", icon: Building2 },
+  { id: 2, title: "Guru MI Sirojul Falah", value: "40 Guru", icon: MonitorPlay },
+  { id: 3, title: "Akreditasi", value: "Terakreditasi A", icon: Award },
+  { id: 4, title: "Siswa/i MI Sirojul Falah", value: "500 Siswa/i", icon: Users },
+  { id: 5, title: "Program Unggulan", value: "Tahfidz Al-Quran", icon: BookMarked },
+  { id: 6, title: "Alumni MI Sirojul Falah", value: "900 Alumni", icon: GraduationCap },
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
   const container = useRef<HTMLDivElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   useGSAP(() => {
     // Hero Animations
     gsap.fromTo(
@@ -70,24 +87,25 @@ export default function LandingPage() {
             <img src="/logo.png" alt="Logo MI Sirojul Falah" className="w-10 h-10 object-contain" />
             <span className="font-bold text-xl tracking-tight text-neutral-900">MI Sirojul Falah</span>
           </div>
-          
+
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-600">
-            <Link href="#profil" className="hover:text-brand transition-colors">Profil</Link>
-            <Link href="#fasilitas" className="hover:text-brand transition-colors">Fasilitas</Link>
-            <Link href="#aktivitas" className="hover:text-brand transition-colors">Aktivitas</Link>
-            <Link href="#ppdb" className="hover:text-brand transition-colors">PPDB</Link>
+            {MOCK_NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-brand transition-colors">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          
+
           <div className="hidden md:block">
-            <Link 
-              href="/login" 
+            <Link
+              href="/login"
               className="px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-bold hover:bg-brand-hover transition-colors shadow-md"
             >
               Masuk Portal
             </Link>
           </div>
 
-          <button 
+          <button
             className="md:hidden p-2 text-neutral-600"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -98,10 +116,16 @@ export default function LandingPage() {
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-100 shadow-lg py-4 px-6 flex flex-col gap-4">
-            <Link href="#profil" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Profil</Link>
-            <Link href="#fasilitas" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Fasilitas</Link>
-            <Link href="#aktivitas" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Aktivitas</Link>
-            <Link href="#ppdb" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">PPDB</Link>
+            {MOCK_NAV_LINKS.map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                onClick={() => setIsMobileMenuOpen(false)} 
+                className="font-semibold text-neutral-600 hover:text-brand"
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link href="/login" className="w-full text-center py-3 mt-2 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover shadow-md">
               Masuk Portal
             </Link>
@@ -124,27 +148,27 @@ export default function LandingPage() {
               Mengintegrasikan adab keislaman, kurikulum nasional, dan teknologi untuk mencetak generasi unggul yang beriman dan berprestasi.
             </p>
             <div className="hero-text flex flex-col sm:flex-row items-center gap-4 pt-2">
-              <Link 
-                href="#ppdb" 
+              <Link
+                href="#ppdb"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-brand-hover hover:shadow-lg transition-all duration-300"
               >
                 Daftar Sekarang
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link 
-                href="#profil" 
+              <Link
+                href="#profil"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-neutral-900 border border-neutral-200 px-8 py-4 rounded-xl text-lg font-bold hover:bg-neutral-50 transition-colors shadow-sm"
               >
                 Pelajari Profil
               </Link>
             </div>
           </div>
-          
+
           <div className="hero-card relative z-10 block w-full mt-8 lg:mt-0">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-200 shadow-2xl relative border-4 md:border-8 border-white">
-              <img 
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop" 
-                alt="Kegiatan Belajar" 
+              <img
+                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop"
+                alt="Kegiatan Belajar"
                 className="w-full h-full object-cover"
               />
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-neutral-100 flex items-center gap-4">
@@ -159,6 +183,33 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
+        {/* Stats Row (Floating overlapping the bottom) */}
+        <div className="max-w-7xl mx-auto mt-20 z-20 relative">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {MOCK_STATS.map((stat) => (
+              <div key={stat.id} className="bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 bg-brand/10 text-brand rounded-xl flex items-center justify-center mb-4">
+                  <stat.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-neutral-900 text-sm">{stat.title}</h3>
+                <p className="text-xs text-neutral-500 font-medium mt-1">{stat.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Instagram Feed (Elfsight) */}
+        <div className="max-w-7xl mx-auto mt-24 relative z-20">
+          <div className="text-center mb-8 reveal-text">
+            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Galeri Kegiatan</h2>
+            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-neutral-900">Instagram MI Sirojul Falah</h3>
+          </div>
+          <div className="w-full bg-white rounded-[2rem] shadow-sm border border-neutral-100 p-4 md:p-8 overflow-hidden min-h-[400px]">
+            <Script src="https://elfsightcdn.com/platform.js" strategy="afterInteractive" />
+            <div className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617"></div>
+          </div>
+        </div>
       </section>
 
       {/* Sambutan & Profil Section */}
@@ -170,7 +221,7 @@ export default function LandingPage() {
               Membangun fondasi karakter, bukan sekadar angka di atas rapor.
             </h3>
           </div>
-          
+
           <div className="reveal-text bg-brand-light/30 rounded-2xl p-8 md:p-12 border border-brand/10 shadow-sm text-left relative overflow-hidden">
             <div className="absolute -top-12 -right-12 text-[12rem] text-brand/5 font-serif leading-none">"</div>
             <p className="text-base md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium">
@@ -198,7 +249,7 @@ export default function LandingPage() {
               Ekosistem Pembelajaran
             </h3>
           </div>
-          
+
           <div className="bento-container grid grid-cols-1 md:grid-cols-3 gap-6 grid-flow-dense">
             {/* Card 1 */}
             <div className="bento-card col-span-1 md:col-span-2 group relative overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm p-8 hover:shadow-md transition-shadow">
@@ -208,7 +259,7 @@ export default function LandingPage() {
               <h3 className="text-2xl font-bold text-neutral-900 mb-3">Perpustakaan Interaktif</h3>
               <p className="text-neutral-600 max-w-md">Koleksi literatur fisik dan digital dalam ruang yang didesain untuk kenyamanan membaca siswa, merangsang literasi sejak dini.</p>
             </div>
-            
+
             {/* Card 2 */}
             <div className="bento-card col-span-1 group relative overflow-hidden rounded-2xl bg-brand text-white shadow-md p-8 hover:bg-brand-hover transition-colors">
               <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-6">
@@ -276,7 +327,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="bg-brand rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-xl">
             <div className="absolute -right-20 -bottom-20 w-[400px] h-[400px] bg-brand-hover rounded-full blur-3xl opacity-50 z-0"></div>
-            
+
             <div className="relative z-10 max-w-xl text-white text-center md:text-left">
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">Pendaftaran Tahun Ajaran 2024/2025</h2>
               <p className="text-brand-light text-base md:text-lg mb-8">Bergabunglah bersama kami. Kuota terbatas. Dapatkan informasi detail mengenai kurikulum, syarat, dan rincian biaya pendaftaran.</p>
@@ -306,7 +357,7 @@ export default function LandingPage() {
                 Membentuk generasi unggul yang berprestasi dalam ilmu pengetahuan dan teguh dalam iman & takwa.
               </p>
             </div>
-            
+
             <div className="space-y-6">
               <h4 className="font-bold tracking-wide uppercase text-sm text-neutral-300">Hubungi Kami</h4>
               <div className="space-y-3 text-sm">
@@ -334,7 +385,7 @@ export default function LandingPage() {
               </ul>
             </div>
           </div>
-          
+
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-neutral-500">
             <p>&copy; {new Date().getFullYear()} MI Sirojul Falah. Hak cipta dilindungi.</p>
             <div className="flex items-center gap-6">
