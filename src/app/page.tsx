@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Building2, MonitorPlay, Award, BookMarked } from "lucide-react";
@@ -28,6 +28,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function LandingPage() {
   const container = useRef<HTMLDivElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [igPosts, setIgPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/instagram')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setIgPosts(data.slice(0, 6));
+        }
+      })
+      .catch(err => console.error('Error fetching Instagram posts:', err));
+  }, []);
 
   useGSAP(() => {
     // Hero Animations
@@ -198,18 +210,6 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-
-        {/* Instagram Feed (Elfsight) */}
-        <div className="max-w-7xl mx-auto mt-24 relative z-20">
-          <div className="text-center mb-8 reveal-text">
-            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Galeri Kegiatan</h2>
-            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-neutral-900">Instagram MI Sirojul Falah</h3>
-          </div>
-          <div className="w-full bg-white rounded-[2rem] shadow-sm border border-neutral-100 p-4 md:p-8 overflow-hidden min-h-[400px]">
-            <Script src="https://elfsightcdn.com/platform.js" strategy="afterInteractive" />
-            <div className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617"></div>
-          </div>
-        </div>
       </section>
 
       {/* Sambutan & Profil Section */}
@@ -304,11 +304,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="reveal-text">
-            <div className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617" data-elfsight-app-lazy></div>
-          </div>
-
-          <div className="reveal-text text-center mt-10">
+          <div className="reveal-text text-center mt-10 mb-10">
             <a 
               href="https://www.instagram.com/mis_sirojul_falah/" 
               target="_blank" 
@@ -318,6 +314,37 @@ export default function LandingPage() {
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
               Follow @mis_sirojul_falah
             </a>
+          </div>
+
+          <div className="reveal-text">
+            {igPosts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto">
+                {igPosts.map((post) => (
+                  <a 
+                    key={post.id} 
+                    href={post.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative aspect-square overflow-hidden rounded-xl bg-neutral-200 shadow-sm hover:shadow-xl transition-all duration-300"
+                  >
+                    <img 
+                      src={post.sizes?.medium?.mediaUrl || post.thumbnailUrl || post.mediaUrl} 
+                      alt={post.prunedCaption || "Instagram Post"} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center p-4">
+                      <svg className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 scale-50 group-hover:scale-100 transform drop-shadow-md mb-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                      </svg>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center min-h-[300px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-brand/20 border-t-brand"></div>
+              </div>
+            )}
           </div>
         </div>
       </section>
