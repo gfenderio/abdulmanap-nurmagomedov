@@ -72,3 +72,37 @@ export const MOCK_ANNOUNCEMENTS = [
   { id: 1, title: "Rapat Evaluasi PTS", desc: "Hari Jumat, 13:00 WIB di Ruang Guru. Wajib hadir bagi seluruh Wali Kelas.", type: "primary" },
   { id: 2, title: "Batas Input Nilai", desc: "Mohon segera selesaikan penginputan nilai Ulangan Harian sebelum akhir bulan.", type: "secondary" },
 ];
+
+export const MOCK_STUDENT_NOTES = [
+  { id: 1, student: "Ahmad Fauzi", class: "6A", teacher: "Bpk. Budi Santoso", date: "24 Jul 2024", note: "Ahmad suka teriak-teriak \"HIDUP JOKOWI\" saat di kelas, mohon untuk diberitahu agar tidak teriak-teriak ketika sedang berada di kelas.", type: "Perilaku" },
+  { id: 2, student: "Ahmad Fauzi", class: "6A", teacher: "Ibu Siti", date: "20 Jul 2024", note: "Ahmad sangat aktif dalam pelajaran Bahasa Indonesia hari ini dan bisa memimpin diskusi kelompok dengan baik.", type: "Apresiasi" }
+];
+
+export const MOCK_TEACHER_ATTENDANCE = [
+  // Generating a month of attendance for FC26 style grid (July 2024)
+  // status: "present", "absent", "none" (weekend/no schedule)
+  { date: "2024-07-01", status: "present" },
+  { date: "2024-07-02", status: "present" },
+  { date: "2024-07-03", status: "present" },
+  { date: "2024-07-04", status: "absent" },
+  { date: "2024-07-05", status: "present" },
+  { date: "2024-07-06", status: "none" },
+  { date: "2024-07-07", status: "none" },
+  { date: "2024-07-08", status: "present" },
+  { date: "2024-07-09", status: "present" },
+  { date: "2024-07-10", status: "present" },
+  { date: "2024-07-11", status: "present" },
+  { date: "2024-07-12", status: "present" },
+  { date: "2024-07-13", status: "none" },
+  { date: "2024-07-14", status: "none" },
+  { date: "2024-07-15", status: "present" },
+  { date: "2024-07-16", status: "absent" },
+  { date: "2024-07-17", status: "present" },
+  { date: "2024-07-18", status: "present" },
+  { date: "2024-07-19", status: "present" },
+  { date: "2024-07-20", status: "none" },
+  { date: "2024-07-21", status: "none" },
+  { date: "2024-07-22", status: "present" },
+  { date: "2024-07-23", status: "present" },
+  { date: "2024-07-24", status: "present" }, // Today
+];

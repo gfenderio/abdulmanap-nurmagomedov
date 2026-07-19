@@ -4,12 +4,14 @@ import { useTheme } from "next-themes"
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { handleSignOut } from "@/actions/auth"
+import { LiveClock } from "./live-clock"
 
 // Dummy data for notifications
 const DUMMY_NOTIFICATIONS = [
-  { id: 1, title: "SPP Bulan Juli telah diterbitkan", time: "10 menit yang lalu", read: false },
-  { id: 2, title: "Jadwal Ujian Akhir Semester Ganjil", time: "2 jam yang lalu", read: false },
-  { id: 3, title: "Laporan Nilai Tengah Semester", time: "1 hari yang lalu", read: true },
+  { id: 1, title: "Catatan Baru: Ananda Ahmad Fauzi - Perilaku (Dari Bpk. Budi Santoso)", time: "Baru saja", read: false, href: "/dashboard#catatan" },
+  { id: 2, title: "SPP Bulan Juli telah diterbitkan", time: "10 menit yang lalu", read: false, href: "/dashboard/billing" },
+  { id: 3, title: "Jadwal Ujian Akhir Semester Ganjil", time: "2 jam yang lalu", read: false, href: "/dashboard/academic" },
+  { id: 4, title: "Laporan Nilai Tengah Semester", time: "1 hari yang lalu", read: true, href: "/dashboard/reports" },
 ]
 
 // Dummy data for search results
@@ -157,8 +159,9 @@ export function TopNavbar({
 
       {/* Right Actions */}
       <div className="flex items-center gap-1.5">
-
         
+        {/* Real-time Clock (Desktop only) */}
+        <LiveClock />
         {/* Notification Bell with Popover */}
         <div className="relative" ref={notifRef}>
           <button 
@@ -189,9 +192,11 @@ export function TopNavbar({
                 {notifications.length > 0 ? (
                   <div className="divide-y divide-outline-variant/30">
                     {notifications.map(notif => (
-                      <div 
+                      <Link 
                         key={notif.id} 
-                        className={`p-4 hover:bg-surface-container-low cursor-pointer transition-colors ${!notif.read ? 'bg-primary-container/10' : ''}`}
+                        href={notif.href}
+                        onClick={() => setShowNotifications(false)}
+                        className={`p-4 block hover:bg-surface-container-low cursor-pointer transition-colors ${!notif.read ? 'bg-primary-container/10' : ''}`}
                       >
                         <div className="flex items-start gap-3">
                           <div className={`p-2 rounded-full shrink-0 ${!notif.read ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-on-surface-variant'}`}>
@@ -209,7 +214,7 @@ export function TopNavbar({
                             <div className="size-2.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
                           )}
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 ) : (

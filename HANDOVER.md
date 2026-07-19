@@ -64,6 +64,14 @@ cd abdulmanap-nurmagomedov
 
 # 2. Instalasi Dependensi
 npm install
+```
+
+### Stack & Dependensi Utama (NPM):
+* **Core Frontend**: `next` (v16.2), `react` (v18), `typescript` (v5)
+* **Database & Auth**: `@prisma/client`, `@prisma/adapter-libsql`, `next-auth` (v5 beta), `bcryptjs`
+* **UI & Styling**: `tailwindcss`, `shadcn`, `@base-ui/react`, `lucide-react`
+* **Form & Validasi**: `react-hook-form`, `zod`
+* **Animasi & Chart**: `gsap`, `@gsap/react`, `recharts`
 
 # 3. Jalankan Server Dev
 npm run dev

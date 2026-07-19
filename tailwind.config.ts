@@ -65,6 +65,11 @@ const config = {
         "on-error":                   "#ffffff",
         "on-error-container":         "var(--stitch-on-error-container)",
 
+        "success":                    "var(--stitch-success)",
+        "success-container":          "var(--stitch-success-container)",
+        "on-success":                 "#ffffff",
+        "on-success-container":       "var(--stitch-on-success-container)",
+
         "inverse-surface":            "var(--stitch-inverse-surface)",
         "inverse-on-surface":         "var(--stitch-inverse-on-surface)",
         "inverse-primary":            "#80d1f1",
