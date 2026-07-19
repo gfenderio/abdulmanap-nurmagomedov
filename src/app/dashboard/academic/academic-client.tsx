@@ -361,8 +361,7 @@ export default function AcademicClient({ role }: { role?: string }) {
       {/* Bento Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8">
         {/* Summary Widget 1 */}
-        <div className="col-span-1 md:col-span-4 bg-surface-container-lowest rounded-2xl p-6 border border-primary-container shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary-container rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+        <div className="col-span-1 md:col-span-4 bg-surface-container-lowest rounded-2xl p-6 border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
           <div className="flex justify-between items-start mb-4">
             <div className="p-3 bg-brand-light rounded-xl text-primary">
               <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>meeting_room</span>
