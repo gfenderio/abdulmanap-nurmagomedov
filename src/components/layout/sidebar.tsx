@@ -48,14 +48,14 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
                 className={cn(
                   "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium transition-all duration-200",
                   isActive
-                    ? "bg-primary text-on-primary shadow-sm"
+                    ? "bg-brand text-white shadow-sm"
                     : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
                 )}
               >
                 <span
                   className={cn(
                     "material-symbols-outlined text-[20px] shrink-0 transition-colors",
-                    isActive ? "text-on-primary" : "text-on-surface-variant group-hover:text-on-surface"
+                    isActive ? "text-white" : "text-on-surface-variant group-hover:text-on-surface"
                   )}
                   style={isActive ? { fontVariationSettings: '"FILL" 1' } : {}}
                   aria-hidden="true"
@@ -76,14 +76,14 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
           className={cn(
             "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium transition-all duration-200",
             pathname === "/dashboard/help" || pathname.startsWith("/dashboard/help/")
-              ? "bg-primary text-on-primary shadow-sm"
+              ? "bg-brand text-white shadow-sm"
               : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
           )}
         >
           <span className={cn(
             "material-symbols-outlined text-[20px] shrink-0",
             pathname === "/dashboard/help" || pathname.startsWith("/dashboard/help/")
-              ? "text-on-primary"
+              ? "text-white"
               : "text-on-surface-variant group-hover:text-on-surface"
           )}>help</span>
           Bantuan
