@@ -1,7 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X } from "lucide-react";
+import Script from "next/script";
+import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Instagram } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -74,6 +75,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-600">
             <Link href="#profil" className="hover:text-brand transition-colors">Profil</Link>
             <Link href="#fasilitas" className="hover:text-brand transition-colors">Fasilitas</Link>
+            <Link href="#aktivitas" className="hover:text-brand transition-colors">Aktivitas</Link>
             <Link href="#ppdb" className="hover:text-brand transition-colors">PPDB</Link>
           </div>
           
@@ -99,6 +101,7 @@ export default function LandingPage() {
           <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-100 shadow-lg py-4 px-6 flex flex-col gap-4">
             <Link href="#profil" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Profil</Link>
             <Link href="#fasilitas" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Fasilitas</Link>
+            <Link href="#aktivitas" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Aktivitas</Link>
             <Link href="#ppdb" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">PPDB</Link>
             <Link href="/login" className="w-full text-center py-3 mt-2 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover shadow-md">
               Masuk Portal
@@ -234,6 +237,38 @@ export default function LandingPage() {
                 <p className="text-neutral-300 text-sm max-w-sm">Fasilitas olahraga dan ekstrakurikuler (pramuka, pencak silat, futsal) untuk melatih motorik dan sportivitas.</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram Feed / Aktivitas Kami */}
+      <section id="aktivitas" className="py-24 px-6 bg-white border-t border-neutral-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="reveal-text text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Aktivitas Kami</h2>
+            <h3 className="text-2xl md:text-5xl font-bold tracking-tight text-neutral-900">
+              Ikuti Kegiatan Terbaru
+            </h3>
+            <p className="mt-4 text-neutral-600 text-base md:text-lg">
+              Pantau langsung keseruan aktivitas madrasah kami melalui Instagram.
+            </p>
+          </div>
+
+          <div className="reveal-text">
+            <div className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617" data-elfsight-app-lazy></div>
+            <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
+          </div>
+
+          <div className="reveal-text text-center mt-10">
+            <a 
+              href="https://www.instagram.com/mis_sirojul_falah/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-bold hover:opacity-90 transition-opacity shadow-md"
+            >
+              <Instagram className="w-5 h-5" />
+              Follow @mis_sirojul_falah
+            </a>
           </div>
         </div>
       </section>
