@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import Script from "next/script";
 import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -256,7 +255,6 @@ export default function LandingPage() {
 
           <div className="reveal-text">
             <div className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617" data-elfsight-app-lazy></div>
-            <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
           </div>
 
           <div className="reveal-text text-center mt-10">
