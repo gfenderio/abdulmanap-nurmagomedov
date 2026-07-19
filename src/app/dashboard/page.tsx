@@ -25,14 +25,14 @@ export default async function Dashboard() {
 
         {/* 1. Stat Cards (Premium Compact Layout) */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
             <div className="flex items-center justify-between mb-3">
               <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Total Siswa</span>
-              <span className="material-symbols-outlined text-primary text-[20px]">group</span>
+              <span className="material-symbols-outlined text-brand text-[20px]">group</span>
             </div>
             <div>
               <div className="text-headline-md font-black text-on-surface">842</div>
-              <p className="text-label-sm text-primary font-medium mt-1">↑ 2.4% vs bulan lalu</p>
+              <p className="text-label-sm text-brand font-medium mt-1">↑ 2.4% vs bulan lalu</p>
             </div>
           </div>
           <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-secondary/50 transition-colors">
@@ -55,14 +55,14 @@ export default async function Dashboard() {
               <p className="text-label-sm text-on-surface-variant font-medium mt-1">100% formasi terisi</p>
             </div>
           </div>
-          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
             <div className="flex items-center justify-between mb-3">
               <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Target SPP</span>
-              <span className="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span>
+              <span className="material-symbols-outlined text-brand text-[20px]">account_balance_wallet</span>
             </div>
             <div>
               <div className="text-headline-md font-black text-on-surface">85%</div>
-              <p className="text-label-sm text-primary font-medium mt-1">Rp 42.5J / 50J</p>
+              <p className="text-label-sm text-brand font-medium mt-1">Rp 42.5J / 50J</p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default async function Dashboard() {
           <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex flex-col">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-title-md font-bold text-on-surface">Tren Pemasukan SPP</h3>
-              <Link href="/dashboard/reports" className="text-label-sm font-bold text-primary hover:underline">Detail Laporan</Link>
+              <Link href="/dashboard/reports" className="text-label-sm font-bold text-brand hover:underline">Detail Laporan</Link>
             </div>
             <p className="text-label-sm text-on-surface-variant">Realisasi pembayaran selama semester berjalan.</p>
             <RevenueAreaChart />
@@ -90,7 +90,7 @@ export default async function Dashboard() {
             <h3 className="text-title-md font-bold text-on-surface mb-4">Akses Cepat</h3>
             <div className="grid grid-cols-2 gap-3">
               <Link href="/dashboard/students" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
-                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">person_add</span>
+                <span className="material-symbols-outlined text-[24px] text-brand group-hover:scale-110 transition-transform">person_add</span>
                 <span className="text-label-sm font-bold">Data Siswa</span>
               </Link>
               <Link href="/dashboard/classes" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
@@ -111,7 +111,7 @@ export default async function Dashboard() {
           <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col">
             <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest rounded-t-2xl">
               <h3 className="text-title-md font-bold text-on-surface">Aktivitas Terbaru</h3>
-              <ClientAlertButton alertMessage="Menampilkan seluruh log aktivitas (dummy)" className="text-label-sm text-primary hover:underline font-bold">Lihat Semua</ClientAlertButton>
+              <ClientAlertButton alertMessage="Menampilkan seluruh log aktivitas (dummy)" className="text-label-sm text-brand hover:underline font-bold">Lihat Semua</ClientAlertButton>
             </div>
             <div className="p-0 flex-1 overflow-y-auto">
               <div className="divide-y divide-outline-variant">
@@ -146,14 +146,14 @@ export default async function Dashboard() {
         
         {/* Stat Cards */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
-          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+          <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
             <div className="flex items-center justify-between mb-3">
               <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Jadwal Mengajar</span>
-              <span className="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
+              <span className="material-symbols-outlined text-brand text-[20px]">calendar_month</span>
             </div>
             <div>
               <div className="text-headline-md font-black text-on-surface">3 Kelas</div>
-              <p className="text-label-sm text-primary font-medium mt-1">Sisa 2 kelas hari ini</p>
+              <p className="text-label-sm text-brand font-medium mt-1">Sisa 2 kelas hari ini</p>
             </div>
           </div>
           
@@ -189,16 +189,16 @@ export default async function Dashboard() {
             </div>
             <div className="p-6 flex-1 overflow-y-auto space-y-4">
               {MOCK_TEACHER_SCHEDULE.map((item) => (
-                <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
-                  <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-primary' : 'text-on-surface-variant'}`}>{item.time}</div>
+                <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-brand/50 bg-brand/5' : 'border-outline-variant bg-surface'}`}>
+                  <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-brand' : 'text-on-surface-variant'}`}>{item.time}</div>
                   <div className="flex-1">
-                    <div className={`font-bold text-body-md ${item.active ? 'text-primary' : 'text-on-surface'}`}>{item.subject}</div>
-                    <div className={`text-label-sm mt-1 ${item.active ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>{item.room}</div>
+                    <div className={`font-bold text-body-md ${item.active ? 'text-brand' : 'text-on-surface'}`}>{item.subject}</div>
+                    <div className={`text-label-sm mt-1 ${item.active ? 'text-white-container' : 'text-on-surface-variant'}`}>{item.room}</div>
                   </div>
                   {item.status !== "-" && (
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
                       item.status === 'Selesai' ? 'bg-surface-container-high text-on-surface-variant' :
-                      item.status === 'Berlangsung' ? 'bg-primary text-on-primary' :
+                      item.status === 'Berlangsung' ? 'bg-brand text-white' :
                       'bg-surface-container text-on-surface-variant'
                     }`}>
                       {item.status}
@@ -235,7 +235,7 @@ export default async function Dashboard() {
                   <h4 className="font-bold text-body-md text-on-surface">Kelas 6A - Al-Farabi</h4>
                   <p className="text-label-sm text-on-surface-variant mt-1">Cek rekap nilai & absensi</p>
                 </div>
-                <Link href="/dashboard/students" className="px-4 py-2 bg-primary text-on-primary hover:bg-brand-hover rounded-xl text-label-sm font-bold transition-colors shadow-sm">
+                <Link href="/dashboard/students" className="px-4 py-2 bg-brand text-white hover:bg-brand-hover rounded-xl text-label-sm font-bold transition-colors shadow-sm">
                   Lihat Rapor
                 </Link>
               </div>
@@ -255,7 +255,7 @@ export default async function Dashboard() {
           <p className="text-on-surface-variant text-base max-w-2xl">Pantau perkembangan akademik dan penyelesaian administrasi Ananda <strong className="text-on-surface">Ahmad Fauzi</strong>.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-title-md shadow-md">
+          <div className="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center font-bold text-title-md shadow-md">
             AF
           </div>
           <div className="flex flex-col">
@@ -267,14 +267,14 @@ export default async function Dashboard() {
 
       {/* Stat Cards (Premium Compact Layout) */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
-        <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-primary/50 transition-colors">
+        <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
           <div className="flex items-center justify-between mb-3">
             <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Rata-rata Nilai</span>
-            <span className="material-symbols-outlined text-primary text-[20px]">school</span>
+            <span className="material-symbols-outlined text-brand text-[20px]">school</span>
           </div>
           <div>
             <div className="text-headline-md font-black text-on-surface">85.4</div>
-            <p className="text-label-sm text-primary font-medium mt-1">↑ +2.1 dari semester lalu</p>
+            <p className="text-label-sm text-brand font-medium mt-1">↑ +2.1 dari semester lalu</p>
           </div>
         </div>
 
@@ -305,7 +305,7 @@ export default async function Dashboard() {
         <div className="col-span-4 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col">
           <div className="p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
             <h3 className="text-title-md font-bold text-on-surface">Tren Nilai (Grafik)</h3>
-            <Link href="/dashboard/academic" className="text-label-sm font-bold text-primary hover:underline">Lihat Rapor</Link>
+            <Link href="/dashboard/academic" className="text-label-sm font-bold text-brand hover:underline">Lihat Rapor</Link>
           </div>
           <div className="p-6 flex-1 min-h-[300px]">
             <GradeChart />
@@ -319,16 +319,16 @@ export default async function Dashboard() {
           </div>
           <div className="p-6 flex-1 overflow-y-auto space-y-4">
             {MOCK_STUDENT_SCHEDULE.map((item) => (
-              <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-primary/50 bg-primary/5' : 'border-outline-variant bg-surface'}`}>
-                <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-primary' : 'text-on-surface-variant'}`}>{item.time}</div>
+              <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-brand/50 bg-brand/5' : 'border-outline-variant bg-surface'}`}>
+                <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-brand' : 'text-on-surface-variant'}`}>{item.time}</div>
                 <div className="flex-1">
-                  <div className={`font-bold text-body-md ${item.active ? 'text-primary' : 'text-on-surface'}`}>{item.subject}</div>
-                  <div className={`text-label-sm mt-1 ${item.active ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>{item.teacher}</div>
+                  <div className={`font-bold text-body-md ${item.active ? 'text-brand' : 'text-on-surface'}`}>{item.subject}</div>
+                  <div className={`text-label-sm mt-1 ${item.active ? 'text-white-container' : 'text-on-surface-variant'}`}>{item.teacher}</div>
                 </div>
                 {item.status !== "-" && (
                   <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
                     item.status === 'Selesai' ? 'bg-surface-container-high text-on-surface-variant' :
-                    item.status === 'Berlangsung' ? 'bg-primary text-on-primary' :
+                    item.status === 'Berlangsung' ? 'bg-brand text-white' :
                     'bg-surface-container text-on-surface-variant'
                   }`}>
                     {item.status}
