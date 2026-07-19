@@ -55,7 +55,7 @@ export function TopNavbar({
     setMounted(true)
     
     // Click outside handler for dropdowns
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSearchDropdown(false)
       }
@@ -68,7 +68,11 @@ export function TopNavbar({
     }
     
     document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    document.addEventListener("touchstart", handleClickOutside, { passive: true })
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleClickOutside)
+    }
   }, [])
 
   // Debounced search simulation
@@ -165,7 +169,8 @@ export function TopNavbar({
         {/* Notification Bell with Popover */}
         <div className="relative" ref={notifRef}>
           <button 
-            onClick={() => setShowNotifications(!showNotifications)}
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setShowNotifications(prev => !prev); setShowProfileMenu(false); setShowSearchDropdown(false); }}
             className="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high rounded-full relative"
           >
             <span className="sr-only">Lihat notifikasi</span>
@@ -238,8 +243,8 @@ export function TopNavbar({
         <div className="relative" ref={profileRef}>
           <button 
             type="button"
-            onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center gap-3 pl-1 hover:opacity-80 transition-opacity outline-none text-left"
+            onClick={(e) => { e.stopPropagation(); setShowProfileMenu(prev => !prev); setShowNotifications(false); setShowSearchDropdown(false); }}
+            className="flex items-center gap-3 pl-1 hover:opacity-80 transition-opacity outline-none text-left cursor-pointer"
           >
             <div className="hidden sm:flex flex-col text-right">
               <span className="text-[13px] font-bold text-on-surface leading-none">

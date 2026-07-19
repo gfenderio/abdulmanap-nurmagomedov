@@ -15,177 +15,180 @@ export default function TemplateClient({ role }: { role?: string }) {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface-container-lowest">
+    <div className="flex flex-col min-h-screen bg-surface-container-low py-8 print:py-0">
+      <style>{`
+        @media print {
+          @page { 
+            size: A4 portrait; 
+            margin: 0; 
+          }
+          body {
+            background: white;
+          }
+        }
+      `}</style>
       {/* Top Action Bar - Hidden during print */}
-      <div className="print:hidden sticky top-0 z-50 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 bg-surface/80 backdrop-blur-md border-b border-outline-variant gap-4">
-        <Link href="/dashboard/reports" className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-bold text-body-md">
-          <ArrowLeft className="w-5 h-5" />
-          Kembali
-        </Link>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-          <button onClick={handlePrint} className="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-low transition-colors shadow-sm">
-            <Printer className="w-5 h-5" />
-            Print Dokumen
-          </button>
-          <button onClick={handleDownload} className="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
-            <Download className="w-5 h-5" />
-            Unduh PDF
-          </button>
-        </div>
+      <div className="print:hidden fixed top-4 right-4 z-50 flex gap-3">
+        <button onClick={handleDownload} className="flex justify-center items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-lg">
+          <Download className="w-5 h-5" />
+          Unduh PDF
+        </button>
+        <button onClick={handlePrint} className="flex justify-center items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-lowest transition-colors shadow-lg">
+          <Printer className="w-5 h-5" />
+          Print
+        </button>
       </div>
 
-      {/* Printable Area - Centered A4-like container */}
-      <div className="flex-1 w-full max-w-[900px] mx-auto p-8 md:p-16 bg-surface-container-lowest print:p-0 print:max-w-none print:shadow-none shadow-xl my-8 print:my-0 rounded-2xl print:rounded-none">
+      {/* Printable Area - Exact A4 Container */}
+      <div className="flex-1 w-[210mm] min-h-[297mm] mx-auto bg-white p-[20mm] print:p-[20mm] print:m-0 shadow-2xl print:shadow-none relative">
         
-        {/* Report Header */}
-        <div className="flex items-center gap-6 border-b-2 border-on-surface pb-6 mb-8">
-          <img src="/logo.png" alt="Logo MI" className="w-20 h-20 object-contain" />
-          <div className="flex flex-col">
-            <h1 className="text-headline-sm font-headline font-black text-on-surface tracking-tight uppercase">Madrasah Ibtidaiyah Sirojul Falah</h1>
-            <p className="text-body-md text-on-surface-variant font-medium">NPSN: 20278912 | Akreditasi: A</p>
-            <p className="text-body-sm text-on-surface-variant">Jl. Pahlawan No. 45, Bogor, Jawa Barat. Telp: (0251) 834567</p>
+        {/* Kop Surat Resmi */}
+        <div className="relative border-b-[3px] border-black pb-4 mb-1">
+          <div className="absolute border-b border-black w-full -bottom-1"></div>
+          <div className="flex items-center justify-center relative">
+            <img src="/logo.png" alt="Logo MI" className="w-24 h-24 object-contain absolute left-0" />
+            <div className="flex flex-col items-center text-center px-28">
+              <h1 className="text-[18px] font-bold text-black uppercase tracking-wide leading-tight">Yayasan Pendidikan Islam Sirojul Falah</h1>
+              <h2 className="text-[24px] font-black text-black uppercase tracking-widest leading-tight">Madrasah Ibtidaiyah Sirojul Falah</h2>
+              <p className="text-[12px] text-black font-medium mt-1">NPSN: 20278912 | Akreditasi: A</p>
+              <p className="text-[12px] text-black">Jl. Pahlawan No. 45, RT 01/RW 03, Empang, Bogor Selatan, Kota Bogor, Jawa Barat</p>
+              <p className="text-[12px] text-black">Telp: (0251) 834567 | Email: info@misirojulfalah.sch.id</p>
+            </div>
           </div>
         </div>
 
         {role !== "ADMIN" ? (
           <>
             {/* Student Report Title */}
-            <div className="text-center mb-10">
-              <h2 className="text-title-lg font-headline font-bold text-on-surface uppercase tracking-wider mb-2">Laporan Hasil Belajar Siswa (Rapor)</h2>
-              <p className="text-body-md text-on-surface-variant">Semester Ganjil | Tahun Ajaran 2024/2025</p>
+            <div className="text-center mb-8 mt-6">
+              <h3 className="text-[16px] font-bold text-black uppercase underline underline-offset-4 mb-1">Laporan Hasil Belajar Siswa (Rapor)</h3>
+              <p className="text-[14px] text-black">Semester Ganjil | Tahun Ajaran 2024/2025</p>
             </div>
 
             {/* Student Meta Data */}
-            <div className="grid grid-cols-2 gap-4 mb-8 bg-surface-container-low p-6 rounded-xl border border-outline-variant print:border-none print:bg-transparent print:p-0">
-              <div className="space-y-1">
-                <p className="text-label-sm text-outline font-bold">Nama Lengkap</p>
-                <p className="text-body-md font-bold text-on-surface">Ahmad Fauzi</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-label-sm text-outline font-bold">Kelas</p>
-                <p className="text-body-md font-bold text-on-surface">6A - Al-Farabi</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-label-sm text-outline font-bold">NISN</p>
-                <p className="text-body-md font-bold text-on-surface">0012345678</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-label-sm text-outline font-bold">Wali Kelas</p>
-                <p className="text-body-md font-bold text-on-surface">Bpk. Budi Santoso, S.Pd</p>
-              </div>
+            <div className="grid grid-cols-12 gap-x-4 gap-y-1 mb-8 text-[14px] text-black">
+              <div className="col-span-3">Nama Siswa</div>
+              <div className="col-span-9 font-bold">: Ahmad Fauzi</div>
+              
+              <div className="col-span-3">NISN / NIS</div>
+              <div className="col-span-9 font-bold">: 0012345678 / 2021001</div>
+              
+              <div className="col-span-3">Kelas</div>
+              <div className="col-span-9 font-bold">: 6A - Al-Farabi</div>
+              
+              <div className="col-span-3">Wali Kelas</div>
+              <div className="col-span-9 font-bold">: Bpk. Budi Santoso, S.Pd</div>
             </div>
 
             {/* Student Report Table */}
-            <div className="mb-12 overflow-x-auto border border-outline-variant rounded-xl print:border-none print:rounded-none">
-              <table className="w-full text-left border-collapse min-w-[600px]">
-                <thead className="bg-surface-container-low print:bg-transparent">
+            <div className="mb-12">
+              <table className="w-full text-left border-collapse border border-black text-[14px]">
+                <thead>
                   <tr>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant w-16 text-center">No</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant">Mata Pelajaran</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant text-center">Kriteria Kelulusan</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant text-center">Nilai Akhir</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant text-center">Predikat</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center w-12">No</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center">Mata Pelajaran</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center w-28">KKM</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center w-28">Nilai Akhir</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center w-24">Predikat</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-outline-variant print:divide-on-surface-variant/30">
-                  <tr className="hover:bg-surface-container-lowest transition-colors">
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">1</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface font-medium">Matematika</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">75</td>
-                    <td className="py-3 px-4 text-body-md text-primary text-center font-bold">95</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center font-bold">A</td>
+                <tbody>
+                  <tr>
+                    <td className="py-2 px-3 text-black border border-black text-center">1</td>
+                    <td className="py-2 px-3 text-black border border-black">Matematika</td>
+                    <td className="py-2 px-3 text-black border border-black text-center">75</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">95</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">A</td>
                   </tr>
-                  <tr className="hover:bg-surface-container-lowest transition-colors">
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">2</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface font-medium">Bahasa Indonesia</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">75</td>
-                    <td className="py-3 px-4 text-body-md text-primary text-center font-bold">88</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center font-bold">B</td>
+                  <tr>
+                    <td className="py-2 px-3 text-black border border-black text-center">2</td>
+                    <td className="py-2 px-3 text-black border border-black">Bahasa Indonesia</td>
+                    <td className="py-2 px-3 text-black border border-black text-center">75</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">88</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">B</td>
                   </tr>
-                  <tr className="hover:bg-surface-container-lowest transition-colors">
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">3</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface font-medium">Ilmu Pengetahuan Alam (IPA)</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">75</td>
-                    <td className="py-3 px-4 text-body-md text-primary text-center font-bold">90</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center font-bold">A</td>
+                  <tr>
+                    <td className="py-2 px-3 text-black border border-black text-center">3</td>
+                    <td className="py-2 px-3 text-black border border-black">Ilmu Pengetahuan Alam (IPA)</td>
+                    <td className="py-2 px-3 text-black border border-black text-center">75</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">90</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">A</td>
                   </tr>
-                  <tr className="hover:bg-surface-container-lowest transition-colors">
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">4</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface font-medium">Pendidikan Agama Islam</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center">75</td>
-                    <td className="py-3 px-4 text-body-md text-primary text-center font-bold">94</td>
-                    <td className="py-3 px-4 text-body-md text-on-surface text-center font-bold">A</td>
+                  <tr>
+                    <td className="py-2 px-3 text-black border border-black text-center">4</td>
+                    <td className="py-2 px-3 text-black border border-black">Pendidikan Agama Islam</td>
+                    <td className="py-2 px-3 text-black border border-black text-center">75</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">94</td>
+                    <td className="py-2 px-3 text-black border border-black text-center font-bold">A</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             {/* Signatures Area for Student Report */}
-            <div className="flex justify-between items-start mt-20 pt-8">
-              <div className="text-center">
-                <p className="text-body-md text-on-surface mb-20">Orang Tua / Wali Siswa</p>
-                <p className="font-bold text-title-md text-on-surface border-b border-on-surface inline-block pb-1">........................................</p>
+            <div className="flex justify-between items-start mt-16 pt-8 text-[14px]">
+              <div className="text-center w-48">
+                <p className="text-black mb-20">Mengetahui,<br/>Orang Tua / Wali Siswa</p>
+                <div className="border-b border-black w-full mt-4"></div>
               </div>
-              <div className="text-center">
-                <p className="text-body-md text-on-surface mb-20">Bogor, 18 Juli 2024<br/>Wali Kelas</p>
-                <p className="font-bold text-title-md text-on-surface border-b border-on-surface inline-block pb-1">Bpk. Budi Santoso, S.Pd</p>
-                <p className="text-body-sm text-on-surface-variant mt-1">NIP. 19800510 200801 1 015</p>
+              <div className="text-center w-48">
+                <p className="text-black mb-20">Bogor, 18 Juli 2024<br/>Wali Kelas</p>
+                <p className="font-bold text-black border-b border-black inline-block w-full pb-1">Bpk. Budi Santoso, S.Pd</p>
+                <p className="text-black mt-1">NIP. 19800510 200801 1 015</p>
               </div>
             </div>
           </>
         ) : (
           <>
             {/* Report Title */}
-            <div className="text-center mb-10">
-              <h2 className="text-title-lg font-headline font-bold text-on-surface uppercase tracking-wider mb-2">Laporan Keuangan Bulanan</h2>
-              <p className="text-body-md text-on-surface-variant">Periode: Juli 2024</p>
+            <div className="text-center mb-8 mt-6">
+              <h3 className="text-[16px] font-bold text-black uppercase underline underline-offset-4 mb-1">Laporan Keuangan Bulanan</h3>
+              <p className="text-[14px] text-black">Periode: Juli 2024</p>
             </div>
 
             {/* Report Meta Data */}
-            <div className="grid grid-cols-2 gap-4 mb-8 bg-surface-container-low p-6 rounded-xl border border-outline-variant print:border-none print:bg-transparent print:p-0">
+            <div className="grid grid-cols-2 gap-4 mb-8 text-[14px] text-black">
               <div>
-                <p className="text-label-sm text-outline font-bold">Dicetak Oleh</p>
-                <p className="text-body-md font-bold text-on-surface">Administrator Sistem</p>
+                <p className="text-black font-bold">Dicetak Oleh</p>
+                <p className="text-black">: Administrator Sistem</p>
               </div>
               <div>
-                <p className="text-label-sm text-outline font-bold">Tanggal Cetak</p>
-                <p className="text-body-md font-bold text-on-surface">18 Juli 2024, 10:00 WIB</p>
+                <p className="text-black font-bold">Tanggal Cetak</p>
+                <p className="text-black">: 18 Juli 2024, 10:00 WIB</p>
               </div>
             </div>
 
             {/* Report Data Table */}
-            <div className="mb-12 overflow-x-auto border border-outline-variant rounded-xl print:border-none print:rounded-none">
-              <table className="w-full text-left border-collapse min-w-[600px]">
-                <thead className="bg-surface-container-low print:bg-transparent">
+            <div className="mb-12">
+              <table className="w-full text-left border-collapse border border-black text-[14px]">
+                <thead>
                   <tr>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant w-16 text-center">No</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant">Tanggal</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant">Uraian Transaksi</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant">Jenis</th>
-                    <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant text-right">Nominal</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center w-12">No</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center">Tanggal</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center">Uraian Transaksi</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center">Jenis</th>
+                    <th className="py-2 px-3 font-bold text-black border border-black text-center">Nominal</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-outline-variant print:divide-on-surface-variant/30">
+                <tbody>
                   {MOCK_FINANCIAL_REPORT.map((row) => (
-                    <tr key={row.no} className="hover:bg-surface-container-lowest transition-colors print:hover:bg-transparent">
-                      <td className="py-3 px-4 text-body-md text-on-surface text-center">{row.no}</td>
-                      <td className="py-3 px-4 text-body-md text-on-surface whitespace-nowrap">{row.date}</td>
-                      <td className="py-3 px-4 text-body-md text-on-surface font-medium">{row.description}</td>
-                      <td className="py-3 px-4 text-body-md">
-                        <span className={`px-2 py-1 rounded font-bold text-label-sm ${row.type === 'Pemasukan' ? 'text-primary' : 'text-error'} print:text-on-surface print:font-medium print:p-0`}>
-                          {row.type}
-                        </span>
+                    <tr key={row.no}>
+                      <td className="py-2 px-3 text-black border border-black text-center">{row.no}</td>
+                      <td className="py-2 px-3 text-black border border-black whitespace-nowrap">{row.date}</td>
+                      <td className="py-2 px-3 text-black border border-black">{row.description}</td>
+                      <td className="py-2 px-3 text-black border border-black text-center">
+                        {row.type}
                       </td>
-                      <td className="py-3 px-4 text-body-md text-on-surface text-right font-mono font-bold tracking-tight">{row.amount}</td>
+                      <td className="py-2 px-3 text-black border border-black text-right font-mono font-bold tracking-tight">{row.amount}</td>
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="bg-surface-container-low print:bg-transparent">
+                <tfoot>
                   <tr>
-                    <td colSpan={4} className="py-4 px-4 text-right font-bold text-body-md text-on-surface border-t border-outline-variant">
+                    <td colSpan={4} className="py-3 px-3 text-right font-bold text-black border border-black">
                       Total Saldo Akhir
                     </td>
-                    <td className="py-4 px-4 text-right font-bold text-body-md text-primary border-t border-outline-variant font-mono tracking-tight print:text-on-surface">
+                    <td className="py-3 px-3 text-right font-bold text-black border border-black font-mono tracking-tight">
                       Rp 32.750.000
                     </td>
                   </tr>
@@ -194,16 +197,16 @@ export default function TemplateClient({ role }: { role?: string }) {
             </div>
 
             {/* Signatures Area */}
-            <div className="flex justify-between items-start mt-20 pt-8">
-              <div className="text-center">
-                <p className="text-body-md text-on-surface mb-20">Mengetahui,<br/>Kepala Madrasah</p>
-                <p className="font-bold text-title-md text-on-surface border-b border-on-surface inline-block pb-1">H. Abdul Manap, M.Pd.</p>
-                <p className="text-body-sm text-on-surface-variant mt-1">NIP. 19650412 199003 1 005</p>
+            <div className="flex justify-between items-start mt-16 pt-8 text-[14px]">
+              <div className="text-center w-56">
+                <p className="text-black mb-20">Mengetahui,<br/>Kepala Madrasah</p>
+                <p className="font-bold text-black border-b border-black inline-block w-full pb-1">H. Abdul Manap, M.Pd.</p>
+                <p className="text-black mt-1">NIP. 19650412 199003 1 005</p>
               </div>
-              <div className="text-center">
-                <p className="text-body-md text-on-surface mb-20">Bogor, 18 Juli 2024<br/>Bendahara BOS</p>
-                <p className="font-bold text-title-md text-on-surface border-b border-on-surface inline-block pb-1">Siti Nurhaliza, S.E.</p>
-                <p className="text-body-sm text-on-surface-variant mt-1">NIP. 19820510 200801 2 015</p>
+              <div className="text-center w-56">
+                <p className="text-black mb-20">Bogor, 18 Juli 2024<br/>Bendahara BOS</p>
+                <p className="font-bold text-black border-b border-black inline-block w-full pb-1">Siti Nurhaliza, S.E.</p>
+                <p className="text-black mt-1">NIP. 19820510 200801 2 015</p>
               </div>
             </div>
           </>

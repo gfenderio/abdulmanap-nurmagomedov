@@ -21,7 +21,7 @@ export function DashboardClientWrapper({
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex h-[100dvh] w-full bg-surface overflow-hidden font-sans">
+    <div className="flex h-[100dvh] w-full bg-surface overflow-hidden font-sans print:block print:h-auto print:overflow-visible print:bg-white">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div 
@@ -33,23 +33,25 @@ export function DashboardClientWrapper({
       {/* Sidebar */}
       <div 
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[280px] shrink-0 transform transition-transform duration-300 ease-in-out md:translate-x-0 md:static",
+          "fixed inset-y-0 left-0 z-50 w-[280px] shrink-0 transform transition-transform duration-300 ease-in-out md:translate-x-0 md:static print:hidden",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <Sidebar onNavigate={() => setSidebarOpen(false)} userRole={userRole} />
       </div>
 
-      <div className="flex flex-1 flex-col min-w-0 overflow-hidden bg-surface-container-low">
-        <TopNavbar 
-          onMenuClick={() => setSidebarOpen(true)} 
-          userName={userName}
-          userRole={userRole}
-          userImage={userImage}
-          userEmail={userEmail}
-        />
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-[1400px]">
+      <div className="flex flex-1 flex-col min-w-0 overflow-hidden bg-surface-container-low print:block print:overflow-visible print:bg-white">
+        <div className="print:hidden">
+          <TopNavbar 
+            onMenuClick={() => setSidebarOpen(true)} 
+            userName={userName}
+            userRole={userRole}
+            userImage={userImage}
+            userEmail={userEmail}
+          />
+        </div>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 print:p-0 print:overflow-visible print:block">
+          <div className="mx-auto max-w-[1400px] print:max-w-none print:w-full">
             {children}
           </div>
         </main>
