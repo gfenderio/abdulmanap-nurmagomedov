@@ -8,7 +8,7 @@ export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<TabType>('profil');
 
   return (
-    <div className="flex-1 overflow-y-auto pt-6 pb-12 px-4 md:px-8 xl:px-12 w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
+    <div className="flex-1 overflow-y-auto pt-4 md:pt-6 pb-8 md:pb-12 px-4 md:px-8 xl:px-12 w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
       {/* Page Header */}
       <div className="mb-8">
         <h2 className="text-headline-lg font-headline font-bold text-on-surface mb-2 tracking-tight">Pengaturan Sistem</h2>
@@ -123,19 +123,19 @@ export default function SettingsPage() {
 
           {activeTab === 'users' && (
             <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <div className="px-6 py-5 border-b border-outline-variant bg-surface-bright/50 flex justify-between items-center">
+              <div className="px-6 py-5 border-b border-outline-variant bg-surface-bright/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <h3 className="text-title-lg font-semibold text-on-surface flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">manage_accounts</span>
                   Manajemen User
                 </h3>
-                <button className="px-4 py-2 bg-primary-container text-primary rounded-lg font-medium text-sm hover:bg-primary hover:text-on-primary transition-colors">
+                <button className="w-full sm:w-auto px-4 py-2 bg-primary-container text-primary rounded-lg font-medium text-sm hover:bg-primary hover:text-on-primary transition-colors">
                   + Tambah User
                 </button>
               </div>
               <div className="p-6">
                 <p className="text-on-surface-variant text-body-md mb-4">Pengaturan user dan role akses untuk Guru, Admin, dan Staf.</p>
-                <div className="border border-outline-variant rounded-xl overflow-hidden">
-                  <table className="w-full text-left">
+                <div className="border border-outline-variant rounded-xl overflow-x-auto">
+                  <table className="w-full text-left min-w-[500px]">
                     <thead className="bg-surface-container-low border-b border-outline-variant">
                       <tr>
                         <th className="p-4 text-label-md text-on-surface-variant">Nama</th>
@@ -223,7 +223,7 @@ export default function SettingsPage() {
           {/* Logo Setting Card */}
           <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 text-center">
             <h3 className="text-title-lg font-semibold text-on-surface mb-6 text-left">Logo Institusi</h3>
-            <div className="relative w-40 h-40 mx-auto mb-6 bg-surface-container-low rounded-2xl border-2 border-dashed border-outline-variant flex items-center justify-center group cursor-pointer hover:border-primary transition-colors overflow-hidden p-4">
+            <div className="relative w-full sm:w-40 aspect-square sm:h-40 mx-auto mb-6 bg-surface-container-low rounded-2xl border-2 border-dashed border-outline-variant flex items-center justify-center group cursor-pointer hover:border-primary transition-colors overflow-hidden p-4">
               <img alt="Logo MI Sirojul Falah" className="w-full h-full object-contain group-hover:opacity-50 transition-opacity" src="/logo.png" />
               <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="material-symbols-outlined text-primary text-3xl mb-1">upload</span>

@@ -74,8 +74,8 @@ export default function AcademicClient({ role }: { role?: string }) {
                     <span className="material-symbols-outlined animate-spin">sync</span>
                     Tabel Review: Periksa baris merah sebelum menyimpan
                   </div>
-                  <div className="border border-outline-variant rounded-xl overflow-hidden">
-                    <table className="w-full text-left text-body-md">
+                  <div className="border border-outline-variant rounded-xl overflow-x-auto">
+                    <table className="w-full text-left text-body-md min-w-[500px]">
                       <thead className="bg-surface-container-low border-b border-outline-variant">
                         <tr>
                           <th className="px-4 py-3 font-bold text-on-surface-variant">No</th>
@@ -294,12 +294,12 @@ export default function AcademicClient({ role }: { role?: string }) {
           <h2 className="text-display-lg font-headline text-on-surface tracking-tight">Manajemen Akademik</h2>
           <p className="text-body-lg text-on-surface-variant mt-1">Kelola jadwal pelajaran, data kelas, dan penugasan guru pengajar.</p>
         </div>
-        <div className="flex gap-3">
-          <button onClick={handlePrint} className="px-4 py-2 border border-outline rounded-xl text-on-surface font-bold hover:bg-surface-container flex items-center gap-2 transition-colors whitespace-nowrap">
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-2 md:mt-0">
+          <button onClick={handlePrint} className="w-full sm:w-auto justify-center px-4 py-2 border border-outline rounded-xl text-on-surface font-bold hover:bg-surface-container flex items-center gap-2 transition-colors whitespace-nowrap">
             <span className="material-symbols-outlined text-[20px]">print</span> Cetak Laporan
           </button>
           {role === "ADMIN" && (
-            <button onClick={() => setIsAddModalOpen(true)} className="px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover shadow-md flex items-center gap-2 transition-colors whitespace-nowrap">
+            <button onClick={() => setIsAddModalOpen(true)} className="w-full sm:w-auto justify-center px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover shadow-md flex items-center gap-2 transition-colors whitespace-nowrap">
               <span className="material-symbols-outlined text-[20px]">add</span> Tambah Jadwal
             </button>
           )}
@@ -520,7 +520,7 @@ export default function AcademicClient({ role }: { role?: string }) {
               <p className="text-label-md text-on-surface-variant">{role === "PARENT" ? "Daftar nilai tugas dan ujian Ananda" : "Input dan kelola nilai siswa"}</p>
             </div>
             {role !== "PARENT" && (
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mt-4 sm:mt-0">
                 <button 
                   onClick={() => setIsOcrModalOpen(true)}
                   className="flex items-center justify-center gap-2 bg-brand-light/30 text-primary border border-primary/20 hover:bg-brand-light px-4 py-2 rounded-xl font-bold transition-all whitespace-nowrap"
@@ -576,8 +576,9 @@ export default function AcademicClient({ role }: { role?: string }) {
                 </table>
               </div>
             ) : (
-              <table className="w-full text-left text-body-md text-on-surface">
-                <thead className="bg-surface border-b border-outline-variant">
+              <div className="overflow-x-auto w-full">
+                <table className="w-full text-left text-body-md text-on-surface min-w-[400px]">
+                  <thead className="bg-surface border-b border-outline-variant">
                   <tr>
                     <th className="px-6 py-4">Mata Pelajaran</th>
                     <th className="px-6 py-4">Tugas/Ujian</th>
@@ -593,7 +594,8 @@ export default function AcademicClient({ role }: { role?: string }) {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+                </table>
+              </div>
             )}
           </div>
         </div>
@@ -601,26 +603,26 @@ export default function AcademicClient({ role }: { role?: string }) {
 
       {activeTab === 'tugas' && (
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col p-6 animate-in fade-in duration-300">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h3 className="text-title-lg font-semibold text-on-surface">Manajemen Penugasan Siswa</h3>
-            <button className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
+            <button className="flex items-center justify-center w-full sm:w-auto gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
               <Plus className="w-5 h-5" /> Buat Tugas
             </button>
           </div>
           <div className="space-y-4">
-            <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
+            <div className="p-4 border border-outline-variant rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-surface hover:bg-surface-container-low transition-colors">
               <div>
                 <h4 className="font-bold text-body-lg text-primary">Tugas Matematika Bab 3</h4>
                 <p className="text-label-sm text-on-surface-variant mt-1">Kelas 6A | Tenggat: 30 Jul 2024</p>
               </div>
-              <span className="px-3 py-1 bg-secondary-container text-secondary font-bold text-label-sm rounded-full">25/30 Terkumpul</span>
+              <span className="px-3 py-1 bg-secondary-container text-secondary font-bold text-label-sm rounded-full self-start sm:self-auto">25/30 Terkumpul</span>
             </div>
-            <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
+            <div className="p-4 border border-outline-variant rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-surface hover:bg-surface-container-low transition-colors">
               <div>
                 <h4 className="font-bold text-body-lg text-primary">Makalah Sejarah Kemerdekaan</h4>
                 <p className="text-label-sm text-on-surface-variant mt-1">Kelas 6A | Tenggat: 02 Agu 2024</p>
               </div>
-              <span className="px-3 py-1 bg-surface-variant text-on-surface-variant font-bold text-label-sm rounded-full">0/30 Terkumpul</span>
+              <span className="px-3 py-1 bg-surface-variant text-on-surface-variant font-bold text-label-sm rounded-full self-start sm:self-auto">0/30 Terkumpul</span>
             </div>
           </div>
         </div>
@@ -628,9 +630,9 @@ export default function AcademicClient({ role }: { role?: string }) {
 
       {activeTab === 'jurnal' && (
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col p-6 animate-in fade-in duration-300">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h3 className="text-title-lg font-semibold text-on-surface">Jurnal Mengajar Harian</h3>
-            <button className="flex items-center gap-2 border border-primary text-primary px-4 py-2 rounded-xl font-bold hover:bg-primary-container">
+            <button className="flex items-center justify-center w-full sm:w-auto gap-2 border border-primary text-primary px-4 py-2 rounded-xl font-bold hover:bg-primary-container">
               <Edit2 className="w-4 h-4" /> Isi Jurnal Hari Ini
             </button>
           </div>
@@ -646,9 +648,9 @@ export default function AcademicClient({ role }: { role?: string }) {
 
       {activeTab === 'bahan_ajar' && (
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col p-6 animate-in fade-in duration-300">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h3 className="text-title-lg font-semibold text-on-surface">Distribusi Bahan Ajar</h3>
-            <button className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
+            <button className="flex items-center justify-center w-full sm:w-auto gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
               <span className="material-symbols-outlined text-[20px]">upload_file</span> Unggah Modul
             </button>
           </div>
@@ -668,14 +670,15 @@ export default function AcademicClient({ role }: { role?: string }) {
 
       {activeTab === 'kedisiplinan' && (
         <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden flex flex-col p-6 animate-in fade-in duration-300">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <h3 className="text-title-lg font-semibold text-on-surface">Buku Catatan Kedisiplinan Siswa</h3>
-            <button className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
+            <button className="flex items-center justify-center w-full sm:w-auto gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl font-bold hover:bg-brand-hover">
               <Plus className="w-5 h-5" /> Catat Pelanggaran/Apresiasi
             </button>
           </div>
-          <table className="w-full text-left text-body-md text-on-surface">
-            <thead className="bg-surface border-b border-outline-variant">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full text-left text-body-md text-on-surface min-w-[600px]">
+              <thead className="bg-surface border-b border-outline-variant">
               <tr>
                 <th className="px-4 py-3">Tanggal</th>
                 <th className="px-4 py-3">Nama Siswa</th>
@@ -700,7 +703,8 @@ export default function AcademicClient({ role }: { role?: string }) {
                 <td className="px-4 py-3 text-center font-bold text-primary">+10</td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
 

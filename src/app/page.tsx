@@ -1,7 +1,7 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap } from "lucide-react";
+import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
   const container = useRef<HTMLDivElement>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   useGSAP(() => {
     // Hero Animations
@@ -69,18 +70,41 @@ export default function LandingPage() {
             <img src="/logo.png" alt="Logo MI Sirojul Falah" className="w-10 h-10 object-contain" />
             <span className="font-bold text-xl tracking-tight text-neutral-900">MI Sirojul Falah</span>
           </div>
+          
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-600">
             <Link href="#profil" className="hover:text-brand transition-colors">Profil</Link>
             <Link href="#fasilitas" className="hover:text-brand transition-colors">Fasilitas</Link>
             <Link href="#ppdb" className="hover:text-brand transition-colors">PPDB</Link>
           </div>
-          <Link 
-            href="/login" 
-            className="px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-bold hover:bg-brand-hover transition-colors shadow-md"
+          
+          <div className="hidden md:block">
+            <Link 
+              href="/login" 
+              className="px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-bold hover:bg-brand-hover transition-colors shadow-md"
+            >
+              Masuk Portal
+            </Link>
+          </div>
+
+          <button 
+            className="md:hidden p-2 text-neutral-600"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            Masuk Portal
-          </Link>
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-100 shadow-lg py-4 px-6 flex flex-col gap-4">
+            <Link href="#profil" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Profil</Link>
+            <Link href="#fasilitas" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">Fasilitas</Link>
+            <Link href="#ppdb" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-neutral-600 hover:text-brand">PPDB</Link>
+            <Link href="/login" className="w-full text-center py-3 mt-2 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover shadow-md">
+              Masuk Portal
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -91,10 +115,10 @@ export default function LandingPage() {
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
               Penerimaan Siswa Baru 2024/2025
             </div>
-            <h1 className="hero-text text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.1] text-balance">
+            <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.1] text-balance">
               Pendidikan Dasar <span className="text-brand">Berakhlak</span> & Modern.
             </h1>
-            <p className="hero-text text-lg text-neutral-600 max-w-xl text-balance leading-relaxed">
+            <p className="hero-text text-base md:text-lg text-neutral-600 max-w-xl text-balance leading-relaxed">
               Mengintegrasikan adab keislaman, kurikulum nasional, dan teknologi untuk mencetak generasi unggul yang beriman dan berprestasi.
             </p>
             <div className="hero-text flex flex-col sm:flex-row items-center gap-4 pt-2">
@@ -114,8 +138,8 @@ export default function LandingPage() {
             </div>
           </div>
           
-          <div className="hero-card relative z-10 hidden lg:block">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-200 shadow-2xl relative border-8 border-white">
+          <div className="hero-card relative z-10 block w-full mt-8 lg:mt-0">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-200 shadow-2xl relative border-4 md:border-8 border-white">
               <img 
                 src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop" 
                 alt="Kegiatan Belajar" 
@@ -140,17 +164,17 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="reveal-text">
             <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-3">Visi & Misi</h2>
-            <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.2] text-balance">
+            <h3 className="text-2xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.2] text-balance">
               Membangun fondasi karakter, bukan sekadar angka di atas rapor.
             </h3>
           </div>
           
           <div className="reveal-text bg-brand-light/30 rounded-2xl p-8 md:p-12 border border-brand/10 shadow-sm text-left relative overflow-hidden">
             <div className="absolute -top-12 -right-12 text-[12rem] text-brand/5 font-serif leading-none">"</div>
-            <p className="text-lg md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium">
+            <p className="text-base md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium">
               Berdiri di atas nilai-nilai keislaman dan nasionalisme sejak 1990, MI Sirojul Falah terus berinovasi. Kami mendidik anak-anak untuk mandiri, beradab, dan tanggap terhadap teknologi dengan tetap berpegang teguh pada iman.
             </p>
-            <div className="mt-8 flex items-center gap-4 relative z-10">
+            <div className="mt-8 flex flex-col md:flex-row md:items-center gap-4 relative z-10">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" />
               </div>
@@ -168,7 +192,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="reveal-text text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Fasilitas Penunjang</h2>
-            <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-900">
+            <h3 className="text-2xl md:text-5xl font-bold tracking-tight text-neutral-900">
               Ekosistem Pembelajaran
             </h3>
           </div>
@@ -220,9 +244,9 @@ export default function LandingPage() {
           <div className="bg-brand rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-xl">
             <div className="absolute -right-20 -bottom-20 w-[400px] h-[400px] bg-brand-hover rounded-full blur-3xl opacity-50 z-0"></div>
             
-            <div className="relative z-10 max-w-xl text-white">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">Pendaftaran Tahun Ajaran 2024/2025</h2>
-              <p className="text-brand-light text-lg mb-8">Bergabunglah bersama kami. Kuota terbatas. Dapatkan informasi detail mengenai kurikulum, syarat, dan rincian biaya pendaftaran.</p>
+            <div className="relative z-10 max-w-xl text-white text-center md:text-left">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">Pendaftaran Tahun Ajaran 2024/2025</h2>
+              <p className="text-brand-light text-base md:text-lg mb-8">Bergabunglah bersama kami. Kuota terbatas. Dapatkan informasi detail mengenai kurikulum, syarat, dan rincian biaya pendaftaran.</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-bold hover:bg-accent-hover transition-colors shadow-md text-center">
                   Hubungi Panitia PPDB
@@ -239,7 +263,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-neutral-900 text-white pt-20 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 pb-12 border-b border-neutral-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-neutral-800">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <img src="/logo.png" alt="Logo MI Sirojul Falah" className="w-12 h-12 object-contain bg-white rounded-xl p-1" />

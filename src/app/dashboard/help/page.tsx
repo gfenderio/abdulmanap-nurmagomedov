@@ -28,17 +28,19 @@ export default function HelpPage() {
         <div className="absolute inset-0 bg-primary opacity-5 pattern-dots pointer-events-none"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h3 className="text-title-lg font-bold text-on-primary-container mb-6">Bagaimana kami bisa membantu Anda?</h3>
-          <div className="relative w-full flex items-center">
-            <span className="material-symbols-outlined absolute left-4 text-outline text-xl">search</span>
-            <input 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full pl-12 pr-20 py-4 rounded-2xl border border-outline-variant/30 shadow-sm text-base focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright placeholder:text-outline transition-all outline-none" 
-              placeholder="Ketik topik atau pertanyaan (contoh: 'Lupa Password' atau 'Input Nilai')..." 
-              type="text" 
-            />
-            <button onClick={handleSearch} className="absolute right-2 bg-primary text-on-primary px-5 py-2.5 rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
+          <div className="relative w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="relative w-full flex-1">
+              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">search</span>
+              <input 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                className="w-full pl-12 pr-4 py-4 rounded-2xl border border-outline-variant/30 shadow-sm text-base focus:ring-2 focus:ring-primary focus:border-primary bg-surface-bright placeholder:text-outline transition-all outline-none" 
+                placeholder="Ketik topik atau pertanyaan..." 
+                type="text" 
+              />
+            </div>
+            <button onClick={handleSearch} className="w-full sm:w-auto bg-primary text-on-primary px-6 py-4 rounded-2xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
               Cari
             </button>
           </div>

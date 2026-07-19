@@ -105,7 +105,7 @@ export default function StudentsClient({ role }: { role?: string }) {
                 </select>
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex flex-col-reverse sm:flex-row justify-end gap-3">
               <button onClick={() => setIsAddModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
                 Batal
               </button>
@@ -149,7 +149,7 @@ export default function StudentsClient({ role }: { role?: string }) {
                 </div>
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex flex-col-reverse sm:flex-row justify-end gap-3">
               <button onClick={() => setIsFilterModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
                 Batal
               </button>
@@ -237,7 +237,7 @@ export default function StudentsClient({ role }: { role?: string }) {
                 </select>
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex flex-col-reverse sm:flex-row justify-end gap-3">
               <button onClick={() => setIsEditModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
                 Batal
               </button>
@@ -274,7 +274,7 @@ export default function StudentsClient({ role }: { role?: string }) {
                 </p>
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+            <div className="px-6 py-4 border-t border-outline-variant bg-surface-container-lowest flex flex-col-reverse sm:flex-row justify-end gap-3">
               <button onClick={() => setIsImportModalOpen(false)} className="px-4 py-2 rounded-xl text-body-md font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors">
                 Batal
               </button>
@@ -339,7 +339,7 @@ export default function StudentsClient({ role }: { role?: string }) {
         {/* Table Toolbar */}
         <div className="p-5 border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
           {/* Search & Filter */}
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="relative flex-1 sm:w-72">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-outline w-5 h-5" />
               <input 
@@ -369,7 +369,7 @@ export default function StudentsClient({ role }: { role?: string }) {
           </div>
           {/* Action Button (Hidden for Teacher, but Teacher can edit existing) */}
           {role === "ADMIN" && (
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-4 sm:mt-0">
               <button 
                 onClick={() => setIsImportModalOpen(true)}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-container-high text-on-surface hover:bg-outline-variant px-4 py-2 rounded-xl font-bold transition-all whitespace-nowrap"

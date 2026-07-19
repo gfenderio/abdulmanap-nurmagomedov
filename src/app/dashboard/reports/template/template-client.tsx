@@ -17,17 +17,17 @@ export default function TemplateClient({ role }: { role?: string }) {
   return (
     <div className="flex flex-col min-h-screen bg-surface-container-lowest">
       {/* Top Action Bar - Hidden during print */}
-      <div className="print:hidden sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+      <div className="print:hidden sticky top-0 z-50 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 bg-surface/80 backdrop-blur-md border-b border-outline-variant gap-4">
         <Link href="/dashboard/reports" className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-bold text-body-md">
           <ArrowLeft className="w-5 h-5" />
-          Kembali ke Pusat Laporan
+          Kembali
         </Link>
-        <div className="flex items-center gap-3">
-          <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-low transition-colors shadow-sm">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <button onClick={handlePrint} className="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-low transition-colors shadow-sm">
             <Printer className="w-5 h-5" />
             Print Dokumen
           </button>
-          <button onClick={handleDownload} className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
+          <button onClick={handleDownload} className="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
             <Download className="w-5 h-5" />
             Unduh PDF
           </button>
@@ -76,8 +76,8 @@ export default function TemplateClient({ role }: { role?: string }) {
             </div>
 
             {/* Student Report Table */}
-            <div className="mb-12 overflow-hidden border border-outline-variant rounded-xl print:border-none print:rounded-none">
-              <table className="w-full text-left border-collapse">
+            <div className="mb-12 overflow-x-auto border border-outline-variant rounded-xl print:border-none print:rounded-none">
+              <table className="w-full text-left border-collapse min-w-[600px]">
                 <thead className="bg-surface-container-low print:bg-transparent">
                   <tr>
                     <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant w-16 text-center">No</th>
@@ -154,8 +154,8 @@ export default function TemplateClient({ role }: { role?: string }) {
             </div>
 
             {/* Report Data Table */}
-            <div className="mb-12 overflow-hidden border border-outline-variant rounded-xl print:border-none print:rounded-none">
-              <table className="w-full text-left border-collapse">
+            <div className="mb-12 overflow-x-auto border border-outline-variant rounded-xl print:border-none print:rounded-none">
+              <table className="w-full text-left border-collapse min-w-[600px]">
                 <thead className="bg-surface-container-low print:bg-transparent">
                   <tr>
                     <th className="py-3 px-4 font-bold text-body-md text-on-surface-variant border-b border-outline-variant w-16 text-center">No</th>

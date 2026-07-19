@@ -23,12 +23,12 @@ export default async function Dashboard() {
     return (
       <div className="flex-1 overflow-y-auto p-4 md:p-8 max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
         <div className="mb-8">
-          <h2 className="text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Selamat Datang, Guru {session.user.name}</h2>
-          <p className="text-on-surface-variant text-base max-w-2xl">Jadwal mengajar dan aktivitas kelas Anda hari ini.</p>
+          <h2 className="text-headline-md md:text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Selamat Datang, Guru {session.user.name}</h2>
+          <p className="text-on-surface-variant text-sm md:text-base max-w-2xl">Jadwal mengajar dan aktivitas kelas Anda hari ini.</p>
         </div>
         
         {/* Stat Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
           <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
             <div className="flex items-center justify-between mb-3">
               <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Jadwal Mengajar</span>
@@ -63,14 +63,14 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Jadwal Detail Tabel */}
           <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col min-h-[300px]">
-            <div className="p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
+            <div className="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
               <h3 className="text-title-md font-bold text-on-surface">Jadwal Mengajar Anda</h3>
               <span className="px-3 py-1 bg-surface text-on-surface-variant text-label-sm font-medium rounded-full border border-outline-variant">Hari Ini</span>
             </div>
-            <div className="p-6 flex-1 overflow-y-auto space-y-4">
+            <div className="p-4 md:p-6 flex-1 overflow-y-auto space-y-4">
               {MOCK_TEACHER_SCHEDULE.map((item) => (
                 <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-brand/50 bg-brand/5' : 'border-outline-variant bg-surface'}`}>
                   <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-brand' : 'text-on-surface-variant'}`}>{item.time}</div>
@@ -94,7 +94,7 @@ export default async function Dashboard() {
 
           {/* Pengumuman & Akses Cepat */}
           <div className="flex flex-col gap-6">
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col p-6">
+            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col p-4 md:p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
                   <span className="material-symbols-outlined">campaign</span>
@@ -111,7 +111,7 @@ export default async function Dashboard() {
               </div>
             </div>
 
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex-1">
+            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-4 md:p-6 flex-1">
               <h3 className="text-title-md font-bold text-on-surface mb-4">Pintasan Wali Kelas</h3>
               <div className="p-4 border border-outline-variant bg-surface rounded-xl flex items-center justify-between">
                 <div>
@@ -134,8 +134,8 @@ export default async function Dashboard() {
     <div className="flex-1 overflow-y-auto p-4 md:p-8 max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h2 className="text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Portal Wali Murid</h2>
-          <p className="text-on-surface-variant text-base max-w-2xl">Pantau perkembangan akademik dan penyelesaian administrasi Ananda <strong className="text-on-surface">Ahmad Fauzi</strong>.</p>
+          <h2 className="text-headline-md md:text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Portal Wali Murid</h2>
+          <p className="text-on-surface-variant text-sm md:text-base max-w-2xl">Pantau perkembangan akademik dan penyelesaian administrasi Ananda <strong className="text-on-surface">Ahmad Fauzi</strong>.</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center font-bold text-title-md shadow-md">
@@ -149,7 +149,7 @@ export default async function Dashboard() {
       </div>
 
       {/* Stat Cards (Premium Compact Layout) */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
         <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant flex flex-col justify-between hover:border-brand/50 transition-colors">
           <div className="flex items-center justify-between mb-3">
             <span className="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Rata-rata Nilai</span>
@@ -184,23 +184,23 @@ export default async function Dashboard() {
         </div>
       </div>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <div className="col-span-4 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col">
-          <div className="p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-7">
+        <div className="col-span-4 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col min-w-0">
+          <div className="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
             <h3 className="text-title-md font-bold text-on-surface">Tren Nilai (Grafik)</h3>
             <Link href="/dashboard/academic" className="text-label-sm font-bold text-brand hover:underline">Lihat Rapor</Link>
           </div>
-          <div className="p-6 flex-1 min-h-[300px]">
+          <div className="p-4 md:p-6 flex-1 min-h-[300px] w-full min-w-0">
             <GradeChart />
           </div>
         </div>
         
         <div className="col-span-3 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col min-h-[300px]">
-          <div className="p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
+          <div className="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center rounded-t-2xl">
             <h3 className="text-title-md font-bold text-on-surface">Jadwal Ananda Hari Ini</h3>
             <span className="px-3 py-1 bg-surface text-on-surface-variant text-label-sm font-medium rounded-full border border-outline-variant">Hari Ini</span>
           </div>
-          <div className="p-6 flex-1 overflow-y-auto space-y-4">
+          <div className="p-4 md:p-6 flex-1 overflow-y-auto space-y-4">
             {MOCK_STUDENT_SCHEDULE.map((item) => (
               <div key={item.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-colors ${item.active ? 'border-brand/50 bg-brand/5' : 'border-outline-variant bg-surface'}`}>
                 <div className={`text-label-md font-bold w-24 shrink-0 ${item.active ? 'text-brand' : 'text-on-surface-variant'}`}>{item.time}</div>
