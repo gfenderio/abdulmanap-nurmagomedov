@@ -20,7 +20,6 @@ export default function RootLayout({
     <html lang="id" className={cn(GeistSans.variable, GeistMono.variable)} suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-        <script src="https://elfsightcdn.com/platform.js" async></script>
       </head>
       <body className="font-sans antialiased bg-slate-50 text-slate-900" suppressHydrationWarning>
         {children}
