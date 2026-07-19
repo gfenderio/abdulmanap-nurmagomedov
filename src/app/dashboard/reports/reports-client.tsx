@@ -77,7 +77,7 @@ export default function ReportsClient({ role }: { role?: string }) {
               <h3 className="font-title-lg font-bold text-title-lg text-on-surface">{role === "PARENT" ? "Rapor Akademik Ananda" : "Rekapitulasi Nilai"}</h3>
               <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">{role === "PARENT" ? "Laporan nilai semester dan perkembangan akademik Ananda." : "Laporan komprehensif nilai siswa per semester, mata pelajaran, dan kelas."}</p>
             </div>
-            <div className="mt-auto pt-4 flex gap-3">
+            <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-3">
               <button onClick={() => handleDownloadClick('Rekapitulasi Nilai')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
                 Unduh
               </button>
@@ -98,7 +98,7 @@ export default function ReportsClient({ role }: { role?: string }) {
                   <h3 className="font-title-lg font-bold text-title-lg text-on-surface">Laporan Pembayaran SPP</h3>
                   <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">Status pembayaran bulanan, tunggakan, dan rekapitulasi penerimaan kas.</p>
                 </div>
-                <div className="mt-auto pt-4 flex gap-3">
+                <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-3">
                   <button onClick={() => handleDownloadClick('Laporan Pembayaran SPP')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
                     Unduh
                   </button>
@@ -117,7 +117,7 @@ export default function ReportsClient({ role }: { role?: string }) {
                   <h3 className="font-title-lg font-bold text-title-lg text-on-surface">Buku Induk Siswa</h3>
                   <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2">Data lengkap profil siswa, riwayat akademik, dan mutasi terpusat.</p>
                 </div>
-                <div className="mt-auto pt-4 flex gap-3">
+                <div className="mt-auto pt-4 flex flex-col sm:flex-row gap-3">
                   <button onClick={() => handleDownloadClick('Buku Induk Siswa')} className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-xl font-bold hover:bg-brand-hover transition-colors shadow-sm">
                     Unduh
                   </button>

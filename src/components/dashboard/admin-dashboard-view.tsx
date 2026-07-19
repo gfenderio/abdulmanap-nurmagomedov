@@ -12,15 +12,15 @@ export function AdminDashboardView() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 md:p-8 max-w-7xl mx-auto w-full bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
-      <div className="mb-8 flex justify-between items-center">
+      <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Ikhtisar Madrasah</h2>
-          <p className="text-on-surface-variant text-base max-w-2xl">Pantau performa akademik, kehadiran, dan sirkulasi keuangan hari ini.</p>
+          <h2 className="text-headline-md md:text-headline-lg font-headline font-bold text-on-surface tracking-tight mb-2">Ikhtisar Madrasah</h2>
+          <p className="text-on-surface-variant text-sm md:text-base max-w-2xl">Pantau performa akademik, kehadiran, dan sirkulasi keuangan hari ini.</p>
         </div>
         {activeTab && (
           <button 
             onClick={() => setActiveTab(null)}
-            className="flex items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-lg text-label-sm font-bold text-on-surface hover:bg-surface-container transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-surface border border-outline-variant rounded-lg text-label-sm font-bold text-on-surface hover:bg-surface-container transition-colors w-full md:w-auto justify-center md:justify-start min-h-[44px]"
           >
             <span className="material-symbols-outlined text-[18px]">arrow_back</span>
             Kembali ke Ikhtisar
@@ -29,7 +29,7 @@ export function AdminDashboardView() {
       </div>
 
       {/* 1. Stat Cards (Clickable) */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
         <button 
           onClick={() => setActiveTab('students')}
           className={`text-left rounded-2xl p-5 shadow-sm border flex flex-col justify-between transition-colors ${
@@ -107,8 +107,8 @@ export function AdminDashboardView() {
       {!activeTab ? (
         <>
           {/* 2. Charts Area */}
-          <div className="grid gap-6 md:grid-cols-3 mb-6 animate-in fade-in duration-300">
-            <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex flex-col">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-6 animate-in fade-in duration-300">
+            <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-4 md:p-6 flex flex-col min-w-0">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-title-md font-bold text-on-surface">Tren Pemasukan SPP</h3>
                 <Link href="/dashboard/reports" className="text-label-sm font-bold text-brand hover:underline">Detail Laporan</Link>
@@ -116,7 +116,7 @@ export function AdminDashboardView() {
               <p className="text-label-sm text-on-surface-variant">Realisasi pembayaran selama semester berjalan.</p>
               <RevenueAreaChart />
             </div>
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 flex flex-col">
+            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-4 md:p-6 flex flex-col min-w-0">
               <h3 className="text-title-md font-bold text-on-surface mb-2">Distribusi Kehadiran</h3>
               <p className="text-label-sm text-on-surface-variant">Statistik harian absensi siswa.</p>
               <AttendanceDonutChart />
@@ -124,8 +124,8 @@ export function AdminDashboardView() {
           </div>
 
           {/* 3. Bottom Row: Quick Access & Recent Activity */}
-          <div className="grid gap-6 md:grid-cols-3 animate-in fade-in duration-300">
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 animate-in fade-in duration-300">
+            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-4 md:p-6">
               <h3 className="text-title-md font-bold text-on-surface mb-4">Akses Cepat</h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link href="/dashboard/students" className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors text-on-surface-variant group border border-outline-variant">
@@ -148,7 +148,7 @@ export function AdminDashboardView() {
             </div>
             
             <div className="md:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm flex flex-col">
-              <div className="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest rounded-t-2xl">
+              <div className="p-4 md:p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest rounded-t-2xl">
                 <h3 className="text-title-md font-bold text-on-surface">Aktivitas Terbaru</h3>
                 <ClientAlertButton alertMessage="Menampilkan seluruh log aktivitas (dummy)" className="text-label-sm text-brand hover:underline font-bold">Lihat Semua</ClientAlertButton>
               </div>
@@ -159,8 +159,8 @@ export function AdminDashboardView() {
                       <div className={`p-2 rounded-full shrink-0 ${item.bg} ${item.color}`}>
                         <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                       </div>
-                      <div className="flex-1">
-                        <p className="text-body-md text-on-surface leading-snug">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-body-sm md:text-body-md text-on-surface leading-snug break-words">
                           <span className="font-bold">{item.user}</span> {item.action} <span className="font-bold">{item.target}</span>
                         </p>
                         <p className="text-label-sm text-on-surface-variant mt-1">{item.time}</p>
@@ -173,7 +173,7 @@ export function AdminDashboardView() {
           </div>
         </>
       ) : (
-        <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-4 md:p-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-title-lg font-bold text-on-surface">
               {activeTab === 'students' && 'Data Ringkasan Siswa'}
@@ -186,8 +186,8 @@ export function AdminDashboardView() {
             </Link>
           </div>
           
-          <div className="border border-outline-variant rounded-xl overflow-hidden">
-            <table className="w-full text-left border-collapse">
+          <div className="border border-outline-variant rounded-xl overflow-x-auto w-full">
+            <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr className="bg-surface border-b border-outline-variant">
                   <th className="p-4 font-bold text-label-sm text-on-surface-variant">ID</th>

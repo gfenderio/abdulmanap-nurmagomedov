@@ -46,7 +46,7 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
                 href={item.href}
                 onClick={onNavigate}
                 className={cn(
-                  "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium transition-all duration-200",
+                  "group flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] font-medium transition-all duration-200",
                   isActive
                     ? "bg-brand text-white shadow-sm"
                     : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
@@ -74,7 +74,7 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
           href="/dashboard/help"
           onClick={onNavigate}
           className={cn(
-            "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium transition-all duration-200",
+            "group flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] font-medium transition-all duration-200",
             pathname === "/dashboard/help" || pathname.startsWith("/dashboard/help/")
               ? "bg-brand text-white shadow-sm"
               : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
@@ -91,7 +91,7 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
         <form action={handleSignOut}>
           <button
             type="submit"
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium transition-all duration-200 text-error hover:bg-error-container"
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-[14px] font-medium transition-all duration-200 text-error hover:bg-error-container"
           >
             <span className="material-symbols-outlined text-[20px] shrink-0" aria-hidden="true">logout</span>
             Logout

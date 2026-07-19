@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[100dvh] flex-col md:flex-row bg-white">
       {/* Left Side - Brand / Hero (Aligned with Landing Page) */}
-      <div className="relative flex w-full flex-col justify-between overflow-hidden bg-brand p-8 md:w-1/2 lg:w-[55%] xl:w-[60%] lg:p-12">
+      <div className="relative hidden md:flex w-full flex-col justify-between overflow-hidden bg-brand p-8 md:w-1/2 lg:w-[55%] xl:w-[60%] lg:p-12">
         {/* Background Image from Landing Page */}
         <div className="absolute inset-0 bg-brand" />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-hover to-brand" />
@@ -54,7 +54,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Login Form (Clean, Solid Borders) */}
-      <div className="relative flex w-full items-center justify-center bg-white p-8 md:w-1/2 lg:w-[45%] xl:w-[40%] border-l border-neutral-200">
+      <div className="relative flex w-full flex-1 items-center justify-center bg-white p-6 sm:p-8 md:w-1/2 lg:w-[45%] xl:w-[40%] border-l border-neutral-200">
         
         {/* Desktop Back Button */}
         <Link 
@@ -65,10 +65,13 @@ export default function LoginPage() {
           <ArrowLeft className="w-5 h-5" />
         </Link>
 
-        <div className="w-full max-w-[360px]">
+        <div className="w-full max-w-[360px] md:max-w-[400px]">
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Selamat Datang</h2>
-            <p className="text-neutral-500 mt-1.5 text-sm">Masuk ke akun portal akademik Anda.</p>
+            <div className="md:hidden flex items-center justify-center mb-6">
+              <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 text-center md:text-left">Selamat Datang</h2>
+            <p className="text-neutral-500 mt-1.5 text-sm text-center md:text-left">Masuk ke akun portal akademik Anda.</p>
           </div>
 
           <form 

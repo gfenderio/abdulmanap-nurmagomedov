@@ -88,14 +88,14 @@ export default function BillingClient({ role }: { role?: string }) {
                 <h3 className="text-title-lg font-headline font-bold text-on-surface">Tagihan Aktif</h3>
               </div>
               <div className="space-y-4">
-                <div className="p-4 border border-outline-variant rounded-xl flex justify-between items-center bg-surface hover:bg-surface-container-low transition-colors">
+                <div className="p-4 border border-outline-variant rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface hover:bg-surface-container-low transition-colors">
                   <div>
                     <h4 className="font-bold text-body-lg text-primary">SPP Bulan Agustus 2024</h4>
                     <p className="text-label-sm text-on-surface-variant mt-1">Tenggat: 10 Agustus 2024</p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full sm:w-auto mt-3 sm:mt-0">
                     <span className="font-bold text-title-lg text-on-surface">Rp 250.000</span>
-                    <button onClick={() => alert("Membuka gerbang pembayaran online... (Midtrans Simulator)")} className="px-4 py-2 bg-primary text-on-primary font-bold rounded-xl hover:bg-brand-hover shadow-sm">
+                    <button onClick={() => alert("Membuka gerbang pembayaran online... (Midtrans Simulator)")} className="w-full sm:w-auto px-4 py-2 bg-primary text-on-primary font-bold rounded-xl hover:bg-brand-hover shadow-sm">
                       Bayar Sekarang
                     </button>
                   </div>
@@ -226,22 +226,22 @@ export default function BillingClient({ role }: { role?: string }) {
         </div>
       )}
 
-      <div className="flex justify-between items-end mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div>
           <h1 className="text-headline-lg font-headline font-bold text-on-surface mb-1">Manajemen Keuangan</h1>
           <p className="text-body-md text-on-surface-variant">Ringkasan SPP, Pengeluaran, dan Tunggakan MI Sirojul Falah.</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-2 md:mt-0">
           <button 
             onClick={handleUnduh}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors font-body text-body-md font-medium"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors font-body text-body-md font-medium w-full sm:w-auto"
           >
             <span className="material-symbols-outlined text-[20px]">download</span>
             Unduh Laporan
           </button>
           <button 
             onClick={handleCatat}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-brand-hover transition-colors font-body text-body-md font-medium shadow-sm"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-brand-hover transition-colors font-body text-body-md font-medium shadow-sm w-full sm:w-auto"
           >
             <span className="material-symbols-outlined text-[20px]">add</span>
             Catat Transaksi
@@ -332,9 +332,9 @@ export default function BillingClient({ role }: { role?: string }) {
           <div className="p-6 flex-1 animate-in fade-in duration-300">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <h3 className="text-title-lg font-headline font-semibold text-on-surface">Riwayat Transaksi</h3>
-              <div className="flex gap-2 w-full sm:w-auto">
+              <div className="flex flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
                 <input className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl border border-outline-variant text-body-md text-on-surface bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-all" type="date" />
-                <button className="p-1.5 rounded-xl border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                <button className="p-1.5 rounded-xl border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors shrink-0">
                   <span className="material-symbols-outlined text-[20px]">filter_list</span>
                 </button>
               </div>
@@ -420,23 +420,23 @@ export default function BillingClient({ role }: { role?: string }) {
           <div className="p-6 flex-1 animate-in fade-in duration-300">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <h3 className="text-title-lg font-headline font-semibold text-on-surface">Daftar Tagihan SPP</h3>
-              <div className="flex gap-2">
-                <select className="px-3 py-1.5 rounded-xl border border-outline-variant text-body-md text-on-surface bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-all">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+                <select className="px-3 py-1.5 rounded-xl border border-outline-variant text-body-md text-on-surface bg-surface focus:ring-1 focus:ring-primary focus:border-primary transition-all w-full sm:w-auto">
                   <option value="all">Semua Kelas</option>
                   <option value="1">Kelas 1</option>
                   <option value="2">Kelas 2</option>
                 </select>
                 <button 
                   onClick={() => alert("Mengirim pesan pengingat ke seluruh wali murid (dummy).")}
-                  className="px-4 py-1.5 rounded-xl bg-tertiary-container/30 text-tertiary font-medium text-body-md hover:bg-tertiary hover:text-on-tertiary transition-colors"
+                  className="px-4 py-1.5 rounded-xl bg-tertiary-container/30 text-tertiary font-medium text-body-md hover:bg-tertiary hover:text-on-tertiary transition-colors w-full sm:w-auto"
                 >
                   Kirim Pengingat
                 </button>
               </div>
             </div>
             
-            <div className="border border-outline-variant rounded-xl overflow-hidden">
-              <table className="w-full text-left">
+            <div className="border border-outline-variant rounded-xl overflow-x-auto w-full">
+              <table className="w-full text-left min-w-[600px]">
                 <thead className="bg-surface-container-low border-b border-outline-variant">
                   <tr>
                     <th className="p-4 text-body-md font-medium text-on-surface-variant">Siswa</th>

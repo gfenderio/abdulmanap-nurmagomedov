@@ -201,7 +201,7 @@ export function ProfileForm({ user }: { user: any }) {
           {/* Edit Profile Info */}
           <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 md:p-8">
             <form onSubmit={handleSaveProfile}>
-              <div className="flex items-center justify-between mb-6 border-b border-outline-variant/50 pb-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-outline-variant/50 pb-4">
                 <div>
                   <h3 className="text-xl font-headline font-semibold text-on-surface">Informasi Dasar</h3>
                   <p className="text-sm text-on-surface-variant mt-1">Perbarui detail profil pribadi Anda.</p>
@@ -216,7 +216,7 @@ export function ProfileForm({ user }: { user: any }) {
                     Edit
                   </button>
                 ) : (
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2 mt-4 sm:mt-0">
                     <button 
                       type="button"
                       onClick={() => {
@@ -418,7 +418,7 @@ export function ProfileForm({ user }: { user: any }) {
                 </div>
               </div>
               
-              <div className="pt-4 flex gap-3">
+              <div className="pt-4 flex flex-col sm:flex-row gap-3">
                 <button 
                   type="submit" 
                   disabled={isSavingPassword}

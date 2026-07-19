@@ -105,7 +105,7 @@ export function TopNavbar({
       </div>
 
       {/* Center Search Bar */}
-      <div className="hidden lg:flex relative flex-1 max-w-lg mx-4" ref={searchRef}>
+      <div className="hidden md:flex relative flex-1 max-w-md lg:max-w-lg mx-4" ref={searchRef}>
         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
           search
         </span>
@@ -173,7 +173,7 @@ export function TopNavbar({
           </button>
           
           {showNotifications && (
-            <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="absolute right-0 top-full mt-2 w-[calc(100vw-32px)] sm:w-96 max-w-[360px] sm:max-w-none bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 origin-top-right">
               <div className="flex items-center justify-between p-4 border-b border-outline-variant bg-surface-container-lowest">
                 <h3 className="font-bold text-on-surface text-body-md">Notifikasi</h3>
                 {unreadCount > 0 && (
@@ -252,7 +252,7 @@ export function TopNavbar({
           </button>
 
           {showProfileMenu && (
-            <div className="absolute right-0 top-full mt-2 w-72 bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="absolute right-0 top-full mt-2 w-[calc(100vw-32px)] sm:w-72 max-w-[300px] sm:max-w-none bg-surface-bright rounded-2xl border border-outline-variant shadow-md overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 origin-top-right">
               {/* Profile Card Header */}
               <div className="p-4 bg-surface-container-lowest border-b border-outline-variant flex flex-col items-center text-center">
                 <img 

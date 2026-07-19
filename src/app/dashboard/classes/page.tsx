@@ -67,7 +67,7 @@ export default function ClassesPage() {
         {/* Table Toolbar */}
         <div className="p-5 border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
           {/* Search */}
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="relative flex-1 sm:w-72">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-outline w-5 h-5" />
               <input 
@@ -209,9 +209,9 @@ export default function ClassesPage() {
                 <input type="number" defaultValue={30} min={10} max={40} className="w-full px-3 py-2 bg-surface border border-outline-variant rounded-xl text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" required />
               </div>
               
-              <div className="pt-4 border-t border-outline-variant flex justify-end gap-3 mt-8">
-                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-5 py-2.5 text-on-surface-variant font-bold hover:bg-surface-container-low rounded-xl transition-colors">Batal</button>
-                <button type="submit" className="px-5 py-2.5 bg-primary text-on-primary font-bold hover:bg-brand-hover rounded-xl transition-colors shadow-sm">Simpan Data</button>
+              <div className="pt-4 border-t border-outline-variant flex flex-col-reverse sm:flex-row justify-end gap-3 mt-8">
+                <button type="button" onClick={() => setIsAddModalOpen(false)} className="w-full sm:w-auto px-5 py-2.5 text-on-surface-variant font-bold hover:bg-surface-container-low rounded-xl transition-colors">Batal</button>
+                <button type="submit" className="w-full sm:w-auto px-5 py-2.5 bg-primary text-on-primary font-bold hover:bg-brand-hover rounded-xl transition-colors shadow-sm">Simpan Data</button>
               </div>
             </form>
           </div>
