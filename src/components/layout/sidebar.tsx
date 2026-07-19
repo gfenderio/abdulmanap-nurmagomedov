@@ -5,18 +5,48 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { handleSignOut } from "@/actions/auth"
 
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: "dashboard", roles: ["ADMIN", "TEACHER", "PARENT"] },
-  { name: "Siswa", href: "/dashboard/students", icon: "database", roles: ["ADMIN", "TEACHER"] },
-  { name: "Kelas", href: "/dashboard/classes", icon: "meeting_room", roles: ["ADMIN"] },
-  { name: "Akademik", href: "/dashboard/academic", icon: "school", roles: ["ADMIN", "TEACHER"] },
-  { name: "Keuangan", href: "/dashboard/billing", icon: "account_balance_wallet", roles: ["ADMIN", "PARENT"] },
-  { name: "Laporan", href: "/dashboard/reports", icon: "bar_chart", roles: ["ADMIN", "TEACHER", "PARENT"] },
-  { name: "Pengaturan", href: "/dashboard/settings", icon: "settings", roles: ["ADMIN"] },
-]
+const getNavigation = (role: string) => {
+  switch (role) {
+    case "ADMIN":
+      return [
+        { name: "Dashboard", href: "/dashboard", icon: "dashboard" },
+        { name: "Manajemen Pengguna", href: "/dashboard/users", icon: "group" },
+        { name: "Kelas & Jadwal", href: "/dashboard/classes", icon: "meeting_room" },
+        { name: "Keuangan", href: "/dashboard/billing", icon: "account_balance_wallet" },
+        { name: "Laporan", href: "/dashboard/reports", icon: "bar_chart" },
+        { name: "Pengaturan", href: "/dashboard/settings", icon: "settings" },
+      ]
+    case "TEACHER":
+      return [
+        { name: "Dashboard", href: "/dashboard", icon: "dashboard" },
+        { name: "Presensi & Jadwal", href: "/dashboard/attendance", icon: "how_to_reg" },
+        { name: "Penilaian & Tugas", href: "/dashboard/grades", icon: "assignment_turned_in" },
+        { name: "Jurnal & Disiplin", href: "/dashboard/behavior", icon: "menu_book" },
+        { name: "Data Siswa", href: "/dashboard/students", icon: "database" },
+        { name: "Laporan", href: "/dashboard/reports", icon: "bar_chart" },
+      ]
+    case "PARENT":
+      return [
+        { name: "Dashboard", href: "/dashboard", icon: "dashboard" },
+        { name: "Jadwal & Nilai", href: "/dashboard/academic", icon: "school" },
+        { name: "Catatan Perkembangan", href: "/dashboard/progress-notes", icon: "psychology" },
+        { name: "Keuangan & Tagihan", href: "/dashboard/billing", icon: "account_balance_wallet" },
+        { name: "Rapor Resmi", href: "/dashboard/reports", icon: "workspace_premium" },
+      ]
+    case "STUDENT":
+      return [
+        { name: "Dashboard", href: "/dashboard", icon: "dashboard" },
+        { name: "Akademik", href: "/dashboard/academic", icon: "school" },
+        { name: "Tugas", href: "/dashboard/grades", icon: "assignment" },
+      ]
+    default:
+      return []
+  }
+}
 
 export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () => void, userRole?: string }) {
   const pathname = usePathname()
+  const navigation = getNavigation(userRole)
 
   return (
     <div className="flex h-full w-[280px] flex-col bg-surface border-r border-outline-variant transition-colors">
@@ -33,9 +63,7 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
       
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-4 py-6 overflow-y-auto">
-        {navigation
-          .filter((item) => item.roles.includes(userRole))
-          .map((item) => {
+        {navigation.map((item) => {
             // FIX: Dashboard exact match only, sub-routes use startsWith
             const isActive = item.href === "/dashboard"
               ? pathname === "/dashboard"

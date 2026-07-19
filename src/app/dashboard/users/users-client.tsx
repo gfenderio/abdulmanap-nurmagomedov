@@ -75,6 +75,12 @@ export default function StudentsClient({ role }: { role?: string }) {
 
   return (
     <div className="flex-1 p-4 md:p-8 overflow-y-auto bg-background animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out relative">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-6 gap-4">
+        <div>
+          <h2 className="text-display-lg font-headline text-on-surface tracking-tight">{role === 'ADMIN' ? 'Manajemen Pengguna' : 'Data Siswa'}</h2>
+          <p className="text-body-lg text-on-surface-variant mt-1">{role === 'ADMIN' ? 'Kelola data siswa, guru, dan staff.' : 'Kelola data dan rekam jejak siswa.'}</p>
+        </div>
+      </div>
       
       {/* ADD STUDENT MODAL */}
       {isAddModalOpen && (
