@@ -58,28 +58,28 @@ export default function LandingPage() {
     // Hero Animations
     gsap.fromTo(
       ".hero-text",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.1 }
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power2.out" }
     );
     gsap.fromTo(
       ".hero-card",
-      { y: 40, opacity: 0, scale: 0.95 },
-      { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out", delay: 0.3 }
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.2 }
     );
 
     // Scroll Scrubbing Reveal for headers
     gsap.utils.toArray<HTMLElement>(".reveal-text").forEach((el) => {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power2.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 85%",
+            start: "top 90%",
           }
         }
       );
@@ -88,16 +88,16 @@ export default function LandingPage() {
     // Bento Grid Hover Physics & Reveal
     gsap.fromTo(
       ".bento-card",
-      { y: 40, opacity: 0 },
+      { y: 30, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         stagger: 0.1,
-        duration: 0.6,
-        ease: "back.out(1.2)",
+        duration: 0.7,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: ".bento-container",
-          start: "top 80%",
+          start: "top 85%",
         }
       }
     );
@@ -190,19 +190,19 @@ export default function LandingPage() {
           </div>
 
           <div className="hero-card relative z-10 block w-full mt-8 lg:mt-0">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-200 shadow-2xl relative border-4 md:border-8 border-white">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 shadow-xl relative border border-white/50">
               <img
                 src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop"
                 alt="Kegiatan Belajar"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-neutral-100 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-accent-foreground">
+              <div className="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-neutral-100/50 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm text-neutral-500 font-medium">Terakreditasi</p>
-                  <p className="text-xl font-bold text-neutral-900">A (Sangat Baik)</p>
+                  <p className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">Akreditasi</p>
+                  <p className="text-xl font-bold text-neutral-900 leading-tight">A (Sangat Baik)</p>
                 </div>
               </div>
             </div>
@@ -235,13 +235,15 @@ export default function LandingPage() {
             </h3>
           </div>
 
-          <div className="reveal-text bg-brand-light/30 rounded-2xl p-8 md:p-12 border border-brand/10 shadow-sm text-left relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 text-[12rem] text-brand/5 font-serif leading-none">"</div>
-            <p className="text-base md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium italic">
-              "Disiplin adalah segalanya. Tanpa disiplin, kau tidak punya apa-apa. Kami mendidik anak-anak di sini bukan hanya untuk menjadi pintar, tapi memiliki mental baja, beradab, dan takut hanya kepada Allah SWT. Jika kau ingin hasil, kau harus siap kerja keras. Alhamdulillah."
+          <div className="reveal-text bg-white rounded-2xl p-8 md:p-12 border border-neutral-200 shadow-sm text-center relative overflow-hidden flex flex-col items-center">
+            <div className="text-brand/10 mb-6">
+              <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            </div>
+            <p className="text-xl md:text-2xl text-neutral-800 leading-relaxed max-w-3xl font-serif">
+              "Disiplin adalah segalanya. Tanpa disiplin, kau tidak punya apa-apa. Kami mendidik anak-anak di sini bukan hanya untuk menjadi pintar, tapi memiliki mental baja, beradab, dan takut hanya kepada Allah SWT."
             </p>
-            <div className="mt-8 flex flex-col md:flex-row md:items-center gap-4 relative z-10">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm bg-neutral-200">
+            <div className="mt-10 flex flex-col items-center gap-3">
+              <div className="w-16 h-16 rounded-full overflow-hidden shadow-sm bg-neutral-200">
                 <img src="/Abdulmanap Nurmagomedov.jpg" className="w-full h-full object-cover scale-125 object-top" />
               </div>
               <div>
@@ -322,9 +324,9 @@ export default function LandingPage() {
               href="https://www.instagram.com/mis_sirojul_falah/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-bold hover:opacity-90 transition-opacity shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-neutral-200 text-neutral-900 font-bold hover:bg-neutral-50 transition-colors shadow-sm"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              <svg className="w-5 h-5 text-neutral-900" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
               Follow @mis_sirojul_falah
             </a>
           </div>
@@ -364,8 +366,9 @@ export default function LandingPage() {
       {/* PPDB / Call to Action */}
       <section id="ppdb" className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-brand rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-xl">
-            <div className="absolute -right-20 -bottom-20 w-[400px] h-[400px] bg-brand-hover rounded-full blur-3xl opacity-50 z-0"></div>
+          <div className="bg-brand rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-lg border border-brand/20">
+            {/* Elegant abstract background instead of loud blob */}
+            <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 100% 100%, #ffffff 0%, transparent 60%)' }}></div>
 
             <div className="relative z-10 max-w-xl text-white text-center md:text-left">
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">Pendaftaran Tahun Ajaran 2024/2025</h2>
