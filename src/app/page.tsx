@@ -245,7 +245,7 @@ export default function LandingPage() {
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" />
               </div>
               <div>
-                <p className="font-bold text-neutral-900 text-lg">K.H. Ahmad Fauzan</p>
+                <p className="font-bold text-neutral-900 text-lg">Abdulmanap Nurmagomedov</p>
                 <p className="text-neutral-500 text-sm font-medium">Kepala Sekolah MI Sirojul Falah</p>
               </div>
             </div>
