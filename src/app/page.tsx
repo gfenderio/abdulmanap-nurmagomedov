@@ -237,12 +237,12 @@ export default function LandingPage() {
 
           <div className="reveal-text bg-brand-light/30 rounded-2xl p-8 md:p-12 border border-brand/10 shadow-sm text-left relative overflow-hidden">
             <div className="absolute -top-12 -right-12 text-[12rem] text-brand/5 font-serif leading-none">"</div>
-            <p className="text-base md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium">
-              Berdiri di atas nilai-nilai keislaman dan nasionalisme sejak 1990, MI Sirojul Falah terus berinovasi. Kami mendidik anak-anak untuk mandiri, beradab, dan tanggap terhadap teknologi dengan tetap berpegang teguh pada iman.
+            <p className="text-base md:text-xl text-neutral-700 leading-relaxed relative z-10 font-medium italic">
+              "Disiplin adalah segalanya. Tanpa disiplin, kau tidak punya apa-apa. Kami mendidik anak-anak di sini bukan hanya untuk menjadi pintar, tapi memiliki mental baja, beradab, dan takut hanya kepada Allah SWT. Jika kau ingin hasil, kau harus siap kerja keras. Alhamdulillah."
             </p>
             <div className="mt-8 flex flex-col md:flex-row md:items-center gap-4 relative z-10">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" />
+              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm bg-neutral-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Abdulmanap_Nurmagomedov_2022_stamp_of_Kyrgyzstan.jpg" className="w-full h-full object-cover scale-125 object-top" />
               </div>
               <div>
                 <p className="font-bold text-neutral-900 text-lg">Abdulmanap Nurmagomedov</p>
