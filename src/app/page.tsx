@@ -223,23 +223,6 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-        {/* Instagram Feed (Elfsight) */}
-        <div className="max-w-7xl mx-auto mt-24 relative z-20">
-          <div className="text-center mb-8 reveal-text">
-            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Galeri Kegiatan</h2>
-            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-neutral-900">Instagram MI Sirojul Falah</h3>
-          </div>
-          <div className="w-full bg-white rounded-[2rem] shadow-sm border border-neutral-100 p-4 md:p-8 overflow-hidden min-h-[500px] flex items-center justify-center">
-            <Script
-              src="https://static.elfsight.com/platform/platform.js"
-              strategy="lazyOnload"
-            />
-            <div
-              className="elfsight-app-5c04289f-06aa-4a59-a435-0ea596d45617 w-full"
-              data-elfsight-app-lazy
-            />
-          </div>
-        </div>
       </section>
 
       {/* Sambutan & Profil Section */}
