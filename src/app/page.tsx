@@ -242,7 +242,7 @@ export default function LandingPage() {
             </p>
             <div className="mt-8 flex flex-col md:flex-row md:items-center gap-4 relative z-10">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm bg-neutral-200">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Abdulmanap_Nurmagomedov_2022_stamp_of_Kyrgyzstan.jpg" className="w-full h-full object-cover scale-125 object-top" />
+                <img src="/Abdulmanap Nurmagomedov.jpg" className="w-full h-full object-cover scale-125 object-top" />
               </div>
               <div>
                 <p className="font-bold text-neutral-900 text-lg">Abdulmanap Nurmagomedov</p>
