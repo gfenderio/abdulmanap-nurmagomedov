@@ -14,11 +14,17 @@ const DUMMY_NOTIFICATIONS = [
   { id: 4, title: "Laporan Nilai Tengah Semester", time: "1 hari yang lalu", read: true, href: "/dashboard/reports" },
 ]
 
-// Dummy data for search results
-const DUMMY_SEARCH_RESULTS = [
-  { type: "Siswa", name: "Ahmad Fauzi", desc: "Kelas 6A" },
-  { type: "Guru", name: "Bapak Budi", desc: "Wali Kelas 6A" },
-  { type: "Menu", name: "Laporan Keuangan", desc: "Buka menu Laporan" },
+// Search navigation items with shortcuts
+const SEARCH_DATABASE = [
+  { type: "Siswa", name: "Ahmad Fauzi", desc: "Siswa Kelas 6A", href: "/dashboard/students" },
+  { type: "Siswa", name: "Siti Nurhaliza", desc: "Siswa Kelas 5B", href: "/dashboard/students" },
+  { type: "Guru", name: "Bapak Budi Santoso", desc: "Wali Kelas 6A", href: "/dashboard/users" },
+  { type: "Guru", name: "Ibu Nurjanah", desc: "Guru Tahfidz", href: "/dashboard/users" },
+  { type: "Menu", name: "Tagihan & SPP", desc: "Menu pembayaran dan tagihan siswa", href: "/dashboard/billing" },
+  { type: "Menu", name: "Laporan & Rapor", desc: "Laporan akademik dan nilai siswa", href: "/dashboard/reports" },
+  { type: "Menu", name: "Presensi & Kehadiran", desc: "Catatan kehadiran siswa harian", href: "/dashboard/attendance" },
+  { type: "Menu", name: "Daftar Siswa", desc: "Kelola data siswa dan wali", href: "/dashboard/students" },
+  { type: "Menu", name: "Pusat Bantuan", desc: "Panduan dan bantuan penggunaan aplikasi", href: "/dashboard/help" },
 ]
 
 export function TopNavbar({ 
@@ -85,10 +91,17 @@ export function TopNavbar({
     setIsSearching(true)
     const timer = setTimeout(() => {
       setIsSearching(false)
-    }, 400) // 400ms debounce simulation
+    }, 300) // 300ms debounce simulation
     
     return () => clearTimeout(timer)
   }, [searchQuery])
+
+  const filteredResults = SEARCH_DATABASE.filter(
+    item =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.desc.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   const unreadCount = notifications.filter(n => !n.read).length
 
@@ -137,24 +150,41 @@ export function TopNavbar({
                 <span className="material-symbols-outlined animate-spin text-[16px]">sync</span>
                 Mencari "{searchQuery}"...
               </div>
-            ) : (
+            ) : filteredResults.length > 0 ? (
               <div>
                 <div className="px-4 py-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider bg-surface-container-lowest">
-                  Hasil Pencarian
+                  Hasil Pencarian ({filteredResults.length})
                 </div>
                 <div className="max-h-64 overflow-y-auto">
-                  {DUMMY_SEARCH_RESULTS.map((result, i) => (
-                    <div key={i} className="flex flex-col px-4 py-3 hover:bg-surface-container-low cursor-pointer border-b border-outline-variant/30 last:border-0 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-medium">
-                          {result.type}
+                  {filteredResults.map((result, i) => (
+                    <Link 
+                      key={i} 
+                      href={result.href}
+                      onClick={() => {
+                        setShowSearchDropdown(false)
+                        setSearchQuery("")
+                      }}
+                      className="flex flex-col px-4 py-3 hover:bg-primary/10 cursor-pointer border-b border-outline-variant/30 last:border-0 transition-colors group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-medium">
+                            {result.type}
+                          </span>
+                          <span className="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">{result.name}</span>
+                        </div>
+                        <span className="material-symbols-outlined text-[16px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+                          arrow_forward
                         </span>
-                        <span className="text-body-md font-bold text-on-surface">{result.name}</span>
                       </div>
                       <span className="text-label-sm text-on-surface-variant mt-1">{result.desc}</span>
-                    </div>
+                    </Link>
                   ))}
                 </div>
+              </div>
+            ) : (
+              <div className="p-6 text-center text-on-surface-variant text-body-sm">
+                Tidak ada hasil untuk "{searchQuery}"
               </div>
             )}
           </div>
