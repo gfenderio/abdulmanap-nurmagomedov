@@ -33,12 +33,12 @@ export default function LandingPage() {
 
   // Static fallback posts — shown when Behold feed is unavailable
   const FALLBACK_POSTS = [
-    { id: 'f1', mediaUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
-    { id: 'f2', mediaUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
-    { id: 'f3', mediaUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
-    { id: 'f4', mediaUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
-    { id: 'f5', mediaUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
-    { id: 'f6', mediaUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=600&auto=format&fit=crop', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f1', mediaUrl: '/instagram/ig-1.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f2', mediaUrl: '/instagram/ig-2.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f3', mediaUrl: '/instagram/ig-3.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f4', mediaUrl: '/instagram/ig-4.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f5', mediaUrl: '/instagram/ig-5.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
+    { id: 'f6', mediaUrl: '/instagram/ig-6.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
   ];
 
 
