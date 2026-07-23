@@ -2,12 +2,14 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
-import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Building2, MonitorPlay, Award, BookMarked } from "lucide-react";
+import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Building2, MonitorPlay, Award, BookMarked, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const MOCK_NAV_LINKS = [
+  { label: "Beranda", href: "#hero" },
+  { label: "Sambutan", href: "#sambutan" },
   { label: "Profil", href: "#profil" },
   { label: "Fasilitas", href: "#fasilitas" },
   { label: "Aktivitas", href: "#aktivitas" },
@@ -28,6 +30,9 @@ gsap.registerPlugin(ScrollTrigger);
 export default function LandingPage() {
   const container = useRef<HTMLDivElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("sambutan");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavHovered, setIsNavHovered] = useState(false);
   const [igPosts, setIgPosts] = useState<any[]>([]);
   const [igLoading, setIgLoading] = useState(true);
 
@@ -41,6 +46,34 @@ export default function LandingPage() {
     { id: 'f6', mediaUrl: '/instagram/ig-6.png', permalink: 'https://www.instagram.com/mis_sirojul_falah/' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 40);
+
+      const headerOffset = 130;
+      const sections = Array.from(document.querySelectorAll("section[id]")) as HTMLElement[];
+      
+      let currentSectionId = "hero";
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= headerOffset && rect.bottom > 100) {
+          currentSectionId = section.id;
+        }
+      }
+      
+      if (currentSectionId) {
+        setActiveSection(currentSectionId);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     fetch('/api/instagram')
@@ -55,126 +88,242 @@ export default function LandingPage() {
   }, []);
 
   useGSAP(() => {
-    // Hero Animations
-    gsap.fromTo(
-      ".hero-text",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.1 }
-    );
-    gsap.fromTo(
-      ".hero-card",
-      { y: 40, opacity: 0, scale: 0.95 },
-      { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out", delay: 0.3 }
-    );
-
-    // Scroll Scrubbing Reveal for headers
-    gsap.utils.toArray<HTMLElement>(".reveal-text").forEach((el) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
+    // Staggered Reveal for main content items in each section
+    const sections = gsap.utils.toArray<HTMLElement>("section");
+    sections.forEach((sec) => {
+      const revealItems = sec.querySelectorAll(".reveal-item, .reveal-text, .bento-card");
+      if (revealItems.length > 0) {
+        gsap.fromTo(
+          revealItems,
+          { opacity: 0, y: 40, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sec,
+              start: "top 80%",
+            },
           }
-        }
-      );
-    });
-
-    // Bento Grid Hover Physics & Reveal
-    gsap.fromTo(
-      ".bento-card",
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "back.out(1.2)",
-        scrollTrigger: {
-          trigger: ".bento-container",
-          start: "top 80%",
-        }
+        );
       }
-    );
+    });
   }, { scope: container });
 
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const targetId = href.replace("#", "");
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      const headerOffset = 80;
+      const startY = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = targetEl.getBoundingClientRect().top + startY - headerOffset;
+      const distance = targetY - startY;
+      const duration = 750; // ms
+      let startTime: number | null = null;
+
+      const animationStep = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Easing function: easeInOutCubic
+        const ease = progress < 0.5 
+          ? 4 * progress * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        window.scrollTo(0, startY + distance * ease);
+
+        if (timeElapsed < duration) {
+          window.requestAnimationFrame(animationStep);
+        }
+      };
+
+      window.requestAnimationFrame(animationStep);
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  // Picky badge is active whenever scrolled down past Hero section
+  const isPickyActive = isScrolled && !isNavHovered && activeSection !== "hero";
+
   return (
-    <main ref={container} className="bg-white text-neutral-900 overflow-x-hidden w-full max-w-full font-sans">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-neutral-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Logo MI Sirojul Falah" className="w-10 h-10 object-contain" />
-            <span className="font-bold text-xl tracking-tight text-neutral-900">MI Sirojul Falah</span>
+    <div ref={container} className="relative bg-white text-neutral-900 w-full max-w-full font-sans">
+      {/* Sticky Top Header - Ultra Immersive Floating Glass Capsule */}
+      <header className={`sticky top-0 left-0 right-0 z-[999] w-full transition-all duration-500 ease-out ${
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-xl border-b border-neutral-200/80 shadow-lg py-1.5" 
+          : "bg-white/90 backdrop-blur-md border-b border-neutral-100 shadow-sm py-0"
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3 group cursor-pointer" onClick={(e) => handleNavClick(e, "#hero")}>
+            <img src="/logo.png" alt="Logo MI Sirojul Falah" className="w-9 h-9 object-contain group-hover:scale-110 transition-transform duration-300" />
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-lg md:text-xl tracking-tight text-neutral-900 group-hover:text-brand transition-colors">MI Sirojul Falah</span>
+            </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-600">
-            {MOCK_NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-brand transition-colors">
-                {link.label}
-              </Link>
-            ))}
+          {/* Tablet & Desktop Picky Contextual Menu Bar */}
+          <div 
+            onMouseEnter={() => setIsNavHovered(true)}
+            onMouseLeave={() => setIsNavHovered(false)}
+            className={`hidden md:flex items-center text-xs lg:text-sm font-semibold text-neutral-600 bg-neutral-100/90 p-1 lg:p-1.5 rounded-full border border-neutral-200/80 shadow-inner transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+              isPickyActive ? "ring-2 ring-brand/20 shadow-brand/10 bg-white" : ""
+            }`}
+          >
+            <div className="flex items-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+              {MOCK_NAV_LINKS.map((link) => {
+                const linkId = link.href.substring(1);
+                const isActive = activeSection === linkId;
+                const isHiddenInPicky = isPickyActive && !isActive;
+
+                return (
+                  <div
+                    key={link.href}
+                    className={`transition-all duration-500 ease-in-out flex items-center overflow-hidden whitespace-nowrap ${
+                      isHiddenInPicky
+                        ? "max-w-0 opacity-0 scale-75 pointer-events-none -mx-0.5"
+                        : "max-w-[200px] opacity-100 scale-100 px-0.5"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`flex items-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-1 lg:py-1.5 rounded-full transition-all duration-500 ease-out cursor-pointer ${
+                        isActive
+                          ? "bg-brand text-white shadow-md shadow-brand/20 font-bold scale-105"
+                          : "hover:text-brand hover:bg-white text-neutral-700 hover:shadow-sm"
+                      }`}
+                    >
+                      {isActive && isPickyActive && (
+                        <span className="relative flex h-2 w-2 shrink-0">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                        </span>
+                      )}
+                      <span>{link.label}</span>
+                      {isActive && isPickyActive && (
+                        <ChevronDown className="w-3.5 h-3.5 opacity-90 transition-transform duration-300 group-hover:rotate-180" />
+                      )}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="hidden md:block">
             <Link
               href="/login"
-              className="px-5 py-2.5 rounded-xl bg-brand text-white text-sm font-bold hover:bg-brand-hover transition-colors shadow-md"
+              className="px-4 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-brand text-white text-xs lg:text-sm font-bold hover:bg-brand-hover transition-colors shadow-md flex items-center gap-1.5"
             >
-              Masuk Portal
+              <span>Masuk Portal</span>
+              <ArrowRight className="w-4 h-4 hidden lg:inline" />
             </Link>
           </div>
 
-          <button
-            className="md:hidden p-2 text-neutral-600"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Picky Badge Button */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-brand to-brand-hover text-white shadow-md shadow-brand/20 font-bold text-xs cursor-pointer active:scale-95 transition-all"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              </span>
+              <span>{MOCK_NAV_LINKS.find((l) => l.href.substring(1) === activeSection)?.label || "Beranda"}</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isMobileMenuOpen ? "rotate-180" : ""}`} />
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Slide-Down Glass Drawer */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-100 shadow-lg py-4 px-6 flex flex-col gap-4">
-            {MOCK_NAV_LINKS.map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                onClick={() => setIsMobileMenuOpen(false)} 
-                className="font-semibold text-neutral-600 hover:text-brand"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/login" className="w-full text-center py-3 mt-2 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover shadow-md">
-              Masuk Portal
-            </Link>
-          </div>
-        )}
-      </nav>
+          <>
+            <div 
+              className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm z-[998] md:hidden animate-in fade-in duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <div className="md:hidden fixed top-[68px] left-4 right-4 bg-white/95 backdrop-blur-2xl border border-neutral-200/90 rounded-3xl shadow-2xl p-5 z-[999] animate-in slide-in-from-top-4 duration-300 flex flex-col gap-3">
+              <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
+                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Navigasi Section</span>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-1 rounded-full text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
+              <div className="flex flex-col gap-1.5 my-1">
+                {MOCK_NAV_LINKS.map((link) => {
+                  const linkId = link.href.substring(1);
+                  const isActive = activeSection === linkId;
+                  return (
+                    <button 
+                      key={link.href} 
+                      type="button"
+                      onClick={(e) => handleNavClick(e, link.href)} 
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm transition-all cursor-pointer ${
+                        isActive 
+                          ? "bg-brand text-white font-bold shadow-md shadow-brand/20 scale-[1.01]" 
+                          : "bg-neutral-50 hover:bg-brand/5 text-neutral-700 font-semibold border border-neutral-100"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                      {isActive ? (
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                        </span>
+                      ) : (
+                        <ArrowRight className="w-4 h-4 opacity-40" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="pt-2 border-t border-neutral-100">
+                <Link 
+                  href="/login" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-neutral-900 text-white font-bold text-sm shadow-md hover:bg-black transition-colors"
+                >
+                  <span>Masuk Portal Siswa / Guru</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
+      </header>
+
+      <main className="w-full">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-brand-light/30">
+      <section id="hero" className="scroll-mt-24 relative pt-32 pb-24 px-6 overflow-hidden bg-brand-light/30">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 z-10">
-            <div className="hero-text inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-brand/20 text-brand text-sm font-bold shadow-sm">
+            <div className="reveal-item inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-brand/20 text-brand text-sm font-bold shadow-sm">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
               Penerimaan Siswa Baru 2024/2025
             </div>
-            <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.1] text-balance">
+            <h1 className="reveal-item text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.1] text-balance">
               Pendidikan Dasar <span className="text-brand">Berakhlak</span> & Modern.
             </h1>
-            <p className="hero-text text-base md:text-lg text-neutral-600 max-w-xl text-balance leading-relaxed">
+            <p className="reveal-item text-base md:text-lg text-neutral-600 max-w-xl text-balance leading-relaxed">
               Mengintegrasikan adab keislaman, kurikulum nasional, dan teknologi untuk mencetak generasi unggul yang beriman dan berprestasi.
             </p>
-            <div className="hero-text flex flex-col sm:flex-row items-center gap-4 pt-2">
+            <div className="reveal-item flex flex-col sm:flex-row items-center gap-4 pt-2">
               <Link
                 href="#ppdb"
+                onClick={(e) => handleNavClick(e, "#ppdb")}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-brand-hover hover:shadow-lg transition-all duration-300"
               >
                 Daftar Sekarang
@@ -182,6 +331,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 href="#profil"
+                onClick={(e) => handleNavClick(e, "#profil")}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-neutral-900 border border-neutral-200 px-8 py-4 rounded-xl text-lg font-bold hover:bg-neutral-50 transition-colors shadow-sm"
               >
                 Pelajari Profil
@@ -189,7 +339,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="hero-card relative z-10 block w-full mt-8 lg:mt-0">
+          <div className="reveal-item relative z-10 block w-full mt-8 lg:mt-0">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-200 shadow-2xl relative border-4 md:border-8 border-white">
               <img
                 src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop"
@@ -213,7 +363,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto mt-20 z-20 relative">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {MOCK_STATS.map((stat) => (
-              <div key={stat.id} className="bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+              <div key={stat.id} className="reveal-item bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300">
                 <div className="w-12 h-12 bg-brand/10 text-brand rounded-xl flex items-center justify-center mb-4">
                   <stat.icon className="w-6 h-6" />
                 </div>
@@ -225,13 +375,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sambutan & Profil Section */}
-      <section id="profil" className="py-24 px-6 bg-white">
+      {/* Sambutan Section */}
+      <section id="sambutan" className="scroll-mt-24 py-24 px-6 bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="reveal-text">
-            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-3">Visi & Misi</h2>
-            <h3 className="text-2xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.2] text-balance">
-              Membangun fondasi karakter, bukan sekadar angka di atas rapor.
+            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-3">Sambutan Kepala Sekolah</h2>
+            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-neutral-900 leading-[1.2] text-balance">
+              Pesan & Komitmen Pendidikan MI Sirojul Falah
             </h3>
           </div>
 
@@ -242,7 +392,7 @@ export default function LandingPage() {
             </p>
             <div className="mt-8 flex flex-col md:flex-row md:items-center gap-4 relative z-10">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm bg-neutral-200">
-                <img src="/Abdulmanap Nurmagomedov.jpg" className="w-full h-full object-cover scale-125 object-top" />
+                <img src="/Abdulmanap Nurmagomedov.jpg" className="w-full h-full object-cover scale-125 object-top" alt="Abdulmanap Nurmagomedov" />
               </div>
               <div>
                 <p className="font-bold text-neutral-900 text-lg">Abdulmanap Nurmagomedov</p>
@@ -253,8 +403,23 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Profil Section */}
+      <section id="profil" className="scroll-mt-24 py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center space-y-12">
+          <div className="reveal-text">
+            <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-3">Profil & Visi Misi</h2>
+            <h3 className="text-2xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.2] text-balance">
+              Membangun fondasi karakter, bukan sekadar angka di atas rapor.
+            </h3>
+            <p className="mt-4 text-base md:text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+              MI Sirojul Falah hadir untuk menyediakan lingkungan belajar yang Islami, inovatif, dan penuh kasih sayang guna menumbuhkan potensi setiap siswa secara optimal.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Fasilitas (Bento Grid) */}
-      <section id="fasilitas" className="py-24 px-6 bg-neutral-50 border-t border-neutral-100">
+      <section id="fasilitas" className="scroll-mt-24 py-24 px-6 bg-neutral-50 border-t border-neutral-100">
         <div className="max-w-7xl mx-auto">
           <div className="reveal-text text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Fasilitas Penunjang</h2>
@@ -305,7 +470,7 @@ export default function LandingPage() {
       </section>
 
       {/* Instagram Feed / Aktivitas Kami */}
-      <section id="aktivitas" className="py-24 px-6 bg-white border-t border-neutral-100">
+      <section id="aktivitas" className="scroll-mt-24 py-24 px-6 bg-white border-t border-neutral-100">
         <div className="max-w-7xl mx-auto">
           <div className="reveal-text text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Aktivitas Kami</h2>
@@ -362,7 +527,7 @@ export default function LandingPage() {
       </section>
 
       {/* PPDB / Call to Action */}
-      <section id="ppdb" className="py-24 px-6 bg-white">
+      <section id="ppdb" className="scroll-mt-24 py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="bg-brand rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-xl">
             <div className="absolute -right-20 -bottom-20 w-[400px] h-[400px] bg-brand-hover rounded-full blur-3xl opacity-50 z-0"></div>
@@ -435,6 +600,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-    </main>
+      </main>
+    </div>
   );
 }
