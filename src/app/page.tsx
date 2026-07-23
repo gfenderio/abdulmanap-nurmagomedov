@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Script from "next/script";
 import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, X, Building2, MonitorPlay, Award, BookMarked, ChevronDown } from "lucide-react";
@@ -17,24 +18,148 @@ const MOCK_NAV_LINKS = [
 ];
 
 const MOCK_STATS = [
-  { id: 1, title: "Berdiri Sejak", value: "2003", icon: Building2 },
-  { id: 2, title: "Guru MI Sirojul Falah", value: "40 Guru", icon: MonitorPlay },
-  { id: 3, title: "Akreditasi", value: "Terakreditasi A", icon: Award },
-  { id: 4, title: "Siswa/i MI Sirojul Falah", value: "500 Siswa/i", icon: Users },
-  { id: 5, title: "Program Unggulan", value: "Tahfidz Al-Quran", icon: BookMarked },
-  { id: 6, title: "Alumni MI Sirojul Falah", value: "900 Alumni", icon: GraduationCap },
+  { 
+    id: 1, 
+    title: "Berdiri Sejak", 
+    value: "2003", 
+    icon: Building2,
+    badge: "Sejarah & Perjalanan",
+    subtitle: "20+ Tahun Mengabdi Membangun Generasi Rabbani",
+    description: "Didirikan pada tahun 2003 dengan niat tulus menyediakan pendidikan dasar berbasis adab Islam dan kedisiplinan tinggi. Dimulai dari madrasah sederhana, kini berkembang menjadi lembaga pendidikan favorit pilihan masyarakat.",
+    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Tahun Berdiri", detail: "2003" },
+      { label: "Status Sekolah", detail: "Madrasah Ibtidaiyah Resmi Kemenag" },
+      { label: "Fokus Utama", detail: "Pendidikan Adab & Teknologi" },
+    ],
+    timeline: [
+      { year: "2003", title: "Pendirian Awal", desc: "Didirikan dengan 2 kelas & 35 siswa pertama." },
+      { year: "2012", title: "Ekspansi Gedung", desc: "Pembangunan kompleks masjid & gedung 3 lantai." },
+      { year: "2024", title: "Era Modern Digital", desc: "Penerapan CBT, portal wali murid & 500+ siswa aktif." },
+    ]
+  },
+  { 
+    id: 2, 
+    title: "Guru MI Sirojul Falah", 
+    value: "40 Guru", 
+    icon: MonitorPlay,
+    badge: "Tenaga Pendidik",
+    subtitle: "40 Ustadz & Ustadzah Berdedikasi dan Berakhlak",
+    description: "Setiap guru di MI Sirojul Falah disaring secara ketat tidak hanya berdasarkan kualifikasi akademis S1/S2, melainkan kedalaman pemahaman adab serta komitmen pendampingan karakter siswa.",
+    image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Kualifikasi S1/S2", detail: "100% Sarjana Terakreditasi" },
+      { label: "Guru Hafiz/Hafizah", detail: "15 Ustadz Pengajar Al-Qur'an" },
+      { label: "Rasio Guru : Siswa", detail: "1 : 13 (Pembimbingan Intensif)" },
+    ],
+  },
+  { 
+    id: 3, 
+    title: "Akreditasi", 
+    value: "Terakreditasi A", 
+    icon: Award,
+    badge: "Penilaian Mutu BAN-S/M",
+    subtitle: "Predikat A (Sangat Baik) Skor Mutu 94",
+    description: "Meraih penilaian Grade A tertinggi dari Badan Akreditasi Nasional Sekolah/Madrasah berkat keunggulan mutu pembelajaran, kelengkapan sarana prasarana, serta manajemen madrasah modern.",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Grade Akreditasi", detail: "A (Sangat Baik)" },
+      { label: "Lembaga Akreditasi", detail: "BAN-S/M Kemdikbud & Kemenag" },
+      { label: "Skor Mutu Evaluation", detail: "94 / 100 (Kategori Unggul)" },
+    ],
+  },
+  { 
+    id: 4, 
+    title: "Siswa/i MI Sirojul Falah", 
+    value: "500 Siswa/i", 
+    icon: Users,
+    badge: "Ekosistem Belajar",
+    subtitle: "500 Siswa/i Aktif Tersebar di Kelas 1 hingga Kelas 6",
+    description: "Lingkungan belajar kondusif yang menanamkan kebiasaan shalat Dhuha berjamaah, dzikir pagi, serta penguatan karakter disiplin harian tanpa mengabaikan keceriaan dunia anak.",
+    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Jumlah Siswa", detail: "500+ Siswa/i Aktif" },
+      { label: "Rombongan Belajar", detail: "18 Rombel Paralel" },
+      { label: "Program Harian", detail: "Shalat Dhuha & Pembiasaan Adab" },
+    ],
+  },
+  { 
+    id: 5, 
+    title: "Program Unggulan", 
+    value: "Tahfidz Al-Quran", 
+    icon: BookMarked,
+    badge: "Kurikulum Khas",
+    subtitle: "Target Kelulusan Minimal 3 Juz Al-Qur'an Mutqin",
+    description: "Program unggulan madrasah dalam mencetak penghafal Al-Qur'an melalui metode talaqqi dan muroja'ah terstruktur yang dibimbing langsung oleh ustadz hafiz profesional.",
+    image: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Target Hafalan", detail: "Juz 30, 29, & Juz 1 Mutqin" },
+      { label: "Metode Pengajaran", detail: "Talaqqi & Muroja'ah Harian" },
+      { label: "Apresiasi", detail: "Wisuda Tahfidz & Sertifikasi" },
+    ],
+  },
+  { 
+    id: 6, 
+    title: "Alumni MI Sirojul Falah", 
+    value: "900 Alumni", 
+    icon: GraduationCap,
+    badge: "Jejak Lulusan",
+    subtitle: "900+ Alumni Menyebar di SMP & Pesantren Ternama",
+    description: "Lulusan MI Sirojul Falah terbukti memiliki keunggulan adab dan akademis tinggi, konsisten diterima di pesantren unggulan nasional dan sekolah menengah favorit.",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop",
+    highlights: [
+      { label: "Total Lulusan", detail: "900+ Alumni Sejak 2003" },
+      { label: "Tingkat Kelulusan", detail: "100% Lolos Pilihan Utama" },
+      { label: "Jaringan Alumni", detail: "Tersambung di IKAMISIF Network" },
+    ],
+  },
 ];
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
   const container = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("sambutan");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavHovered, setIsNavHovered] = useState(false);
+  const [selectedStat, setSelectedStat] = useState<any | null>(null);
+  const [isClosingStat, setIsClosingStat] = useState(false);
   const [igPosts, setIgPosts] = useState<any[]>([]);
   const [igLoading, setIgLoading] = useState(true);
+
+  const closeModal = () => {
+    setIsClosingStat(true);
+    setTimeout(() => {
+      setSelectedStat(null);
+      setIsClosingStat(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedStat) {
+        closeModal();
+      }
+    };
+
+    if (selectedStat) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedStat]);
 
   // Static fallback posts — shown when Behold feed is unavailable
   const FALLBACK_POSTS = [
@@ -152,7 +277,8 @@ export default function LandingPage() {
   const isPickyActive = isScrolled && !isNavHovered && activeSection !== "hero";
 
   return (
-    <div ref={container} className="relative bg-white text-neutral-900 w-full max-w-full font-sans">
+    <>
+      <div ref={container} className="relative bg-white text-neutral-900 w-full max-w-full font-sans">
       {/* Sticky Top Header - Ultra Immersive Floating Glass Capsule */}
       <header className={`sticky top-0 left-0 right-0 z-[999] w-full transition-all duration-500 ease-out ${
         isScrolled 
@@ -363,11 +489,15 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto mt-20 z-20 relative">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {MOCK_STATS.map((stat) => (
-              <div key={stat.id} className="reveal-item bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <div className="w-12 h-12 bg-brand/10 text-brand rounded-xl flex items-center justify-center mb-4">
+              <div 
+                key={stat.id} 
+                onClick={() => setSelectedStat(stat)}
+                className="reveal-item bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-brand/30 transition-all duration-300 cursor-pointer group relative overflow-hidden"
+              >
+                <div className="w-12 h-12 bg-brand/10 text-brand rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand group-hover:text-white transition-all duration-300">
                   <stat.icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-neutral-900 text-sm">{stat.title}</h3>
+                <h3 className="font-bold text-neutral-900 text-sm group-hover:text-brand transition-colors">{stat.title}</h3>
                 <p className="text-xs text-neutral-500 font-medium mt-1">{stat.value}</p>
               </div>
             ))}
@@ -601,6 +731,107 @@ export default function LandingPage() {
         </div>
       </footer>
       </main>
-    </div>
+      </div>
+
+      {/* Stat Detail Glassmorphic Modal - Rendered via React Portal onto document.body for guaranteed viewport centering */}
+      {mounted && selectedStat && createPortal(
+        <div className="fixed inset-0 z-[99999] overflow-y-auto">
+          {/* Backdrop */}
+          <div 
+            className={`fixed inset-0 bg-neutral-900/60 backdrop-blur-md transition-all duration-300 ${
+              isClosingStat ? "opacity-0" : "opacity-100 animate-in fade-in duration-300"
+            }`}
+            onClick={closeModal}
+          />
+
+          {/* Scrollable Modal Container */}
+          <div className="flex min-h-full items-center justify-center p-4 md:p-6 text-center">
+            <div className={`relative w-full max-w-2xl transform rounded-3xl bg-white/95 backdrop-blur-2xl border border-neutral-200/90 text-left shadow-2xl transition-all duration-300 my-8 overflow-hidden z-10 ${
+              isClosingStat 
+                ? "opacity-0 scale-95 blur-sm" 
+                : "opacity-100 scale-100 animate-in zoom-in-95 duration-300"
+            }`}>
+              {/* Header Image Banner */}
+              <div className="relative h-48 md:h-56 w-full overflow-hidden bg-neutral-900">
+                <img 
+                  src={selectedStat.image} 
+                  alt={selectedStat.title} 
+                  className="w-full h-full object-cover opacity-60 scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+                
+                {/* Close Button */}
+                <button 
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md transition-colors z-20 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Badge & Title overlay */}
+                <div className="absolute bottom-4 left-6 right-6 text-white">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand text-white text-xs font-bold shadow-md mb-2">
+                    <selectedStat.icon className="w-3.5 h-3.5" />
+                    <span>{selectedStat.badge}</span>
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{selectedStat.title} ({selectedStat.value})</h2>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-6 md:p-8 space-y-6 max-h-[55vh] overflow-y-auto">
+                <div>
+                  <h3 className="text-lg md:text-xl font-bold text-neutral-900 mb-2">{selectedStat.subtitle}</h3>
+                  <p className="text-neutral-600 text-sm md:text-base leading-relaxed">{selectedStat.description}</p>
+                </div>
+
+                {/* Highlights Cards */}
+                {selectedStat.highlights && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    {selectedStat.highlights.map((h: any, idx: number) => (
+                      <div key={idx} className="bg-brand-light/30 border border-brand/10 rounded-2xl p-4 flex flex-col justify-between">
+                        <span className="text-xs font-semibold text-neutral-500">{h.label}</span>
+                        <span className="text-sm font-bold text-brand mt-1">{h.detail}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Timeline (if present) */}
+                {selectedStat.timeline && (
+                  <div className="pt-4 border-t border-neutral-100 space-y-4">
+                    <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Milestone & Jejak Sejarah</h4>
+                    <div className="space-y-3 relative pl-4 border-l-2 border-brand/20 ml-2">
+                      {selectedStat.timeline.map((t: any, idx: number) => (
+                        <div key={idx} className="relative group">
+                          <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand ring-4 ring-white" />
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-brand bg-brand/10 px-2 py-0.5 rounded-md">{t.year}</span>
+                            <span className="text-sm font-bold text-neutral-900">{t.title}</span>
+                          </div>
+                          <p className="text-xs text-neutral-600 mt-1">{t.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 md:px-8 bg-neutral-50 border-t border-neutral-100 flex items-center justify-between">
+                <span className="text-xs text-neutral-400 font-medium">Tekan ESC atau klik luar untuk menutup</span>
+                <button 
+                  onClick={closeModal}
+                  className="px-5 py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition-colors shadow-sm cursor-pointer"
+                >
+                  Tutup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+    </>
   );
 }
