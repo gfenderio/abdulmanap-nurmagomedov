@@ -491,8 +491,14 @@ export default function LandingPage() {
             {MOCK_STATS.map((stat) => (
               <div 
                 key={stat.id} 
-                onClick={() => setSelectedStat(stat)}
-                className="reveal-item bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-brand/30 transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                onClick={(e) => {
+                  (e.currentTarget as HTMLElement).blur();
+                  setSelectedStat(stat);
+                }}
+                onTouchEnd={(e) => {
+                  (e.currentTarget as HTMLElement).blur();
+                }}
+                className="reveal-item bg-white rounded-2xl p-6 shadow-sm border border-brand/5 flex flex-col items-center justify-center text-center hover:-translate-y-1.5 hover:shadow-xl hover:border-brand/30 transition-all duration-300 cursor-pointer group relative overflow-hidden select-none outline-none focus:outline-none focus:ring-0 [webkit-tap-highlight-color:transparent]"
               >
                 <div className="w-12 h-12 bg-brand/10 text-brand rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-brand group-hover:text-white transition-all duration-300">
                   <stat.icon className="w-6 h-6" />
