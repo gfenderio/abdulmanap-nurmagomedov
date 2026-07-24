@@ -3,25 +3,16 @@ import { PrismaPg } from "@prisma/adapter-pg"
 import pg from "pg"
 
 const prismaClientSingleton = () => {
-  const connectionString = process.env.DATABASE_URL
-  if (!connectionString) {
-    return new PrismaClient()
-  }
-  try {
-    const pool = new pg.Pool({
-      connectionString,
-      max: 5,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
-      ssl: {
-        rejectUnauthorized: false
-      }
-    })
-    const adapter = new PrismaPg(pool)
-    return new PrismaClient({ adapter })
-  } catch (error) {
-    return new PrismaClient()
-  }
+  const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres"
+  const pool = new pg.Pool({
+    connectionString,
+    max: 5,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 5000,
+    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+  })
+  const adapter = new PrismaPg(pool)
+  return new PrismaClient({ adapter })
 }
 
 declare global {
