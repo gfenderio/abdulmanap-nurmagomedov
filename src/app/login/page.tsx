@@ -61,13 +61,14 @@ export default async function LoginPage({
       {/* Right Side - Login Form (Clean, Solid Borders) */}
       <div className="relative flex w-full flex-1 items-center justify-center bg-white p-6 sm:p-8 md:w-1/2 lg:w-[45%] xl:w-[40%] border-l border-neutral-200">
         
-        {/* Desktop Back Button */}
+        {/* Back Button (Mobile & Desktop) */}
         <Link 
           href="/" 
-          className="absolute top-8 right-8 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors shadow-sm"
+          className="absolute top-6 left-6 md:top-8 md:right-8 md:left-auto flex items-center justify-center gap-1.5 px-3 py-1.5 md:p-0 md:w-10 md:h-10 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold text-xs md:text-sm transition-colors shadow-sm"
           title="Kembali ke Beranda"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="md:hidden">Beranda</span>
         </Link>
 
         <div className="w-full max-w-[360px] md:max-w-[400px]">
