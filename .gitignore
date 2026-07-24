@@ -45,7 +45,8 @@ dev.db-wal
 .env.test.local
 .env.production.local
 
-# internal agent & temporary docs (only README.md and .agents/ are tracked)
+# internal agent & temporary docs
+.agents/
 HANDOVER.md
 UPDATE_NEXT16.md
 Username & Password Test.md
