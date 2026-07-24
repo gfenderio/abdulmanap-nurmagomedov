@@ -5,7 +5,7 @@ import { db } from "./src/lib/db"
 import bcrypt from "bcryptjs"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET || "khabib_father_plan_secret_key",
   trustHost: true,
   session: { strategy: "jwt" },
   providers: [
