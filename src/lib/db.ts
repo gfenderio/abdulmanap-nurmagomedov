@@ -3,17 +3,25 @@ import { PrismaPg } from "@prisma/adapter-pg"
 import pg from "pg"
 
 const prismaClientSingleton = () => {
-  const pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    max: 10, // batasi max koneksi per instance serverless
-    idleTimeoutMillis: 30000, // tutup koneksi idle dalam 30 detik
-    connectionTimeoutMillis: 5000, // fail-fast jika DB tidak merespons dalam 5 detik
-    ssl: {
-      rejectUnauthorized: false
-    }
-  })
-  const adapter = new PrismaPg(pool)
-  return new PrismaClient({ adapter })
+  const connectionString = process.env.DATABASE_URL
+  if (!connectionString) {
+    return new PrismaClient()
+  }
+  try {
+    const pool = new pg.Pool({
+      connectionString,
+      max: 5,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+      ssl: {
+        rejectUnauthorized: false
+      }
+    })
+    const adapter = new PrismaPg(pool)
+    return new PrismaClient({ adapter })
+  } catch (error) {
+    return new PrismaClient()
+  }
 }
 
 declare global {
