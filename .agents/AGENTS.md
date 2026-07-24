@@ -45,4 +45,5 @@ Whenever asking about libraries, frameworks, SDKs, APIs, CLI tools, or cloud ser
 * **Never use cat redirection** inside bash commands to create or append to files. Use `write_to_file` or `replace_file_content` instead.
 * **Always use grep_search** instead of executing grep via bash commands.
 * Verify build locally with `npm run build` before pushing to verify TypeScript compilation.
+* **ONLY PUSH ESSENTIAL PROJECT FILES:** All AI agents are strictly forbidden from tracking or pushing unneeded markdown files, prompt notes, handover docs, or scratch scripts (`HANDOVER.md`, `UPDATE_NEXT16.md`, `agents.md`, `design.md`, `skills.md`, `*.js` scratch scripts) to git. Keep git repository clean for production source code only.
 * **PUSH WAJIB KONFIRMASI EXPLICIT:** Strictly forbidden to `git push` without explicit user permission.
