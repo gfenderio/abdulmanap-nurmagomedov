@@ -5,7 +5,12 @@ import { signIn } from "../../../auth"
 import { AuthError } from "next-auth"
 import { redirect } from "next/navigation"
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const { error } = await searchParams;
   return (
     <div className="flex min-h-[100dvh] flex-col md:flex-row bg-white">
       {/* Left Side - Brand / Hero (Aligned with Landing Page) */}
@@ -73,6 +78,18 @@ export default function LoginPage() {
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 text-center md:text-left">Selamat Datang</h2>
             <p className="text-neutral-500 mt-1.5 text-sm text-center md:text-left">Masuk ke akun portal akademik Anda.</p>
           </div>
+
+          {/* Form Error Feedback Banner */}
+          {error && (
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-ping shrink-0" />
+              <span>
+                {error === "CredentialsSignin" 
+                  ? "Email / NISN / NIP atau password salah. Silakan coba lagi."
+                  : "Terjadi kesalahan saat masuk. Silakan periksa kembali akun Anda."}
+              </span>
+            </div>
+          )}
 
           <form 
             action={async (formData) => {
