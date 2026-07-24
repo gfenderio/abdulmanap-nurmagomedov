@@ -44,3 +44,15 @@ dev.db-wal
 .env.development.local
 .env.test.local
 .env.production.local
+
+# internal agent & temporary docs (only README.md and .agents/ are tracked)
+HANDOVER.md
+UPDATE_NEXT16.md
+Username & Password Test.md
+agents.md
+design.md
+skills.md
+download.js
+fetch.js
+scratch/
+load-test.ts
