@@ -31,7 +31,13 @@ This repository contains workspace-level customizations for all AI agents. Whene
 Whenever asking about libraries, frameworks, SDKs, APIs, CLI tools, or cloud services (React, Next.js, Prisma, NextAuth, Tailwind, etc.), you **MUST** use Context7 MCP:
 1. Always resolve library version using `resolve-library-id` with the library name.
 2. Select target in `/org/project` format.
-3. Call `query-docs` to retrieve current docs instead of relying on generic training knowledge.
+3. Call `query-docs` to retrieve current docs instead of retrieving generic training knowledge.
+
+---
+
+## 🔒 5. Strict Secret & Sensitive Data Protection
+* **NEVER TRACK OR PUSH SECRET FILES:** All AI agents are strictly forbidden from adding or committing secret files (`.env`, `.env.*`, `*.pem`, `*.key`, `credentials.json`, `*.db`) to git repositories.
+* **ALWAYS CHECK GITSTATUS BEFORE COMMIT:** Run `git status` / `git check-ignore` before any git commit to ensure no environment variables or credentials are included in staged files.
 
 ---
 
@@ -39,3 +45,4 @@ Whenever asking about libraries, frameworks, SDKs, APIs, CLI tools, or cloud ser
 * **Never use cat redirection** inside bash commands to create or append to files. Use `write_to_file` or `replace_file_content` instead.
 * **Always use grep_search** instead of executing grep via bash commands.
 * Verify build locally with `npm run build` before pushing to verify TypeScript compilation.
+* **PUSH WAJIB KONFIRMASI EXPLICIT:** Strictly forbidden to `git push` without explicit user permission.

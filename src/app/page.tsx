@@ -353,18 +353,25 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Mobile Picky Badge Button */}
+          {/* Mobile Header Buttons */}
           <div className="flex md:hidden items-center gap-2">
+            <Link
+              href="/login"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 text-white font-bold text-xs shadow-sm hover:bg-black transition-colors"
+            >
+              <span>Login</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-brand to-brand-hover text-white shadow-md shadow-brand/20 font-bold text-xs cursor-pointer active:scale-95 transition-all"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand to-brand-hover text-white shadow-md shadow-brand/20 font-bold text-xs cursor-pointer active:scale-95 transition-all"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              <span>{MOCK_NAV_LINKS.find((l) => l.href.substring(1) === activeSection)?.label || "Beranda"}</span>
+              <span>{MOCK_NAV_LINKS.find((l) => l.href.substring(1) === activeSection)?.label || "Menu"}</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isMobileMenuOpen ? "rotate-180" : ""}`} />
             </button>
           </div>
@@ -454,6 +461,13 @@ export default function LandingPage() {
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-brand-hover hover:shadow-lg transition-all duration-300"
               >
                 Daftar Sekarang
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/login"
+                className="w-full sm:hidden flex items-center justify-center gap-2 bg-neutral-900 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-black transition-all duration-300 shadow-md"
+              >
+                <span>Masuk Portal Siswa / Guru</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
