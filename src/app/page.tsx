@@ -7,6 +7,7 @@ import { ArrowRight, BookOpen, Users, MapPin, Phone, Mail, GraduationCap, Menu, 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Counter } from "@/components/ui/counter";
 
 const MOCK_NAV_LINKS = [
   { label: "Beranda", href: "#hero" },
@@ -70,15 +71,15 @@ const MOCK_STATS = [
   },
   { 
     id: 4, 
-    title: "Siswa/i MI Sirojul Falah", 
-    value: "500 Siswa/i", 
+    title: "Siswa MI Sirojul Falah", 
+    value: "500 Siswa", 
     icon: Users,
     badge: "Ekosistem Belajar",
-    subtitle: "500 Siswa/i Aktif Tersebar di Kelas 1 hingga Kelas 6",
+    subtitle: "500 Siswa Aktif Tersebar di Kelas 1 hingga Kelas 6",
     description: "Lingkungan belajar kondusif yang menanamkan kebiasaan shalat Dhuha berjamaah, dzikir pagi, serta penguatan karakter disiplin harian tanpa mengabaikan keceriaan dunia anak.",
     image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop",
     highlights: [
-      { label: "Jumlah Siswa", detail: "500+ Siswa/i Aktif" },
+      { label: "Jumlah Siswa", detail: "500+ Siswa Aktif" },
       { label: "Rombongan Belajar", detail: "18 Rombel Paralel" },
       { label: "Program Harian", detail: "Shalat Dhuha & Pembiasaan Adab" },
     ],
@@ -504,7 +505,9 @@ export default function LandingPage() {
                   <stat.icon className="w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-neutral-900 text-sm group-hover:text-brand transition-colors">{stat.title}</h3>
-                <p className="text-xs text-neutral-500 font-medium mt-1">{stat.value}</p>
+                <p className="text-xs text-neutral-500 font-medium mt-1">
+                  <Counter value={stat.value} />
+                </p>
               </div>
             ))}
           </div>
