@@ -1,5 +1,7 @@
 "use server";
 
+import { requireRole } from "@/lib/authz";
+
 import { blockDemoWrite } from "@/lib/demo";
 
 import { db } from "@/lib/db";
@@ -7,7 +9,9 @@ import { GradeSchema } from "@/schemas";
 import * as z from "zod";
 import { revalidatePath } from "next/cache";
 
-export const addGrade = async (values: z.infer<typeof GradeSchema>, teacherId: string) => {
+export const addGrade = async (values: z.infer<typeof GradeSchema>) => {
+  const actor = await requireRole("TEACHER", "ADMIN")
+  if ("error" in actor) return { error: actor.error }
   const demoBlocked = await blockDemoWrite()
   // Returned as a fresh literal so the action keeps its normalised
   // union return type and callers can still read `.error` directly.
@@ -20,11 +24,22 @@ export const addGrade = async (values: z.infer<typeof GradeSchema>, teacherId: s
 
   const { studentId, subject, score, semester } = validatedFields.data;
 
+  // The grading teacher is whoever is signed in. Taking this from an argument
+  // let any caller attribute a grade to any teacher.
+  const teacher = await db.teacherProfile.findUnique({
+    where: { userId: actor.userId },
+    select: { id: true },
+  });
+
+  if (!teacher) {
+    return { error: "Akun Anda tidak terhubung ke profil guru." };
+  }
+
   try {
     await db.grade.create({
       data: {
         studentId,
-        teacherId,
+        teacherId: teacher.id,
         subject,
         score,
         semester,
@@ -39,6 +54,8 @@ export const addGrade = async (values: z.infer<typeof GradeSchema>, teacherId: s
 };
 
 export const deleteGrade = async (id: string, studentId: string) => {
+  const actor = await requireRole("TEACHER", "ADMIN")
+  if ("error" in actor) return { error: actor.error }
   const demoBlocked = await blockDemoWrite()
   // Returned as a fresh literal so the action keeps its normalised
   // union return type and callers can still read `.error` directly.

@@ -1,5 +1,7 @@
 "use server";
 
+import { requireRole } from "@/lib/authz";
+
 import { blockDemoWrite } from "@/lib/demo";
 
 import { db } from "@/lib/db";
@@ -8,6 +10,8 @@ import * as z from "zod";
 import { revalidatePath } from "next/cache";
 
 export const createBill = async (values: z.infer<typeof BillSchema>) => {
+  const actor = await requireRole("ADMIN")
+  if ("error" in actor) return { error: actor.error }
   const demoBlocked = await blockDemoWrite()
   // Returned as a fresh literal so the action keeps its normalised
   // union return type and callers can still read `.error` directly.
@@ -39,6 +43,8 @@ export const createBill = async (values: z.infer<typeof BillSchema>) => {
 };
 
 export const payBill = async (id: string) => {
+  const actor = await requireRole("ADMIN")
+  if ("error" in actor) return { error: actor.error }
   const demoBlocked = await blockDemoWrite()
   // Returned as a fresh literal so the action keeps its normalised
   // union return type and callers can still read `.error` directly.
