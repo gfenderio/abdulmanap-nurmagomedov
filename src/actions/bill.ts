@@ -1,11 +1,17 @@
 "use server";
 
+import { blockDemoWrite } from "@/lib/demo";
+
 import { db } from "@/lib/db";
 import { BillSchema } from "@/schemas";
 import * as z from "zod";
 import { revalidatePath } from "next/cache";
 
 export const createBill = async (values: z.infer<typeof BillSchema>) => {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   const validatedFields = BillSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -33,6 +39,10 @@ export const createBill = async (values: z.infer<typeof BillSchema>) => {
 };
 
 export const payBill = async (id: string) => {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   try {
     await db.bill.update({
       where: { id },

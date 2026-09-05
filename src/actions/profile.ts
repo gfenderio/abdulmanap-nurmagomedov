@@ -1,6 +1,7 @@
 "use server"
 
 import { auth } from "../../auth"
+import { blockDemoWrite } from "@/lib/demo"
 import { db } from "../lib/db"
 import bcrypt from "bcryptjs"
 import { revalidatePath } from "next/cache"
@@ -15,6 +16,10 @@ export async function updateProfile(data: {
   nisn?: string | null
   grade?: string | null
 }) {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   const session = await auth()
   if (!session?.user?.id) {
     return { error: "Tidak diizinkan. Silakan login kembali." }
@@ -94,6 +99,10 @@ export async function changePassword(data: {
   currentPassword?: string
   newPassword?: string
 }) {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   const session = await auth()
   if (!session?.user?.id) {
     return { error: "Tidak diizinkan. Silakan login kembali." }

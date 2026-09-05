@@ -4,6 +4,7 @@ import Link from "next/link"
 import { signIn } from "../../../auth"
 import { AuthError } from "next-auth"
 import { redirect } from "next/navigation"
+import { DEMO_ACCOUNTS, DEMO_PASSWORD, type DemoRole } from "@/lib/demo"
 
 export default async function LoginPage({
   searchParams
@@ -138,6 +139,48 @@ export default async function LoginPage({
               Masuk ke Portal
             </Button>
           </form>
+
+          {/* One-click demo sign-in. Every demo account is read-only: writes
+              are refused server-side in blockDemoWrite(), so a visitor can
+              open every screen without changing what the next one sees. */}
+          <div className="mt-8 pt-6 border-t border-neutral-200">
+            <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 text-center">
+              Coba tanpa akun
+            </p>
+            <p className="mt-1.5 text-xs text-neutral-500 text-center">
+              Masuk langsung sebagai salah satu peran. Mode demo hanya bisa dibaca, dan datanya fiktif.
+            </p>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {(Object.keys(DEMO_ACCOUNTS) as DemoRole[]).map((role) => (
+                <form
+                  key={role}
+                  action={async () => {
+                    "use server"
+                    try {
+                      await signIn("credentials", {
+                        identifier: DEMO_ACCOUNTS[role].email,
+                        password: DEMO_PASSWORD,
+                        redirectTo: "/dashboard",
+                      })
+                    } catch (error) {
+                      if (error instanceof AuthError) {
+                        return redirect("/login?error=" + error.type)
+                      }
+                      throw error
+                    }
+                  }}
+                >
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="w-full h-10 rounded-xl text-xs font-semibold border-neutral-300 hover:border-brand hover:text-brand transition-colors"
+                  >
+                    {DEMO_ACCOUNTS[role].label}
+                  </Button>
+                </form>
+              ))}
+            </div>
+          </div>
 
           <div className="mt-8 text-center text-sm text-neutral-500">
             Punya kendala akses? <Link href="#" className="font-medium text-neutral-900 hover:underline">Hubungi Admin</Link>

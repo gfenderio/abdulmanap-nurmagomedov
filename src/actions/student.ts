@@ -1,11 +1,17 @@
 "use server";
 
+import { blockDemoWrite } from "@/lib/demo";
+
 import { db } from "@/lib/db";
 import { StudentSchema } from "@/schemas";
 import * as z from "zod";
 import { revalidatePath } from "next/cache";
 
 export const createStudent = async (values: z.infer<typeof StudentSchema>) => {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   const validatedFields = StudentSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -47,6 +53,10 @@ export const createStudent = async (values: z.infer<typeof StudentSchema>) => {
 };
 
 export const deleteStudent = async (id: string) => {
+  const demoBlocked = await blockDemoWrite()
+  // Returned as a fresh literal so the action keeps its normalised
+  // union return type and callers can still read `.error` directly.
+  if (demoBlocked) return { error: demoBlocked.error }
   try {
     await db.user.delete({
       where: { id },
