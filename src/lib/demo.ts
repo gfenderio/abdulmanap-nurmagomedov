@@ -1,4 +1,5 @@
 import { auth } from "../../auth"
+import { isDemoEmail } from "./demo-accounts"
 
 /**
  * Public demo mode.
@@ -11,33 +12,17 @@ import { auth } from "../../auth"
  * Hiding buttons in the UI is presentation, not protection — a server action
  * can be invoked directly, so the check has to live where the write happens.
  *
- * Demo accounts are identified by email rather than a database column so the
- * guard works without a migration, and so a real deployment with none of these
- * addresses is unaffected.
+ * The account constants live in ./demo-accounts, which imports nothing, so the
+ * seed script can use them without pulling in NextAuth.
  */
 
-export const DEMO_EMAILS = [
-  "demo.admin@sias.example",
-  "demo.guru@sias.example",
-  "demo.wali@sias.example",
-] as const
-
-export type DemoRole = "ADMIN" | "TEACHER" | "PARENT"
-
-export const DEMO_ACCOUNTS: Record<DemoRole, { email: string; label: string }> = {
-  ADMIN: { email: "demo.admin@sias.example", label: "Admin" },
-  TEACHER: { email: "demo.guru@sias.example", label: "Guru" },
-  PARENT: { email: "demo.wali@sias.example", label: "Wali Murid" },
-}
-
-/** Every demo account shares this password; it guards nothing. */
-export const DEMO_PASSWORD = "demo"
-
-const DEMO_EMAIL_SET: ReadonlySet<string> = new Set(DEMO_EMAILS)
-
-export function isDemoEmail(email?: string | null): boolean {
-  return !!email && DEMO_EMAIL_SET.has(email.toLowerCase())
-}
+export {
+  DEMO_EMAILS,
+  DEMO_ACCOUNTS,
+  DEMO_PASSWORD,
+  isDemoEmail,
+  type DemoRole,
+} from "./demo-accounts"
 
 /**
  * Call at the top of every server action that writes. Returns an error object

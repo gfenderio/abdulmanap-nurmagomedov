@@ -18,7 +18,7 @@ import { PrismaPg } from "@prisma/adapter-pg"
 import pg from "pg"
 import bcrypt from "bcryptjs"
 import "dotenv/config"
-import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "../src/lib/demo"
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "../src/lib/demo-accounts"
 
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
 const adapter = new PrismaPg(pool)
