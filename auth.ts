@@ -4,8 +4,19 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "./src/lib/db"
 import bcrypt from "bcryptjs"
 
+// AUTH_SECRET signs the session JWT. There is deliberately no fallback:
+// a hardcoded default in a public repo lets anyone forge an admin session.
+// Missing config should stop the app, not silently downgrade its security.
+const authSecret = process.env.AUTH_SECRET
+if (!authSecret) {
+  throw new Error(
+    "AUTH_SECRET is not set. Generate one with `openssl rand -base64 32` " +
+    "and add it to .env locally, or to the environment variables in your host."
+  )
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  secret: process.env.AUTH_SECRET || "khabib_father_plan_secret_key",
+  secret: authSecret,
   trustHost: true,
   session: { strategy: "jwt" },
   providers: [
