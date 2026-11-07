@@ -9,16 +9,16 @@ const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  console.log("Menjalankan seeder Father Plan...")
+  console.log("Menjalankan seeder data demo...")
 
   const hashedPassword = await bcrypt.hash("password123", 10)
 
   // 1. Buat Admin
   const admin = await prisma.user.upsert({
-    where: { email: "admin@mi-sirojulfalah.sch.id" },
+    where: { email: "admin@mi-almubarokah.example" },
     update: {},
     create: {
-      email: "admin@mi-sirojulfalah.sch.id",
+      email: "admin@mi-almubarokah.example",
       name: "Bapak Admin",
       password: hashedPassword,
       role: "ADMIN",
@@ -28,10 +28,10 @@ async function main() {
 
   // 2. Buat Guru
   const teacher = await prisma.user.upsert({
-    where: { email: "guru@mi-sirojulfalah.sch.id" },
+    where: { email: "guru@mi-almubarokah.example" },
     update: {},
     create: {
-      email: "guru@mi-sirojulfalah.sch.id",
+      email: "guru@mi-almubarokah.example",
       name: "Ibu Guru",
       password: hashedPassword,
       role: "TEACHER",
@@ -47,10 +47,10 @@ async function main() {
 
   // 3. Buat Siswa
   const student = await prisma.user.upsert({
-    where: { email: "siswa@mi-sirojulfalah.sch.id" },
+    where: { email: "siswa@mi-almubarokah.example" },
     update: {},
     create: {
-      email: "siswa@mi-sirojulfalah.sch.id",
+      email: "siswa@mi-almubarokah.example",
       name: "Murid Teladan",
       password: hashedPassword,
       role: "STUDENT",
@@ -66,10 +66,10 @@ async function main() {
 
   // 4. Buat Wali Murid (Parent)
   const parent = await prisma.user.upsert({
-    where: { email: "wali@mi-sirojulfalah.sch.id" },
+    where: { email: "wali@mi-almubarokah.example" },
     update: {},
     create: {
-      email: "wali@mi-sirojulfalah.sch.id",
+      email: "wali@mi-almubarokah.example",
       name: "Ibu Wali Murid",
       password: hashedPassword,
       role: "PARENT",

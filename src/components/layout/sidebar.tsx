@@ -53,9 +53,9 @@ export function Sidebar({ onNavigate, userRole = "ADMIN" }: { onNavigate?: () =>
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center px-6 border-b border-outline-variant">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Logo MI Sirojul Falah" className="h-8 w-auto object-contain" />
+          <img src="/logo.svg" alt="Logo MI Al-Mubarokah" className="h-8 w-auto object-contain" />
           <div className="flex flex-col">
-            <span className="text-[14px] font-bold text-on-surface leading-tight tracking-tight">Sirojul Falah</span>
+            <span className="text-[14px] font-bold text-on-surface leading-tight tracking-tight">Al-Mubarokah</span>
             <span className="text-[11px] font-medium text-on-surface-variant leading-tight">Madrasah Ibtidaiyah</span>
           </div>
         </div>

@@ -163,10 +163,10 @@ export function ProfileForm({ user }: { user: any }) {
               {user.role === "TEACHER" ? "Guru" : user.role === "PARENT" ? "Wali Murid" : user.role === "STUDENT" ? "Siswa" : "Administrator"}
             </span>
             <p className="text-on-surface-variant text-sm px-4 mb-6">
-              {user.role === "ADMIN" && "Bertanggung jawab atas pengelolaan sistem akademik, data master, dan konfigurasi umum SIAS MI Sirojul Falah."}
-              {user.role === "TEACHER" && `Guru pengajar mata pelajaran ${subject || "-"} di MI Sirojul Falah.`}
+              {user.role === "ADMIN" && "Bertanggung jawab atas pengelolaan sistem akademik, data master, dan konfigurasi umum SIAS MI Al-Mubarokah."}
+              {user.role === "TEACHER" && `Guru pengajar mata pelajaran ${subject || "-"} di MI Al-Mubarokah.`}
               {user.role === "PARENT" && "Wali murid terdaftar yang memantau perkembangan akademik dan administrasi anak."}
-              {user.role === "STUDENT" && `Siswa aktif kelas ${grade || "-"} di MI Sirojul Falah.`}
+              {user.role === "STUDENT" && `Siswa aktif kelas ${grade || "-"} di MI Al-Mubarokah.`}
             </p>
             
             <div className="w-full pt-6 border-t border-outline-variant/50 flex flex-col gap-3">

@@ -1,65 +1,49 @@
-# SIAS (Codename: Abdulmanap Nurmagomedov)
+# SIAS · Sistem Informasi Akademik Sekolah
 
 [![Build Status](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions/workflows/ci.yml/badge.svg)](https://github.com/gfenderio/abdulmanap-nurmagomedov/actions)
-[![Last Commit](https://flat.badgen.net/github/last-commit/gfenderio/abdulmanap-nurmagomedov?icon=github)](https://github.com/gfenderio/abdulmanap-nurmagomedov/commits/main)
 
-<br/>
+An academic portal for a primary madrasah: teachers enter grades, parents follow
+progress and fees, and the admin manages students, staff and billing. The school
+in the demo, **MI Al-Mubarokah**, is fictional, and so are all of its people,
+addresses and figures.
 
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+**Live demo:** https://abdulmanap-nurmagomedov.vercel.app/login. Pick a role under
+*Coba tanpa akun*; the form fills itself in and signs you in.
 
-![Abdulmanap & Khabib](./public/khabib.jpg)
+## Stack
 
-> *"Father plan. Always listen to Father." - Khabib Nurmagomedov*
+- Next.js 16 (App Router, server actions) and React
+- TypeScript, Tailwind CSS
+- Auth.js (NextAuth v5) with credentials sign-in
+- Prisma with PostgreSQL
+- Zod and React Hook Form for validation
 
----
+## The public demo is read-only
 
-## 🧠 Filosofi "Father Plan" dalam Coding
+Anyone can sign in to the demo, so nothing a visitor does may change what the
+next visitor sees. Every server action that writes calls `blockDemoWrite()`
+(`src/lib/demo.ts`) first and refuses demo accounts on the server. Hiding
+buttons in the UI is presentation, not protection.
 
-Di pegunungan Dagestan yang dingin, Abdulmanap Nurmagomedov tidak pernah mengajari Khabib cara membangun aplikasi *fullstack* Next.js. Beliau mengajarinya bergulat dengan beruang sejak usia 9 tahun. Kenapa? Karena kalau mentalmu sudah siap *takedown* beruang liar, nge-*debug* *error* Prisma ORM atau *hydration mismatch* di hari Minggu malam hanyalah sebuah pemanasan ringan.
+Demo accounts (password `demo`, which guards nothing):
 
-Repositori ini dinamakan **Abdulmanap Nurmagomedov** karena arsitektur kodenya dibangun murni dengan mentalitas petarung Dagestan:
+| Role       | Email                     |
+|------------|---------------------------|
+| Admin      | `demo.admin@sias.example` |
+| Guru       | `demo.guru@sias.example`  |
+| Wali Murid | `demo.wali@sias.example`  |
 
-1. **Zero Yapping:** Kalau kodemu *error*, jangan banyak sambat di StackOverflow. Perbaiki *types*-nya! Menggunakan tipe `any` atau `unknown` di sini sama memalukannya dengan *tap out* di ronde pertama.
-2. **Kuncian Ketat (Grappling):** Form validasi dijaga ketat oleh Zod dan TypeScript Strict Mode. Ada payload data aneh yang mau masuk ke *database*? *Smesh it!*
-3. **Stamina Tanpa Batas:** Dibangun di atas fondasi Next.js 16 App Router (RSC). Sangat cepat, *stateless* di tempat yang tepat, dan tidak pernah kehabisan napas karena *re-render* klien yang boros.
+`/login?demo=admin`, `?demo=guru` or `?demo=wali` plays the demo sign-in on
+arrival, for linking straight into a role.
 
----
-
-
-
-## 🛠️ "Send Me Location" (Cara Setup)
-
-Bagi siapapun penantang yang ingin menjalankan proyek ini di *localhost*, pastikan mental kalian siap bertarung lima ronde:
+## Running it locally
 
 ```bash
 git clone https://github.com/gfenderio/abdulmanap-nurmagomedov.git
 cd abdulmanap-nurmagomedov
+cp .env.example .env   # fill in DATABASE_URL and AUTH_SECRET
 npm install
+npx prisma db push
+npx tsx prisma/seed-demo.ts   # fictional school data and the read-only demo accounts
 npm run dev
 ```
-
-### Seeding Database Uji Coba:
-Untuk mengisi database SQLite lokal dengan akun-akun pengujian terbaru (termasuk peran Wali Murid):
-```bash
-powershell -ExecutionPolicy Bypass -Command "npx tsx prisma/seed.ts"
-```
-
----
-
-## 🔑 Akun Uji Coba (Testing Accounts)
-Detail kredensial untuk pengujian tingkat peran dapat diakses pada file terpisah:
-👉 **[Username & Password Test.md](./Username%20%26%20Password%20Test.md)**
-
-* **Admin**: `admin@mi-sirojulfalah.sch.id` (password: `password123`)
-* **Guru**: `guru@mi-sirojulfalah.sch.id` (password: `password123`)
-* **Wali Murid**: `wali@mi-sirojulfalah.sch.id` (password: `password123`)
-
----
-
-*Alhamdulillah, we built this app. I know you guys don't like boilerplate, but tomorrow we're gonna smesh the deployment.* 🦅
-
-> *"Send them 2-3 years to Dagestan mountains, forget about everything, just code."*

@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "SIAS MI Sirojul Falah",
-  description: "Sistem Informasi Akademik Sekolah MI Sirojul Falah",
+  title: "SIAS MI Al-Mubarokah",
+  description: "Sistem Informasi Akademik Sekolah MI Al-Mubarokah",
 };
 
 export default function RootLayout({

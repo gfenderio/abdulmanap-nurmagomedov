@@ -21,7 +21,7 @@ export default function StudentsClient({ role }: { role?: string }) {
       <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-6 gap-4">
         <div>
           <h2 className="text-display-lg font-headline text-on-surface tracking-tight">Data Siswa</h2>
-          <p className="text-body-lg text-on-surface-variant mt-1">Kelola informasi dan data induk siswa (Sirojul Falah).</p>
+          <p className="text-body-lg text-on-surface-variant mt-1">Kelola informasi dan data induk siswa (Al-Mubarokah).</p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-64">

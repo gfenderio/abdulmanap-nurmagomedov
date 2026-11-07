@@ -54,7 +54,7 @@ export default function BillingClient({ role }: { role?: string }) {
             </div>
             <div>
               <div className="text-display-sm font-bold text-on-surface tracking-widest text-lg">9881 2345 6789</div>
-              <p className="text-label-sm text-primary font-medium mt-2">Bank BSI a/n MI Sirojul Falah</p>
+              <p className="text-label-sm text-primary font-medium mt-2">Bank BSI a/n MI Al-Mubarokah</p>
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@ export default function BillingClient({ role }: { role?: string }) {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div>
           <h1 className="text-headline-lg font-headline font-bold text-on-surface mb-1">Manajemen Keuangan</h1>
-          <p className="text-body-md text-on-surface-variant">Ringkasan SPP, Pengeluaran, dan Tunggakan MI Sirojul Falah.</p>
+          <p className="text-body-md text-on-surface-variant">Ringkasan SPP, Pengeluaran, dan Tunggakan MI Al-Mubarokah.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-2 md:mt-0">
           <button 

@@ -46,13 +46,13 @@ export default function TemplateClient({ role }: { role?: string }) {
         <div className="relative border-b-[3px] border-black pb-4 mb-1">
           <div className="absolute border-b border-black w-full -bottom-1"></div>
           <div className="flex items-center justify-center relative">
-            <img src="/logo.png" alt="Logo MI" className="w-24 h-24 object-contain absolute left-0" />
+            <img src="/logo.svg" alt="Logo MI" className="w-24 h-24 object-contain absolute left-0" />
             <div className="flex flex-col items-center text-center px-28">
-              <h1 className="text-[18px] font-bold text-black uppercase tracking-wide leading-tight">Yayasan Pendidikan Islam Sirojul Falah</h1>
-              <h2 className="text-[24px] font-black text-black uppercase tracking-widest leading-tight">Madrasah Ibtidaiyah Sirojul Falah</h2>
+              <h1 className="text-[18px] font-bold text-black uppercase tracking-wide leading-tight">Yayasan Pendidikan Islam Al-Mubarokah</h1>
+              <h2 className="text-[24px] font-black text-black uppercase tracking-widest leading-tight">Madrasah Ibtidaiyah Al-Mubarokah</h2>
               <p className="text-[12px] text-black font-medium mt-1">NPSN: 20278912 | Akreditasi: A</p>
-              <p className="text-[12px] text-black">Jl. Pahlawan No. 45, RT 01/RW 03, Empang, Bogor Selatan, Kota Bogor, Jawa Barat</p>
-              <p className="text-[12px] text-black">Telp: (0251) 834567 | Email: info@misirojulfalah.sch.id</p>
+              <p className="text-[12px] text-black">Jl. Kenanga Raya No. 8, Kota Bogor, Jawa Barat</p>
+              <p className="text-[12px] text-black">Email: info@mi-almubarokah.example</p>
             </div>
           </div>
         </div>

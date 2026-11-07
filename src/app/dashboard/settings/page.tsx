@@ -62,7 +62,7 @@ export default function SettingsPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
                       <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Nama Madrasah</label>
-                      <p className="text-body-lg font-medium text-on-surface">MI Sirojul Falah</p>
+                      <p className="text-body-lg font-medium text-on-surface">MI Al-Mubarokah</p>
                     </div>
                     <div className="space-y-1">
                       <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">NSM</label>
@@ -78,7 +78,7 @@ export default function SettingsPage() {
                     </div>
                     <div className="md:col-span-2 space-y-1 pt-2 border-t border-outline-variant/30">
                       <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Alamat Lengkap</label>
-                      <p className="text-body-lg font-medium text-on-surface">Jl. Cicadas Gn. Putri Bogor, Jawa Barat</p>
+                      <p className="text-body-lg font-medium text-on-surface">Jl. Kenanga Raya No. 8, Kota Bogor, Jawa Barat</p>
                     </div>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function SettingsPage() {
                       <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Email Resmi</label>
                       <div className="flex items-center gap-2">
                         <span className="material-symbols-outlined text-outline text-[18px]">mail</span>
-                        <p className="text-body-lg font-medium text-on-surface">info@misirojulfalah.sch.id</p>
+                        <p className="text-body-lg font-medium text-on-surface">info@mi-almubarokah.example</p>
                       </div>
                     </div>
                     <div className="space-y-1">
@@ -112,7 +112,7 @@ export default function SettingsPage() {
                       <label className="block text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Website</label>
                       <div className="flex items-center gap-2">
                         <span className="material-symbols-outlined text-outline text-[18px]">language</span>
-                        <p className="text-body-lg font-medium text-on-surface">https://misirojulfalah.sch.id</p>
+                        <p className="text-body-lg font-medium text-on-surface">https://mi-almubarokah.example</p>
                       </div>
                     </div>
                   </div>
@@ -224,7 +224,7 @@ export default function SettingsPage() {
           <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-6 text-center">
             <h3 className="text-title-lg font-semibold text-on-surface mb-6 text-left">Logo Institusi</h3>
             <div className="relative w-full sm:w-40 aspect-square sm:h-40 mx-auto mb-6 bg-surface-container-low rounded-2xl border-2 border-dashed border-outline-variant flex items-center justify-center group cursor-pointer hover:border-primary transition-colors overflow-hidden p-4">
-              <img alt="Logo MI Sirojul Falah" className="w-full h-full object-contain group-hover:opacity-50 transition-opacity" src="/logo.png" />
+              <img alt="Logo MI Al-Mubarokah" className="w-full h-full object-contain group-hover:opacity-50 transition-opacity" src="/logo.svg" />
               <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="material-symbols-outlined text-primary text-3xl mb-1">upload</span>
                 <span className="text-xs font-medium text-primary">Ubah Logo</span>

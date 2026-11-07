@@ -301,7 +301,7 @@ export function TopNavbar({
                   className="size-16 rounded-full border border-outline-variant object-cover mb-2.5 shadow-sm"
                 />
                 <h4 className="font-bold text-on-surface text-body-md line-clamp-1">{userName}</h4>
-                <p className="text-label-sm text-on-surface-variant line-clamp-1 mt-0.5">{userEmail || "email@misirojulfalah.sch.id"}</p>
+                <p className="text-label-sm text-on-surface-variant line-clamp-1 mt-0.5">{userEmail || "email@mi-almubarokah.example"}</p>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-bold mt-2.5">
                   <span className="material-symbols-outlined text-[14px]">
                     {userRole === "TEACHER" ? "school" : userRole === "PARENT" ? "family_restroom" : userRole === "STUDENT" ? "person" : "admin_panel_settings"}
