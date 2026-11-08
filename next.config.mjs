@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  // The demo database is a SQLite file read at runtime (src/lib/db.ts). Ship
+  // it with every server function, and load libSQL (a native module) from
+  // node_modules instead of bundling it, with its Linux build alongside.
+  serverExternalPackages: ["@prisma/adapter-libsql", "@libsql/client", "libsql"],
+  outputFileTracingIncludes: {
+    "/**/*": ["./prisma/demo.db", "./node_modules/@libsql/linux-x64-gnu/**"],
+  },
   async headers() {
     return [
       {

@@ -10,18 +10,18 @@
  * assignment, while 120 students with grades, schedules, and outstanding
  * bills reads as software that runs a school.
  *
- * Run: npx tsx prisma/seed-demo.ts
+ * Run: npx prisma db push && npx tsx prisma/seed-demo.ts
  */
 
 import { PrismaClient } from "@prisma/client"
-import { PrismaPg } from "@prisma/adapter-pg"
-import pg from "pg"
+import { PrismaLibSql } from "@prisma/adapter-libsql"
 import bcrypt from "bcryptjs"
 import "dotenv/config"
 import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "../src/lib/demo-accounts"
 
-const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL })
-const adapter = new PrismaPg(pool)
+// Writes prisma/demo.db, the file the app ships with. Create its tables first:
+//   npx prisma db push
+const adapter = new PrismaLibSql({ url: "file:./prisma/demo.db" })
 const prisma = new PrismaClient({ adapter })
 
 // Deterministic PRNG so re-seeding produces the same demo every time.

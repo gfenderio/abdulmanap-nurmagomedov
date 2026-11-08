@@ -30,8 +30,12 @@ export {
  * account, or null when the write may proceed.
  */
 export async function blockDemoWrite(): Promise<{ error: string } | null> {
+  // The published portal runs on a read-only copy of the demo database
+  // (src/lib/db.ts), so nobody writes there, demo account or not. Set
+  // SIAS_WRITABLE=1 on a copy that has a real database behind it.
+  const writable = process.env.SIAS_WRITABLE === "1"
   const session = await auth()
-  if (isDemoEmail(session?.user?.email)) {
+  if (!writable || isDemoEmail(session?.user?.email)) {
     return {
       error:
         "Mode demo bersifat baca saja. Perubahan tidak disimpan agar tampilan tetap sama untuk pengunjung berikutnya.",

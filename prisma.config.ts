@@ -9,6 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // The demo database is a SQLite file shipped with the app (see src/lib/db.ts).
+    url: /^(file|libsql):/.test(process.env["DATABASE_URL"] ?? "") ? process.env["DATABASE_URL"] : "file:./prisma/demo.db",
   },
 });

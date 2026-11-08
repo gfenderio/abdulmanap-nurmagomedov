@@ -74,7 +74,7 @@ export const MOCK_ANNOUNCEMENTS = [
 ];
 
 export const MOCK_STUDENT_NOTES = [
-  { id: 1, student: "Ahmad Fauzi", class: "6A", teacher: "Bpk. Budi Santoso", date: "24 Jul 2024", note: "Ahmad suka teriak-teriak \"HIDUP JOKOWI\" saat di kelas, mohon untuk diberitahu agar tidak teriak-teriak ketika sedang berada di kelas.", type: "Perilaku" },
+  { id: 1, student: "Ahmad Fauzi", class: "6A", teacher: "Bpk. Budi Santoso", date: "24 Jul 2024", note: "Ahmad sering mengobrol saat pelajaran berlangsung. Mohon dibantu diingatkan di rumah agar lebih fokus di kelas.", type: "Perilaku" },
   { id: 2, student: "Ahmad Fauzi", class: "6A", teacher: "Ibu Siti", date: "20 Jul 2024", note: "Ahmad sangat aktif dalam pelajaran Bahasa Indonesia hari ini dan bisa memimpin diskusi kelompok dengan baik.", type: "Apresiasi" }
 ];
 
